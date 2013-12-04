@@ -284,3 +284,14 @@ Stack trace:
 #7 {main}
 REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/view
 ---
+2013/12/04 16:24:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "set".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(270): CController->missingAction('set')
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('set')
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/set
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
