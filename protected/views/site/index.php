@@ -1,20 +1,36 @@
-<?php
-/* @var $this SiteController */
+<form>
+    <?php $form=$this->beginWidget('CActiveForm', array(
+        'id'=>'login-form',
+        'enableClientValidation'=>true,
+        'clientOptions'=>array(
+            'validateOnSubmit'=>true,
+        ),
+    )); ?>
+    <div class="box-tan">
+        <div class="box-tan-bg">
+            <div class="box-tan-cent">
+                <div class="box-tan-tit "><h3>管理员登陆</h3></div>
+                <div class="box-tan-nair">
+                    <dl class="tan-login-dl">
+                        <dt>账号：</dt>
+                        <dd>
+                            <?php echo $form->textField($model,'username'); ?>
+                            <?php echo $form->error($model,'username'); ?>
+                        </dd>
+                        <dt class="login-dt">密码：</dt>
+                        <dd>
+                            <?php echo $form->passwordField($model,'password'); ?>
+                            <?php echo $form->error($model,'password'); ?>
+                        </dd>
+                    </dl>
 
-$this->pageTitle=Yii::app()->name;
-?>
+                    <p class="tan-p-denglu">
+                        <?php echo CHtml::submitButton('Login'); ?>
+                    </p>
+                </div>
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
-
-<p>Congratulations! You have successfully created your Yii application.</p>
-
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <code><?php echo __FILE__; ?></code></li>
-	<li>Layout file: <code><?php echo $this->getLayoutFile('main'); ?></code></li>
-</ul>
-
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
+            </div>
+        </div>
+    </div>
+    <?php $this->endWidget(); ?>
+</form>
