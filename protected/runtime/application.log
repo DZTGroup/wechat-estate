@@ -1,0 +1,298 @@
+2013/12/03 10:57:47 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/quanwang06/Sites/weixin-estate/protected/views/layouts/main.php:51)
+Stack trace:
+#0 /Users/quanwang06/Sites/yii/framework/web/CBaseController.php(95): SiteController->renderInternal()
+#1 /Users/quanwang06/Sites/yii/framework/web/widgets/CContentDecorator.php(76): SiteController->renderFile()
+#2 /Users/quanwang06/Sites/yii/framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate()
+#3 /Users/quanwang06/Sites/yii/framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput()
+#4 /Users/quanwang06/Sites/yii/framework/web/CBaseController.php(206): CContentDecorator->run()
+#5 /Users/quanwang06/Sites/yii/framework/web/CBaseController.php(300): SiteController->endWidget()
+#6 /Users/quanwang06/Sites/weixin-estate/protected/views/layouts/column1.php(6): SiteController->endContent()
+#7 /Users/quanwang06/Sites/yii/framework/web/CBaseController.php(126): require()
+#8 /Users/quanwang06/Sites/yii/framework/web/CBaseController.php(95): SiteController->renderInternal()
+#9 /Users/quanwang06/Sites/yii/framework/web/CController.php(784): SiteController->renderFile()
+#10 /Users/quanwang06/Sites/weixin-estate/protected/controllers/SiteController.php(32): SiteController->render()
+#11 /Users/quanwang06/Sites/yii/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#12 /Users/quanwang06/Sites/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#13 /Users/quanwang06/Sites/yii/framework/web/CController.php(286): SiteController->runAction()
+#14 /Users/quanwang06/Sites/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#15 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#16 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#17 /Users/quanwang06/Sites/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#18 /Users/quanwang06/Sites/weixin-estate/index.php(13): CWebApplication->run()
+REQUEST_URI=/~quanwang06/weixin-estate/index.php
+in /Users/quanwang06/Sites/weixin-estate/protected/views/layouts/main.php (51)
+in /Users/quanwang06/Sites/weixin-estate/protected/views/layouts/column1.php (6)
+in /Users/quanwang06/Sites/weixin-estate/protected/controllers/SiteController.php (32)
+2013/12/03 10:58:19 [error] [php] date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. (/Users/quanwang06/Sites/weixin-estate/protected/views/layouts/main.php:51)
+Stack trace:
+#0 /Users/quanwang06/Sites/yii/framework/web/CBaseController.php(95): SiteController->renderInternal()
+#1 /Users/quanwang06/Sites/yii/framework/web/widgets/CContentDecorator.php(76): SiteController->renderFile()
+#2 /Users/quanwang06/Sites/yii/framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate()
+#3 /Users/quanwang06/Sites/yii/framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput()
+#4 /Users/quanwang06/Sites/yii/framework/web/CBaseController.php(206): CContentDecorator->run()
+#5 /Users/quanwang06/Sites/yii/framework/web/CBaseController.php(300): SiteController->endWidget()
+#6 /Users/quanwang06/Sites/weixin-estate/protected/views/layouts/column1.php(6): SiteController->endContent()
+#7 /Users/quanwang06/Sites/yii/framework/web/CBaseController.php(126): require()
+#8 /Users/quanwang06/Sites/yii/framework/web/CBaseController.php(95): SiteController->renderInternal()
+#9 /Users/quanwang06/Sites/yii/framework/web/CController.php(784): SiteController->renderFile()
+#10 /Users/quanwang06/Sites/weixin-estate/protected/controllers/SiteController.php(32): SiteController->render()
+#11 /Users/quanwang06/Sites/yii/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#12 /Users/quanwang06/Sites/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#13 /Users/quanwang06/Sites/yii/framework/web/CController.php(286): SiteController->runAction()
+#14 /Users/quanwang06/Sites/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#15 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#16 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#17 /Users/quanwang06/Sites/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#18 /Users/quanwang06/Sites/weixin-estate/index.php(13): CWebApplication->run()
+REQUEST_URI=/~quanwang06/weixin-estate/index.php
+in /Users/quanwang06/Sites/weixin-estate/protected/views/layouts/main.php (51)
+in /Users/quanwang06/Sites/weixin-estate/protected/views/layouts/column1.php (6)
+in /Users/quanwang06/Sites/weixin-estate/protected/controllers/SiteController.php (32)
+2013/12/03 11:26:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "gii".' in /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('gii')
+#1 /Users/quanwang06/Sites/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/quanwang06/Sites/weixin-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/~quanwang06/weixin-estate/index.php?r=gii
+---
+2013/12/03 11:26:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "gii".' in /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('gii')
+#1 /Users/quanwang06/Sites/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/quanwang06/Sites/weixin-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/~quanwang06/weixin-estate/index.php?r=gii
+---
+2013/12/03 11:31:08 [error] [system.db.CDbCommand] Error in preparing SQL: PRAGMA table_info('wxfc'.'User')
+in /Users/quanwang06/Sites/weixin-estate/index.php (13)
+2013/12/03 11:31:08 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: CDbCommand failed to prepare the SQL statement: SQLSTATE[HY000]: General error: 1 near ".": syntax error. The SQL statement executed was: PRAGMA table_info('wxfc'.'User').
+in /Users/quanwang06/Sites/weixin-estate/index.php (13)
+2013/12/03 11:31:08 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: CDbCommand failed to prepare the SQL statement: SQLSTATE[HY000]: General error: 1 near ".": syntax error. The SQL statement executed was: PRAGMA table_info('wxfc'.'User')' in /Users/quanwang06/Sites/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /Users/quanwang06/Sites/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Users/quanwang06/Sites/yii/framework/db/schema/sqlite/CSqliteSchema.php(132): CDbCommand->queryAll()
+#2 /Users/quanwang06/Sites/yii/framework/db/schema/sqlite/CSqliteSchema.php(115): CSqliteSchema->findColumns(Object(CDbTableSchema))
+#3 /Users/quanwang06/Sites/yii/framework/db/schema/CDbSchema.php(103): CSqliteSchema->loadTable('wxfc.User')
+#4 /Users/quanwang06/Sites/yii/framework/gii/generators/model/ModelCode.php(195): CDbSchema->getTable('wxfc.User', false)
+#5 /Users/quanwang06/Sites/yii/framework/gii/generators/model/ModelCode.php(147): ModelCode->getTableSchema('wxfc.User')
+#6 /Users/quanwang06/Sites/yii/framework/validators/CInlineValidator.php(42): ModelCode->validateTableName('tableName', Array)
+#7 /Users/quanwang06/Sites/yii/framework/validators/CValidator.php(213): CInlineValidator->validateAttribute(Object(ModelCode), 'tableName')
+#8 /Users/quanwang06/Sites/yii/framework/base/CModel.php(159): CValidator->validate(Object(ModelCode), NULL)
+#9 /Users/quanwang06/Sites/yii/framework/gii/CCodeGenerator.php(159): CModel->validate()
+#10 /Users/quanwang06/Sites/yii/framework/gii/CCodeGenerator.php(63): CCodeGenerator->prepare()
+#11 /Users/quanwang06/Sites/yii/framework/web/actions/CInlineAction.php(49): CCodeGenerator->actionIndex()
+#12 /Users/quanwang06/Sites/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#13 /Users/quanwang06/Sites/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#14 /Users/quanwang06/Sites/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#16 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('gii/model/index')
+#17 /Users/quanwang06/Sites/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#18 /Users/quanwang06/Sites/weixin-estate/index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/~quanwang06/weixin-estate/index.php?r=gii/model/index
+HTTP_REFERER=http://localhost/~quanwang06/weixin-estate/index.php?r=gii/model/index
+---
+2013/12/04 16:14:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "customimpression/query".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customimpressio...')
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customimpression/query
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:15:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "customimpression/query".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customimpressio...')
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customimpression/query
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:16:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "customimpression/query".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customimpressio...')
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customimpression/query
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:16:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "customimpression/query".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customimpressio...')
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customimpression/query
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:16:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "customimpression/query".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customimpressio...')
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customimpression/query
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:17:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "customimpression/query".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customimpressio...')
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customimpression/query
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:17:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "customimpression/query".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customimpressio...')
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customimpression/query
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:17:39 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('query')
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/query
+---
+2013/12/04 16:17:41 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('query')
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/query
+---
+2013/12/04 16:17:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "customimpression/query".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customimpressio...')
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customimpression/query
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:17:46 [error] [exception.CException] exception 'CException' with message 'CustomerImpressionController cannot find the requested view "index".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:878
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(782): CController->renderPartial('index', Array, true)
+#1 /Users/mangix/workspace/repos/dztgroup/weixin-estate/protected/controllers/CustomerimpressionController.php(128): CController->render('index', Array)
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/actions/CInlineAction.php(49): CustomerImpressionController->actionIndex()
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#7 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#8 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:17:50 [error] [exception.CException] exception 'CException' with message 'CustomerImpressionController cannot find the requested view "index".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:878
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(782): CController->renderPartial('index', Array, true)
+#1 /Users/mangix/workspace/repos/dztgroup/weixin-estate/protected/controllers/CustomerimpressionController.php(128): CController->render('index', Array)
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/actions/CInlineAction.php(49): CustomerImpressionController->actionIndex()
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#7 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#8 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:18:22 [error] [exception.CException] exception 'CException' with message 'CustomerImpressionController cannot find the requested view "index".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:878
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(782): CController->renderPartial('index', Array, true)
+#1 /Users/mangix/workspace/repos/dztgroup/weixin-estate/protected/controllers/CustomerimpressionController.php(128): CController->render('index', Array)
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/actions/CInlineAction.php(49): CustomerImpressionController->actionIndex()
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#7 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#8 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:18:49 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('query')
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/query
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:20:33 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('query')
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/query
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+2013/12/04 16:21:08 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('view')
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/view
+---
+2013/12/04 16:22:29 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('view')
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/view
+---
+2013/12/04 16:24:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "set".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(270): CController->missingAction('set')
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('set')
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/set
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
+---
+>>>>>>> f99f36f29421ce9f6e576147bbfde9353c9fca3c
