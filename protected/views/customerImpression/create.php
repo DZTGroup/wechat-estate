@@ -35,10 +35,8 @@
     <div class="com-min">
         <h3>增加楼房印象</h3>
         <div class="order-lb"><label>所属楼盘：</label>
-            <select size="1" class="li-hd">
-                <option>请选择楼盘</option>
-                <option>三个傻瓜</option>
-            </select>
+            <?php $this->widget('EstateListWidget',array('class_name'=>'li-hd'));?>
+
         </div>
         <div class="order-lb"><label>初始总人数：</label> <input class="inp-tex inp-100" name="" type="text"></div>
         <div class="order-lb"><label>印象一：</label> <input class="inp-tex inp-100" name="" type="text" value="印象描述，四个字以内"> <input class="inp-tex inp-100" name="" type="text" value="印象比例：20%"></div>
