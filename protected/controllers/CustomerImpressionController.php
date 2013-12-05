@@ -52,6 +52,9 @@ class CustomerImpressionController extends Controller
 	public function actionView()
 	{
 		$this->render('view');
+		/* $this->render('view',array( */
+		/* 	'model'=>$this->loadModel($id), */
+		/* )); */
 	}
 
 	/**

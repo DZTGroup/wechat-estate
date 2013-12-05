@@ -295,6 +295,7 @@ Stack trace:
 REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/set
 HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
 ---
+<<<<<<< HEAD
 2013/12/04 16:38:18 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:336
 Stack trace:
 #0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
@@ -360,3 +361,6 @@ Stack trace:
 #7 {main}
 REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/view
 ---
+=======
+>>>>>>> f99f36f29421ce9f6e576147bbfde9353c9fca3c
+>>>>>>> 6f9aa71e721126fa525c7c7b99781f49e38da93a

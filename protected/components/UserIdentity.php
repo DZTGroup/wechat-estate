@@ -22,12 +22,20 @@ class UserIdentity extends CUserIdentity
 			'demo'=>'demo',
 			'admin'=>'admin',
 		);
-		if(!isset($users[$this->username]))
-			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		elseif($users[$this->username]!==$this->password)
-			$this->errorCode=self::ERROR_PASSWORD_INVALID;
+
+        $num=User::model()->countBySql("select * from User where name=:name and pass=:pass",array(':name'=>$this->username,':pass'=>$this->password));
+		if($num==0)
+        {
+            $this->errorCode=self::ERROR_PASSWORD_INVALID;
+        }
+
 		else
-			$this->errorCode=self::ERROR_NONE;
-		return !$this->errorCode;
+        {
+            $this->errorCode=self::ERROR_NONE;
+
+        }
+
+
+        return !$this->errorCode;
 	}
 }
