@@ -18,6 +18,7 @@ return array(
 		'application.components.*',
 	),
 
+
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 
@@ -29,6 +30,8 @@ return array(
 		),
 
 	),
+
+    'defaultController'=>'site/login',
 
 	// application components
 	'components'=>array(
