@@ -1,4 +1,4 @@
-<select class="<?php echo $class_name;?>">
+<select class="J_estate_list <?php echo $class_name;?>">
 
     <option value="-1">请选择楼盘</option>
     <?php
