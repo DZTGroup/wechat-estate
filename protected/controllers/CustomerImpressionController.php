@@ -49,11 +49,12 @@ class CustomerImpressionController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
+	public function actionView()
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+		$this->render('view');
+		/* $this->render('view',array( */
+		/* 	'model'=>$this->loadModel($id), */
+		/* )); */
 	}
 
 	/**

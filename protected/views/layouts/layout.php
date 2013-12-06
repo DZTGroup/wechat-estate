@@ -29,7 +29,7 @@
             <li><a href="house_manage.html">看房团管理</a></li>
             <li class="curr menu-p"><a href="#none">楼盘印象管理</a>
                 <ul class="menu-xia">
-                    <li><a href="?r=customerimpression/query">房友印象查询</a></li>
+                    <li><a href="?r=customerimpression/view">房友印象查询</a></li>
                     <li><a href="?r=customerimpression/set">房友印象设置</a></li>
                     <li><a href="?r=customerimpression/set">专家点评管理</a></li>
                 </ul>

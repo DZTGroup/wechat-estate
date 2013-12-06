@@ -295,4 +295,72 @@ Stack trace:
 REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/set
 HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=customerimpression/index
 ---
+<<<<<<< HEAD
+2013/12/04 16:38:18 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('view')
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/view
+---
+2013/12/04 16:39:04 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('view')
+#9 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/view')
+#10 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#11 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=user/view
+---
+2013/12/04 16:41:01 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('view')
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/view
+---
+2013/12/04 16:43:10 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('view')
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/view
+---
+2013/12/04 16:47:34 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(282): CController->run('view')
+#4 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('customerimpress...')
+#5 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/view
+---
+=======
 >>>>>>> f99f36f29421ce9f6e576147bbfde9353c9fca3c
+>>>>>>> 6f9aa71e721126fa525c7c7b99781f49e38da93a
