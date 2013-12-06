@@ -170,4 +170,18 @@ class EntityController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+    public function actionAjaxSave(){
+        if(isset($_POST['estate_id']) && $_POST['type'] && $_POST['content']){
+            $model = new Entity();
+            $model->estate_id = $_POST['estate_id'];
+            $model->type = $_POST['type'];
+            $model->content = $_POST['content'];
+            $model->save();
+            echo json_encode(array(
+               'code'=>200,
+               'data'=>array()
+            ));
+        }
+    }
 }

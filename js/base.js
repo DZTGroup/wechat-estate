@@ -5,12 +5,14 @@ window.WXAPP = window.WXAPP ||{};
     var Entity = {
         save:function(estate_id,type,content,callback){
             $.ajax({
-               url:'',
+               url:'?r=entity/ajaxsave',
                data:{
                    estate_id:estate_id,
                    type:type,
                    content:JSON.stringify(content)
                },
+               type:"POST",
+               dataType:'json',
                success:callback,
                error:function(){
                    alert('网络出错，请重试');
@@ -34,13 +36,16 @@ window.WXAPP = window.WXAPP ||{};
         if(!this.check()){
             return;
         }
+        var data = this.getData();
+        var estate_id = data.estate_id;
+        delete data.estate_id;
         WXAPP.Entity.save(estate_id,'impression', this.getData(),function(){
-
+            debugger;
         });
     };
     Impression.prototype.check = function(){
         var data = this.getData();
-        if(!data.estate_id){
+        if(!data.estate_id || data.estate_id==-1){
             alert('请选择楼盘');
             return false;
         }
@@ -51,7 +56,7 @@ window.WXAPP = window.WXAPP ||{};
         return true;
     };
     Impression.prototype.getData = function(){
-        var estate_id = this.form.find('.J_estate_id').val(),
+        var estate_id = this.form.find('.J_estate_list').val(),
             num = this.form.find('.J_num').val().trim(),
             impressions = [];
 
@@ -61,5 +66,19 @@ window.WXAPP = window.WXAPP ||{};
             impressions:impressions
         }
     }
+
+    WXAPP.Impression = Impression;
+})();
+
+(function(){
+    //新增房友印象页面逻辑
+    var impressionForm = $('#J_new_impression');
+    if(!impressionForm.length){
+        return;
+    }
+    var ip = new WXAPP.Impression(impressionForm);
+    impressionForm.find('.submit').click(function(){
+        ip.create();
+    });
 })();
 

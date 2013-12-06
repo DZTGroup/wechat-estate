@@ -14,20 +14,19 @@
     <!-- 查询列表 】】-->
     <!-- 房友印象管理 】】-->
     <!-- 添加新房友印象 】】-->
-    <div class="com-min">
+    <div class="com-min" id="J_new_impression">
         <h3>增加楼房印象</h3>
         <div class="order-lb"><label>所属楼盘：</label>
             <?php $this->widget('EstateListWidget',array('class_name'=>'li-hd'));?>
-
         </div>
-        <div class="order-lb"><label>初始总人数：</label> <input class="inp-tex inp-100" name="" type="text"></div>
+        <div class="order-lb"><label>初始总人数：</label> <input class="inp-tex inp-100 J_num" name="" type="text"></div>
         <div class="order-lb"><label>印象一：</label> <input class="inp-tex inp-100" name="" type="text" placeholder="印象描述，四个字以内"> <input class="inp-tex inp-100" name="" type="text" placeholder="印象比例：20%"></div>
         <div class="order-lb"><label>印象二：</label> <input class="inp-tex inp-100" name="" type="text" placeholder="印象描述，四个字以内"> <input class="inp-tex inp-100" name="" type="text" placeholder="印象比例：20%"></div>
         <div class="order-lb"><label>印象三：</label> <input class="inp-tex inp-100" name="" type="text" placeholder="印象描述，四个字以内"> <input class="inp-tex inp-100" name="" type="text" placeholder="印象比例：20%"></div>
         <div class="order-lb"><label>印象四：</label> <input class="inp-tex inp-100" name="" type="text" placeholder="印象描述，四个字以内"> <input class="inp-tex inp-100" name="" type="text" placeholder="印象比例：20%"></div>
         <div class="order-lb"><label>印象五：</label> <input class="inp-tex inp-100" name="" type="text" placeholder="印象描述，四个字以内"> <input class="inp-tex inp-100" name="" type="text" placeholder="印象比例：20%"></div>
         <div class="order-lb"><label>印象六：</label> <input class="inp-tex inp-100" name="" type="text" placeholder="印象描述，四个字以内"> <input class="inp-tex inp-100" name="" type="text" placeholder="印象比例：20%"></div>
-        <div class="cent-bott"><button class="btn-cha" type="button">完成</button> <button class="btn-cha" type="button">取消</button></div>
+        <div class="cent-bott"><button class="btn-cha submit" type="button">完成</button> <button class="btn-cha" type="button">取消</button></div>
         <div class="com-tu">效果图显示</div>
     </div>
     <!-- 添加新房友印象 】】-->
