@@ -97,9 +97,6 @@ class User extends CActiveRecord
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('user_type',$this->user_type,true);
-		$criteria->compare('reserved_field_1',$this->reserved_field_1,true);
-		$criteria->compare('reserved_field_2',$this->reserved_field_2,true);
-		$criteria->compare('reserved_field_3',$this->reserved_field_3,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

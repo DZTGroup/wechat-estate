@@ -133,9 +133,19 @@ class UserController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['User']))
 			$model->attributes=$_GET['User'];
-
+        $dataProvider_admin=new CActiveDataProvider('User', array(
+            'criteria'=>array(
+                'condition'=>'user_type="admin"',
+            ),
+        ));
+        $dataProvider_operator=new CActiveDataProvider('User', array(
+            'criteria'=>array(
+                'condition'=>'user_type="operator"',
+            ),
+        ));
 		$this->render('admin',array(
-			'model'=>$model,
+			'dataProvider_admin'=>$dataProvider_admin,
+            'dataProvider_operator'=>$dataProvider_operator,
 		));
 	}
 
