@@ -177,7 +177,7 @@ class EntityController extends Controller
             $model->estate_id = $_POST['estate_id'];
             $model->type = $_POST['type'];
             $model->content = $_POST['content'];
-            $model->status = '1';
+            $model->status = '0';
             $model->save();
             echo json_encode(array(
                'code'=>200,
