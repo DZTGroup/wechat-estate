@@ -46,21 +46,6 @@
 		<?php echo $form->textField($model,'user_type',array('size'=>8,'maxlength'=>8)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'reserved_field_1'); ?>
-		<?php echo $form->textField($model,'reserved_field_1',array('size'=>45,'maxlength'=>45)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'reserved_field_2'); ?>
-		<?php echo $form->textField($model,'reserved_field_2',array('size'=>45,'maxlength'=>45)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'reserved_field_3'); ?>
-		<?php echo $form->textField($model,'reserved_field_3',array('size'=>45,'maxlength'=>45)); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>

@@ -59,13 +59,13 @@ class User extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'pass' => 'Pass',
-			'qq' => 'Qq',
-			'email' => 'Email',
-			'phone' => 'Phone',
-			'user_type' => 'User Type',
+			'id' => 'id',
+			'name' => '账号名称',
+			'pass' => '账号密码',
+			'qq' => 'QQ号码',
+			'email' => '邮箱地址',
+			'phone' => '手机号码',
+			'user_type' => '用户类型（admin or operator）',
 			'reserved_field_1' => 'Reserved Field 1',
 			'reserved_field_2' => 'Reserved Field 2',
 			'reserved_field_3' => 'Reserved Field 3',

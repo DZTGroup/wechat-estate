@@ -17,14 +17,9 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-		$users=array(
-			// username => password
-			'demo'=>'demo',
-			'admin'=>'admin',
-		);
 
-        $num=User::model()->countBySql("select * from User where name=:name and pass=:pass",array(':name'=>$this->username,':pass'=>$this->password));
-		if($num==0)
+        $user=User::model()->findBySql("select * from User where name=:name and pass=:pass",array(':name'=>$this->username,':pass'=>$this->password));
+        if($user=="")
         {
             $this->errorCode=self::ERROR_PASSWORD_INVALID;
         }
@@ -32,10 +27,12 @@ class UserIdentity extends CUserIdentity
 		else
         {
             $this->errorCode=self::ERROR_NONE;
-
+            Yii::app()->user->setState('userName',$user->name);
+            Yii::app()->user->setState('type',$user->user_type);
         }
 
 
         return !$this->errorCode;
 	}
+
 }

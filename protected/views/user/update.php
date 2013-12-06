@@ -2,20 +2,13 @@
 /* @var $this UserController */
 /* @var $model User */
 
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	$model->name=>array('view','id'=>$model->id),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'List User', 'url'=>array('index')),
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'View User', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage User', 'url'=>array('admin')),
-);
 ?>
+    <div class="header">
+        <div class="com-cent">
+            <div class="hd-title">微信 房产管理后台</div>
+        </div>
+    </div>
 
-<h1>Update User <?php echo $model->id; ?></h1>
+<h1>修改用户信息</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
