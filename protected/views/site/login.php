@@ -4,6 +4,12 @@
 /* @var $form CActiveForm  */
 
 ?>
+<!-- 头部 【【-->
+<div class="header">
+    <div class="com-cent">
+        <div class="hd-title">微信 房产管理后台</div>
+    </div>
+</div>
 <div class="form">
     <?php $form=$this->beginWidget('CActiveForm', array(
         'id'=>'login-form',

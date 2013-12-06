@@ -8,13 +8,7 @@
     <link rel="stylesheet" href="css/styler.css" type="text/css" />
 </head>
 <body>
-<!-- 头部 【【-->
-<div class="header">
-    <div class="com-cent">
-        <div class="hd-title">微信 房产管理后台</div>
-    </div>
-</div>
-<!-- 头部 】】-->
+
 <?php echo $content; ?>
 
 </body>

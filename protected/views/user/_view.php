@@ -33,19 +33,4 @@
 	<?php echo CHtml::encode($data->user_type); ?>
 	<br />
 
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('reserved_field_1')); ?>:</b>
-	<?php echo CHtml::encode($data->reserved_field_1); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('reserved_field_2')); ?>:</b>
-	<?php echo CHtml::encode($data->reserved_field_2); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('reserved_field_3')); ?>:</b>
-	<?php echo CHtml::encode($data->reserved_field_3); ?>
-	<br />
-
-	*/ ?>
-
 </div>

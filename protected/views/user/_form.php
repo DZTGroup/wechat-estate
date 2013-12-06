@@ -15,62 +15,44 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">带 <span class="required">*</span>是必填项.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div class="row order-lb">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row order-lb">
 		<?php echo $form->labelEx($model,'pass'); ?>
 		<?php echo $form->passwordField($model,'pass',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'pass'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row order-lb">
 		<?php echo $form->labelEx($model,'qq'); ?>
 		<?php echo $form->textField($model,'qq',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'qq'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row order-lb">
 		<?php echo $form->labelEx($model,'email'); ?>
 		<?php echo $form->textField($model,'email',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row order-lb">
 		<?php echo $form->labelEx($model,'phone'); ?>
 		<?php echo $form->textField($model,'phone',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'phone'); ?>
 	</div>
 
-	<div class="row">
+	<div class="row order-lb">
 		<?php echo $form->labelEx($model,'user_type'); ?>
 		<?php echo $form->textField($model,'user_type',array('size'=>8,'maxlength'=>8)); ?>
 		<?php echo $form->error($model,'user_type'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'reserved_field_1'); ?>
-		<?php echo $form->textField($model,'reserved_field_1',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'reserved_field_1'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'reserved_field_2'); ?>
-		<?php echo $form->textField($model,'reserved_field_2',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'reserved_field_2'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'reserved_field_3'); ?>
-		<?php echo $form->textField($model,'reserved_field_3',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'reserved_field_3'); ?>
 	</div>
 
 	<div class="row buttons">
