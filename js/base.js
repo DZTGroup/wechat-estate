@@ -58,12 +58,23 @@ window.WXAPP = window.WXAPP ||{};
     Impression.prototype.getData = function(){
         var estate_id = this.form.find('.J_estate_list').val(),
             num = this.form.find('.J_num').val().trim(),
-            impressions = [];
+            impressions = this.form.find('.J_impression');
+        var imp = [];
+        impressions.each(function(i,item){
+            var impression = $(item).find('.J_impression_input').val().trim(),
+                percent = $(item).find('.J_percent_input').val().trim();
+            if(impression && percent){
+                imp.push({
+                    impression:impression,
+                    percent:percent
+                });
+            }
+        });
 
         return {
             estate_id:estate_id,
             number:num,
-            impressions:impressions
+            impressions:imp
         }
     }
 
