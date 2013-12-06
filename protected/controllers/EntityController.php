@@ -28,7 +28,7 @@ class EntityController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','ajaxsave'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -177,10 +177,16 @@ class EntityController extends Controller
             $model->estate_id = $_POST['estate_id'];
             $model->type = $_POST['type'];
             $model->content = $_POST['content'];
+            $model->status = '1';
             $model->save();
             echo json_encode(array(
                'code'=>200,
-               'data'=>array()
+               'data'=>array(
+                   'estate_id'=>$model->estate_id,
+                   'type'=>$model->type,
+                   'content'=>$model->content,
+                   'status'=>$model->status
+               )
             ));
         }
     }

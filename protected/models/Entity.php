@@ -31,7 +31,7 @@ class Entity extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('estate_id, type, status, create_time', 'required'),
+			array('estate_id, type, status,content', 'required'),
 			array('estate_id', 'numerical', 'integerOnly'=>true),
 			array('type', 'length', 'max'=>11),
 			array('status', 'length', 'max'=>1),

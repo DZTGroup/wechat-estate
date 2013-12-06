@@ -39,7 +39,7 @@ window.WXAPP = window.WXAPP ||{};
         var data = this.getData();
         var estate_id = data.estate_id;
         delete data.estate_id;
-        WXAPP.Entity.save(estate_id,'impression', this.getData(),function(){
+        WXAPP.Entity.save(estate_id,'impression', data,function(){
             debugger;
         });
     };
