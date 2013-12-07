@@ -175,7 +175,7 @@ class EntityController extends Controller
         $model = Audit::model();
 
         $model->entity_id=$data['id'];
-        $model->operator_id=Yii::app()->user->getId();
+        $model->operator_id=Yii::app()->user->getUserId();
         $model->entity_status=$data['status'];
         $model->estate_id=$data['estate_id'];
         $model->entity_type=$data['entity_type'];

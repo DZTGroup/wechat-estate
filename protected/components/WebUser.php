@@ -29,4 +29,12 @@ class WebUser extends CWebUser
         return $this->setState('userName',$userName);
     }
 
+    public function getUserId(){
+        return $this->getState('userId');
+    }
+
+    public function setUserId($id){
+        return $this->setState('userId',$id);
+    }
+
 }
