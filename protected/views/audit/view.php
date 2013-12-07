@@ -23,11 +23,12 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'entity_id',
+		'estate_id',
 		'entity_type',
 		'entity_status',
 		'operator_id',
 		'admin_id',
-		'reserved_field_1',
-		'reserved_field_2',
+		'create_time',
+		'last_modify_time',
 	),
 )); ?>
