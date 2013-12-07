@@ -147,13 +147,14 @@ window.WXAPP = window.WXAPP || {};
             estate_id:id,
             type:'impression'
         },function(res){
-            var table = $('#J_impression_table');
+            var table = $('#J_impression_table tbody');
             var map = {
                 0:'未审核',
                 1:'已审核'
             }
+            table.empty();
             res.data.forEach(function(item){
-                table.find('tbody').append('<tr><td>'+item.estate_id+'</td><td>'+item.estate_name+'</td><td>'+item.create_time+'</td><td>'+map[item.status]+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a>'+(item.status=='0'?'<a class="blue J_delete" href="javascript:;" data-id="'+item.id+'">删除</a>':'')+'</td></tr>')
+                table.append('<tr><td>'+item.estate_id+'</td><td>'+item.estate_name+'</td><td>'+item.create_time+'</td><td>'+map[item.status]+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a>'+(item.status=='0'?'<a class="blue J_delete" href="javascript:;" data-id="'+item.id+'">删除</a>':'')+'</td></tr>')
             });
             table.find('.J_edit').click(function(){
                 var id = $(this).attr('data-id');
