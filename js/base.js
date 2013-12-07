@@ -143,12 +143,26 @@ window.WXAPP = window.WXAPP || {};
     //change 列表
     $('.J_new_impression').parent().find('.J_estate_list').change(function(){
         var id = $(this).val();
-        WXAPP.Ajax('?r=entity/ajaxgetimpressionsbyestateid',{
-            estate_id:id
+        WXAPP.Ajax('?r=entity/ajaxgetentitiesbyestateid',{
+            estate_id:id,
+            type:'impression'
         },function(res){
             var table = $('#J_impression_table');
+            var map = {
+                0:'未审核',
+                1:'已审核'
+            }
             res.data.forEach(function(item){
-                table.find('tbody').append('<tr><td>'+item.estate_id+'</td><td>'+item.estate_name+'</td><td>'+item.create_time+'</td><td>未审核</td><td></td></tr>')
+                table.find('tbody').append('<tr><td>'+item.estate_id+'</td><td>'+item.estate_name+'</td><td>'+item.create_time+'</td><td>'+map[item.status]+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a>'+(item.status=='0'?'<a class="blue J_delete" href="javascript:;" data-id="'+item.id+'">删除</a>':'')+'</td></tr>')
+            });
+            table.find('.J_edit').click(function(){
+                var id = $(this).attr('data-id');
+                WXAPP.Ajax('?r=entity/ajaxgetentitybyid',{
+                    id:id
+                },function(res){
+                    impressionForm.show();
+                    ip.setData(res.data);
+                });
             });
         });
     });

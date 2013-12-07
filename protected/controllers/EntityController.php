@@ -32,7 +32,7 @@ class EntityController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','ajaxsave','ajaxgetentitybyestateid','create','update','ajaxgetimpressionsbyestateid'),
+				'actions'=>array('index','view','ajaxsave','ajaxgetentitybyestateid','create','update','ajaxgetentitiesbyestateid'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -177,12 +177,15 @@ class EntityController extends Controller
             $type = $_POST['type'];
             $content = $_POST['content'];
 
-            $model = Entity::model()->find('estate_id=:estate_id and type=:type and status=:status',array(':type'=>$type,':estate_id'=>$estate_id,':status'=>'1'));
+            $model = Entity::model()->find('estate_id=:estate_id and type=:type and status=:status',array(':type'=>$type,':estate_id'=>$estate_id,':status'=>'0'));
 
             if($model==null){
                 $exist = false;
                 //没有未审核的数据，插入一条,有的话就update
                 $model = new Entity();
+                //插入一条数据到Audit 表
+                $audit  = new Audit();
+
             }else{
                 $exist = true;
             }
@@ -190,7 +193,7 @@ class EntityController extends Controller
             $model->estate_id = $estate_id;
             $model->type = $type;
             $model->content = $content;
-            $model->status = '1';
+            $model->status = '0';
             $model->save();
 
             echo json_encode(array(
@@ -207,12 +210,12 @@ class EntityController extends Controller
     }
 
     public function actionAjaxGetEntityByEstateId(){
-        //根据楼盘ID 拿到对应的'未审核'
+        //根据楼盘ID 拿到对应的'未审核' entity
         if(isset($_POST['estate_id']) && isset($_POST['type'])){
             $model = Entity::model()->find('estate_id=:estate_id and type=:type and status=:status',array(
                 ':estate_id'=>$_POST['estate_id'],
                 ':type'=>$_POST['type'],
-                ':status'=>'1'
+                ':status'=>'0'
             ));
             if($model!=null){
                 echo json_encode(array(
@@ -231,42 +234,35 @@ class EntityController extends Controller
             }
         }
     }
-
-    public function actionAjaxGetEntityById(){
-        if(isset($_POST['id']) && isset($_POST['type'])){
-            $model = Entity::model()->find('estate_id=:estate_id and type=:type and status=:status',array(
-                ':estate_id'=>$_POST['estate_id'],
-                ':type'=>$_POST['type'],
-                ':status'=>'1'
-            ));
-            if($model!=null){
-                echo json_encode(array(
-                    'code'=>200,
-                    'data'=>array(
-                        'estate_id'=>$model->estate_id,
-                        'content'=>$model->content,
-                        'type'=>$model->type
-                    )
-                ));
-            }else{
-                echo json_encode(array(
-                    'code'=>200,
-                    'data'=> array()
-                ));
-            }
-        }
-    }
-
-    public function actionAjaxGetImpressionsByEstateId(){
-        if(isset($_POST['estate_id'])){
-            $model =Yii::app()->db->createCommand()
+    public function actionAjaxGetEntitiesByEstateId(){
+        //根据楼盘ID 拿entities
+        //如果没有‘未审核’的，就显示最后一条已审核的
+        //如果有'未审核的'，就显示未审核的
+        if(isset($_POST['estate_id']) && isset($_POST['type'])){
+            $model = Yii::app()->db->createCommand()
                 ->select('e2.content as estate_name,e1.*')
                 ->from('Entity e1')
                 ->join('Entity e2', 'e1.estate_id=e2.estate_id')
-                ->where('e2.type="estate" and e1.type="impression" and e1.status="1" and e1.estate_id', array(':estate_id'=>$_POST['estate_id']))
-                ->query();
+                ->where('e2.type="estate" and e1.type=:type and e1.status="0" and e1.estate_id=:estate_id', array(
+                    ':estate_id'=>$_POST['estate_id'],
+                    ':type'=>$_POST['type']
+                ))->query();
 
             $arr = array();
+
+            if(count($model)==0){
+                //没有未审核的
+                $model = Yii::app()->db->createCommand()
+                    ->select('e2.content as estate_name,e1.*')
+                    ->from('Entity e1')
+                    ->join('Entity e2', 'e1.estate_id=e2.estate_id')
+                    ->where('e2.type="estate" and e1.type=:type and e1.status="1" and e1.estate_id=:estate_id', array(
+                        ':estate_id'=>$_POST['estate_id'],
+                        ':type'=>$_POST['type']
+                    ))
+                    ->order('create_time desc')
+                    ->query();
+            }
 
             forEach($model as $k=>$row){
                 array_push($arr,$row);
@@ -276,9 +272,34 @@ class EntityController extends Controller
                 'code' => 200,
                 'data' => $arr
             ));
-
-            return;
         }
     }
+
+    public function actionAjaxGetEntityById(){
+        //根据ID 拿entity记录
+        if(isset($_POST['id'])){
+            $model = Entity::model()->find('id=:id',array(
+                ':id'=>$_POST['id']
+            ));
+            if($model!=null){
+                echo json_encode(array(
+                    'code'=>200,
+                    'data'=>array(
+                        'id'=>$model->id,
+                        'estate_id'=>$model->estate_id,
+                        'content'=>$model->content,
+                        'type'=>$model->type
+                    )
+                ));
+            }else{
+                echo json_encode(array(
+                    'code'=>200,
+                    'data'=> array()
+                ));
+            }
+        }
+    }
+
+
 
 }
