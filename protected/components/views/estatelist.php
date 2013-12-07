@@ -4,7 +4,7 @@
     <?php
         forEach($model as $row){
     ?>
-            <option value="<?php echo $row->estate_id; ?>"><?php echo $row->content ?></option>
+            <option value="<?php echo $row->id; ?>"><?php echo $row->name ?></option>
     <?php
         }
     ?>
