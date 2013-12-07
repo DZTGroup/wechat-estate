@@ -12,7 +12,7 @@
 <div class="header">
     <div class="com-cent">
         <div class="hd-title">微信 房产管理后台</div>
-        <div class="hd-log">欢迎你<span>亲爱的<em>xxx</em>用户</span><a href="#none">退出</a></div>
+        <div class="hd-log">欢迎你<span>亲爱的<em><?php echo YII::app()->user->getUserName();?></em>用户</span><a href="?r=site/logout">退出</a></div>
         <ul class="hd-link">
             <li><a href="index_min.html">首页</a></li>
             <li class="curr"><a href="property_manage.html">管理后台</a></li>
@@ -30,7 +30,7 @@
             <li class="curr menu-p"><a href="#none">楼盘印象管理</a>
                 <ul class="menu-xia">
                     <li><a href="?r=customerimpression/view">房友印象查询</a></li>
-                    <li><a href="?r=customerimpression/set">房友印象设置</a></li>
+                    <li><a href="?r=customerimpression/create">房友印象设置</a></li>
                     <li><a href="?r=customerimpression/set">专家点评管理</a></li>
                 </ul>
             </li>

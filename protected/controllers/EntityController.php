@@ -28,11 +28,11 @@ class EntityController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','ajaxsave'),
+				'actions'=>array(),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('index','view','ajaxsave','ajaxgetentitybyestateid','create','update','ajaxgetimpressionsbyestateid'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -173,21 +173,112 @@ class EntityController extends Controller
 
     public function actionAjaxSave(){
         if(isset($_POST['estate_id']) && $_POST['type'] && $_POST['content']){
-            $model = new Entity();
-            $model->estate_id = $_POST['estate_id'];
-            $model->type = $_POST['type'];
-            $model->content = $_POST['content'];
-            $model->status = '0';
+            $estate_id = $_POST['estate_id'];
+            $type = $_POST['type'];
+            $content = $_POST['content'];
+
+            $model = Entity::model()->find('estate_id=:estate_id and type=:type and status=:status',array(':type'=>$type,':estate_id'=>$estate_id,':status'=>'1'));
+
+            if($model==null){
+                $exist = false;
+                //没有未审核的数据，插入一条,有的话就update
+                $model = new Entity();
+            }else{
+                $exist = true;
+            }
+
+            $model->estate_id = $estate_id;
+            $model->type = $type;
+            $model->content = $content;
+            $model->status = '1';
             $model->save();
+
             echo json_encode(array(
                'code'=>200,
                'data'=>array(
                    'estate_id'=>$model->estate_id,
                    'type'=>$model->type,
                    'content'=>$model->content,
-                   'status'=>$model->status
+                   'status'=>$model->status,
+                   'exist'=>$exist
                )
             ));
         }
     }
+
+    public function actionAjaxGetEntityByEstateId(){
+        //根据楼盘ID 拿到对应的'未审核'
+        if(isset($_POST['estate_id']) && isset($_POST['type'])){
+            $model = Entity::model()->find('estate_id=:estate_id and type=:type and status=:status',array(
+                ':estate_id'=>$_POST['estate_id'],
+                ':type'=>$_POST['type'],
+                ':status'=>'1'
+            ));
+            if($model!=null){
+                echo json_encode(array(
+                    'code'=>200,
+                    'data'=>array(
+                        'estate_id'=>$model->estate_id,
+                        'content'=>$model->content,
+                        'type'=>$model->type
+                    )
+                ));
+            }else{
+                echo json_encode(array(
+                    'code'=>200,
+                    'data'=> array()
+                ));
+            }
+        }
+    }
+
+    public function actionAjaxGetEntityById(){
+        if(isset($_POST['id']) && isset($_POST['type'])){
+            $model = Entity::model()->find('estate_id=:estate_id and type=:type and status=:status',array(
+                ':estate_id'=>$_POST['estate_id'],
+                ':type'=>$_POST['type'],
+                ':status'=>'1'
+            ));
+            if($model!=null){
+                echo json_encode(array(
+                    'code'=>200,
+                    'data'=>array(
+                        'estate_id'=>$model->estate_id,
+                        'content'=>$model->content,
+                        'type'=>$model->type
+                    )
+                ));
+            }else{
+                echo json_encode(array(
+                    'code'=>200,
+                    'data'=> array()
+                ));
+            }
+        }
+    }
+
+    public function actionAjaxGetImpressionsByEstateId(){
+        if(isset($_POST['estate_id'])){
+            $model =Yii::app()->db->createCommand()
+                ->select('e2.content as estate_name,e1.*')
+                ->from('Entity e1')
+                ->join('Entity e2', 'e1.estate_id=e2.estate_id')
+                ->where('e2.type="estate" and e1.type="impression" and e1.status="1" and e1.estate_id', array(':estate_id'=>$_POST['estate_id']))
+                ->query();
+
+            $arr = array();
+
+            forEach($model as $k=>$row){
+                array_push($arr,$row);
+            }
+
+            echo json_encode(array(
+                'code' => 200,
+                'data' => $arr
+            ));
+
+            return;
+        }
+    }
+
 }

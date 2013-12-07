@@ -14,10 +14,11 @@ class ImpressionTableWidget extends CWidget{
 
     }
     public function run(){
-        $model = Entity::model()->findAll('estate_id=:estate_id and type=:type',array(':estate_id'=>$this->estate_id,'type'=>'impression'));
+        //$model = Entity::model()->findAll('estate_id=:estate_id and type=:type',array(':estate_id'=>$this->estate_id,'type'=>'impression'));
 
+        $model = array();
         $this->render('impressiontable',array(
-            'model'=>$model
+            "model"=>$model
         ));
     }
 } 

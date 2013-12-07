@@ -4,7 +4,7 @@
         <h3>房友印象管理</h3>
         <div class="order-lb"><label>楼盘名称：</label>
             <?php $this->widget('EstateListWidget',array('class_name'=>'li-hd'));?>
-            <button class="btn-cha" type="button">添加新房友印象</button>
+            <button class="btn-cha J_new_impression" type="button">添加新房友印象</button>
         </div>
     </div>
     <!-- 查询列表【【 -->
@@ -14,7 +14,7 @@
     <!-- 查询列表 】】-->
     <!-- 房友印象管理 】】-->
     <!-- 添加新房友印象 】】-->
-    <div class="com-min" id="J_new_impression">
+    <div class="com-min" id="J_new_impression" style="display: none;">
         <h3>增加楼房印象</h3>
         <div class="order-lb"><label>所属楼盘：</label>
             <?php $this->widget('EstateListWidget',array('class_name'=>'li-hd'));?>
