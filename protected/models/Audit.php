@@ -6,12 +6,13 @@
  * The followings are the available columns in table 'Audit':
  * @property integer $id
  * @property integer $entity_id
+ * @property integer $estate_id
  * @property string $entity_type
  * @property string $entity_status
  * @property integer $operator_id
  * @property integer $admin_id
- * @property string $reserved_field_1
- * @property string $reserved_field_2
+ * @property string $create_time
+ * @property string $last_modify_time
  */
 class Audit extends CActiveRecord
 {
@@ -31,14 +32,14 @@ class Audit extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('entity_id, entity_type, entity_status', 'required'),
-			array('entity_id, operator_id, admin_id', 'numerical', 'integerOnly'=>true),
+			array('entity_id, estate_id, entity_type, entity_status', 'required'),
+			array('entity_id, estate_id, operator_id, admin_id', 'numerical', 'integerOnly'=>true),
 			array('entity_type', 'length', 'max'=>11),
 			array('entity_status', 'length', 'max'=>1),
-			array('reserved_field_1, reserved_field_2', 'length', 'max'=>45),
+			array('create_time, last_modify_time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, entity_id, entity_type, entity_status, operator_id, admin_id, reserved_field_1, reserved_field_2', 'safe', 'on'=>'search'),
+			array('id, entity_id, estate_id, entity_type, entity_status, operator_id, admin_id, create_time, last_modify_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,12 +62,13 @@ class Audit extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'entity_id' => 'Entity',
+			'estate_id' => 'Estate',
 			'entity_type' => 'Entity Type',
 			'entity_status' => 'Entity Status',
 			'operator_id' => 'Operator',
 			'admin_id' => 'Admin',
-			'reserved_field_1' => 'Reserved Field 1',
-			'reserved_field_2' => 'Reserved Field 2',
+			'create_time' => 'Create Time',
+			'last_modify_time' => 'Last Modify Time',
 		);
 	}
 
@@ -90,12 +92,13 @@ class Audit extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('entity_id',$this->entity_id);
+		$criteria->compare('estate_id',$this->estate_id);
 		$criteria->compare('entity_type',$this->entity_type,true);
 		$criteria->compare('entity_status',$this->entity_status,true);
 		$criteria->compare('operator_id',$this->operator_id);
 		$criteria->compare('admin_id',$this->admin_id);
-		$criteria->compare('reserved_field_1',$this->reserved_field_1,true);
-		$criteria->compare('reserved_field_2',$this->reserved_field_2,true);
+		$criteria->compare('create_time',$this->create_time,true);
+		$criteria->compare('last_modify_time',$this->last_modify_time,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

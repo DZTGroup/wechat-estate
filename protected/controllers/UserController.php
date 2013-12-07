@@ -129,10 +129,6 @@ class UserController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new User('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['User']))
-			$model->attributes=$_GET['User'];
         $dataProvider_admin=new CActiveDataProvider('User', array(
             'criteria'=>array(
                 'condition'=>'user_type="admin"',

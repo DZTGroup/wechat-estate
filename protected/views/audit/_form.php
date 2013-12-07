@@ -26,6 +26,12 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'estate_id'); ?>
+		<?php echo $form->textField($model,'estate_id'); ?>
+		<?php echo $form->error($model,'estate_id'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'entity_type'); ?>
 		<?php echo $form->textField($model,'entity_type',array('size'=>11,'maxlength'=>11)); ?>
 		<?php echo $form->error($model,'entity_type'); ?>
@@ -50,15 +56,15 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'reserved_field_1'); ?>
-		<?php echo $form->textField($model,'reserved_field_1',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'reserved_field_1'); ?>
+		<?php echo $form->labelEx($model,'create_time'); ?>
+		<?php echo $form->textField($model,'create_time'); ?>
+		<?php echo $form->error($model,'create_time'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'reserved_field_2'); ?>
-		<?php echo $form->textField($model,'reserved_field_2',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'reserved_field_2'); ?>
+		<?php echo $form->labelEx($model,'last_modify_time'); ?>
+		<?php echo $form->textField($model,'last_modify_time'); ?>
+		<?php echo $form->error($model,'last_modify_time'); ?>
 	</div>
 
 	<div class="row buttons">

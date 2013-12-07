@@ -171,6 +171,19 @@ class EntityController extends Controller
 		}
 	}
 
+    public function InsertDataToAudit($data){
+        $model = Audit::model();
+
+        $model->entity_id=$data['id'];
+        $model->operator_id=Yii::app()->user->getId();
+        $model->entity_status=$data['status'];
+        $model->estate_id=$data['estate_id'];
+        $model->entity_type=$data['entity_type'];
+
+        $model->save();
+
+    }
+
     public function actionAjaxSave(){
         if(isset($_POST['estate_id']) && $_POST['type'] && $_POST['content']){
             $estate_id = $_POST['estate_id'];

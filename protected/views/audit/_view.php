@@ -13,6 +13,10 @@
 	<?php echo CHtml::encode($data->entity_id); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('estate_id')); ?>:</b>
+	<?php echo CHtml::encode($data->estate_id); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('entity_type')); ?>:</b>
 	<?php echo CHtml::encode($data->entity_type); ?>
 	<br />
@@ -29,13 +33,13 @@
 	<?php echo CHtml::encode($data->admin_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('reserved_field_1')); ?>:</b>
-	<?php echo CHtml::encode($data->reserved_field_1); ?>
+	<?php /*
+	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>
+	<?php echo CHtml::encode($data->create_time); ?>
 	<br />
 
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('reserved_field_2')); ?>:</b>
-	<?php echo CHtml::encode($data->reserved_field_2); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('last_modify_time')); ?>:</b>
+	<?php echo CHtml::encode($data->last_modify_time); ?>
 	<br />
 
 	*/ ?>
