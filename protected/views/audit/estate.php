@@ -9,18 +9,19 @@
 <script>
     WXAPP.AuditEstate.setAuditListData();
 </script>
+
 <div class="box-menu">
     <div class="com-menu">
         <ul class="menu">
             <li class="curr"><a href="?r=audit/estate">楼盘审核</a></li>
             <li><a href="?r=audit/group">看房团审核</a></li>
-            <li><a href="photo_review.html">照片墙审核</a></li>
-            <li><a href="expert_review.html">专家点评审核</a></li>
-            <li><a href="chips_review.html">认筹审核</a></li>
+            <li><a href="?r=audit/picture">照片墙审核</a></li>
+            <li><a href="?r=audit/comment">专家点评审核</a></li>
+            <li><a href="?r=audit/impression">用户印象审核</a></li>
+            <li><a href="?r=audit/reservation">认筹审核</a></li>
         </ul>
     </div>
 </div>
-
 <div class="cent-auto">
     <!-- 管理列表表单【【 -->
     <div class="box-table"><!-- 添加hide隐藏 -->

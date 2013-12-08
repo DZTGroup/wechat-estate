@@ -28,120 +28,20 @@ class AuditController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','ajaxupdateauditbyid','group'),
+				'actions'=>array('ajaxupdateauditbyid','group','impression','comment','reservation','picture','list'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','estate','ajaxgetauditestatedata'),
+				'actions'=>array('estate','ajaxgetauditestatedata','ajaxgetauditimpressionbyestateid'),
 				'users'=>array('@'),
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('@'),
-			),
+
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
 	}
 
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new Audit;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Audit']))
-		{
-			$model->attributes=$_POST['Audit'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Audit']))
-		{
-			$model->attributes=$_POST['Audit'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Audit');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Audit('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Audit']))
-			$model->attributes=$_GET['Audit'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -186,6 +86,36 @@ class AuditController extends Controller
             'model'=>$model,
         ));
     }
+    public function actionImpression()
+    {
+        $model=new Audit();
+        $this->render('impression',array(
+            'model'=>$model,
+        ));
+    }
+    public function actionComment()
+    {
+        $model=new Audit();
+        $this->render('comment',array(
+            'model'=>$model,
+        ));
+    }
+
+    public function actionReservation()
+    {
+        $model=new Audit();
+        $this->render('reservation',array(
+            'model'=>$model,
+        ));
+    }
+
+    public function actionPicture()
+    {
+        $model=new Audit();
+        $this->render('picture',array(
+            'model'=>$model,
+        ));
+    }
     public function actionAjaxGetAuditEstateData(){
 
         $model = Yii::app()->db->createCommand()
@@ -218,6 +148,37 @@ class AuditController extends Controller
                 'data'=> array()
             ));
         }
+    }
+
+    public function actionAjaxGetAuditImpressionByEstateId(){
+        $model = Yii::app()->db->createCommand()
+            ->select('e1.*,e2.name,e4.name as username')
+            ->from('Audit e1')
+            ->join('Estate e2', 'e1.estate_id=e2.id')
+            ->join('User e4','e4.id=e1.operator_id')
+            ->where('e1.entity_type=:entity_type and e1.entity_status=:status and e1.estate_id=:estate_id', array(
+                ':entity_type'=>'impression',
+                ':status'=>0,
+                ':estate_id'=>$_POST['estate_id']
+
+            ))->query();
+        $arr = array();
+
+        forEach($model as $k=>$row){
+            array_push($arr,$row);
+        }
+
+        echo json_encode(array(
+            'code' => 200,
+            'data' => $arr
+        ));
+    }
+
+    public function actionList(){
+        $model=new Audit();
+        $this->render('list',array(
+            'model'=>$model,
+        ));
     }
 
 }
