@@ -78,18 +78,19 @@ class EntityController extends Controller
         $model->status = $status;
         $result = $model->save();
 
-//        $audit = Audit::model()->find('entity_id:=entity_id', array(':entity_id' => $model->id));
-//        if ($audit == null) {
-//            $audit = new Audit();
-//        }
-//
-//        $audit->entity_id = $model->id;
-//        $audit->operator_id = Yii::app()->user->getUserId();
-//        $audit->entity_status = '0';
-//        $audit->estate_id = $estate_id;
-//        $audit->entity_type = $type;
-//
-//        $audit->save();
+        $audit = Audit::model()->find('entity_id=:entity_id', array(
+            ':entity_id' => $model->id,));
+        if ($audit == null) {
+            $audit = new Audit();
+        }
+
+        $audit->entity_id = $model->id;
+        $audit->operator_id = Yii::app()->user->getUserId();
+        $audit->entity_status = '0';
+        $audit->estate_id = $estate_id;
+        $audit->entity_type = $type;
+
+        $audit->save();
 
         return array(
             'model' => $model,

@@ -104,10 +104,7 @@ class SiteController extends Controller
 
             $count=User::model()->updateByPk(Yii::app()->user->getUserId(),array('pass'=>$model['password']));
             if($count>0){
-                echo 'password change successfully!';
-               // $this->redirect('?site/index');
-                //$this->redirect("?r=estate/create");
-                $this->redirect($this->createUrl('index'));
+               $this->redirect("?r=site/index");
             }
         }
         else
