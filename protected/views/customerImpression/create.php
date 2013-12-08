@@ -9,7 +9,7 @@
     </div>
     <!-- 查询列表【【 -->
     <div class="box-table"><!-- 添加hide隐藏 -->
-        <?php $this->widget('ImpressionTableWidget',array('estate_id'=>'-1'));?>
+        <?php $this->widget('ImpressionTableWidget',array('id'=>'J_impression_table'));?>
     </div>
     <!-- 查询列表 】】-->
     <!-- 房友印象管理 】】-->

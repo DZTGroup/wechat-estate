@@ -169,7 +169,6 @@ window.WXAPP = window.WXAPP || {};
     });
 })();
 
-<<<<<<< HEAD
 
 
 (function(){

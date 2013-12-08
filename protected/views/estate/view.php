@@ -6,6 +6,9 @@
             <button class="btn-cha J_new_impression" type="button">新增楼盘简介</button>
         </div>
     </div>
+    <div class="box-table">
+        <?php $this->widget('ImpressionTableWidget',array('id'=>'J_intro_table'));?>
+    </div>
 
     <div style="display: none;">
     <div class="com-min" >
