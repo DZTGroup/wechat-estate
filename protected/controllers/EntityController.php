@@ -199,19 +199,18 @@ class EntityController extends Controller
         $model->status = $status;
         $result = $model->save();
 
-        echo $result;
-//        $audit = Audit::model()->find('entity_id:=entity_id', array(':entity_id' => $model->id));
-//        if ($audit == null) {
-//            $audit = new Audit();
-//        }
-//
-//        $audit->entity_id = $model->id;
-//        $audit->operator_id = Yii::app()->user->getUserId();
-//        $audit->entity_status = '0';
-//        $audit->estate_id = $estate_id;
-//        $audit->entity_type = $_POST['type'];
-//
-//        $audit->save();
+        $audit = Audit::model()->find('entity_id:=entity_id', array(':entity_id' => $model->id));
+        if ($audit == null) {
+            $audit = new Audit();
+        }
+
+        $audit->entity_id = $model->id;
+        $audit->operator_id = Yii::app()->user->getUserId();
+        $audit->entity_status = '0';
+        $audit->estate_id = $estate_id;
+        $audit->entity_type = $type;
+
+        $audit->save();
 
         return array(
             'model' => $model,
@@ -247,19 +246,26 @@ class EntityController extends Controller
             $r = $this->insert($estate_id, $type, $content, '0');
             $model = $r['model'];
 
-            return;
+            $result = $r['result'];
+            if($result){
+                echo json_encode(array(
+                    'code' => 200,
+                    'data' => array(
+                        'estate_id' => $model->estate_id,
+                        'type' => $model->type,
+                        'content' => $model->content,
+                        'status' => $model->status,
+                        'group_id'=>$model->group_id
+                    )
+                ));
+            }else{
+                echo json_encode(array(
+                    'code' => 500,
+                    'data' => array()
+                ));
+            }
 
-            echo json_encode(array(
-                'code' => 200,
-                'data' => array(
-                    'estate_id' => $model->estate_id,
-                    'type' => $model->type,
-                    'content' => $model->content,
-                    'status' => $model->status,
-                    'group_id'=>$model->group_id,
-                    'result'=>$r['result']
-                )
-            ));
+
         }
     }
 
