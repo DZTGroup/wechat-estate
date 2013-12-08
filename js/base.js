@@ -284,7 +284,7 @@ window.WXAPP = window.WXAPP || {};
     var AuditEstate = {
         setAuditListData:function(){
             WXAPP.Ajax('?r=audit/ajaxgetauditestatedata',{
-                type:'estate'
+                type:'intro'
             },function(res){
                 var table = $('#J_audit_estate_table tbody');
                 var map = {

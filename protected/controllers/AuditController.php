@@ -124,7 +124,7 @@ class AuditController extends Controller
             ->join('Estate e2', 'e1.estate_id=e2.id')
             ->join('User e3','e3.id=e1.operator_id')
             ->where('e1.entity_type=:entity_type and e1.entity_status=:status', array(
-                ':entity_type'=>'estate',
+                ':entity_type'=>'intro',
                 ':status'=>0
             ))->query();
         $arr = array();
