@@ -1,6 +1,6 @@
 <div class="cent-auto">
     <!-- 房友印象管理【【 -->
-    <div class="com-min">
+    <div class="com-min J_estate_list">
         <h3>房友印象管理</h3>
         <div class="order-lb"><label>楼盘名称：</label>
             <?php $this->widget('EstateListWidget',array('class_name'=>'li-hd'));?>

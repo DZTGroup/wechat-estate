@@ -25,7 +25,12 @@
 <div class="box-menu">
     <div class="com-menu">
         <ul class="menu">
-            <li><a href="property_manage.html">楼盘管理</a></li>
+            <li class="menu-p"><a href="?r=estate/create">楼盘管理</a>
+                <ul class="menu-xia">
+                    <li><a href="?r=estate/create">新增楼盘</a></li>
+                    <li><a href="?r=estate/view">楼盘详情</a></li>
+                </ul>
+            </li>
             <li><a href="house_manage.html">看房团管理</a></li>
             <li class="curr menu-p"><a href="#none">楼盘印象管理</a>
                 <ul class="menu-xia">
