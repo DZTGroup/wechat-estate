@@ -1,4 +1,4 @@
-<table width="760" border="0" cellspacing="1" cellpadding="0" bgcolor="#d7d7d7" id="<?php echo $id?>">
+<table width="760" border="0" cellspacing="1" cellpadding="0" bgcolor="#d7d7d7" id="J_entity_table">
     <thead><tr>
         <th>楼盘ID</th>
         <th>楼盘名称</th>

@@ -7,7 +7,9 @@
  */
 ?>
 <script>
-    WXAPP.AuditEstate.setAuditListData();
+    $(document).ready(function(){
+        WXAPP.AuditEstate.setAuditListData();
+    });
 </script>
 
 <div class="box-menu">

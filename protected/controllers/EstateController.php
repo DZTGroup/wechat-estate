@@ -115,6 +115,7 @@ class EstateController extends Controller
         $model->wechat_id = $wechat_id;
         $model->user_id = YII::app()->user->getUserId();
         $model->save();
+
         echo json_encode(array(
             'code'=>200,
             'data'=>array(

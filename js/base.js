@@ -21,152 +21,163 @@ window.WXAPP = window.WXAPP || {};
 })();
 
 (function () {
-    var Entity = {
-        save: function (estate_id, type, content, callback) {
-            WXAPP.Ajax('?r=entity/ajaxsave', {
-                estate_id: estate_id,
-                type: type,
-                content: JSON.stringify(content)
-            }, callback)
+    function Entity(type,form,table){
+        this.type = type;
+        this.form = form;
+        this.table = table;
+        this.bindEvent();
+    }
+    Entity.prototype.bindEvent = function(){
+        var self = this;
+        this.form.find('.J_submit').click(function(){
+            self.save();
+        });
+        this.form.find('.J_cancel').click(function(){
+            self.form.hide();
+        });
+    }
+    Entity.prototype.save = function(callback){
+        if(!this.check()){
+            return;
+        }
+        WXAPP.Ajax('?r=entity/ajaxsave', {
+            estate_id: this.estate_id,
+            type: this.type,
+            content: JSON.stringify(this.getData())
+        }, callback || function(){
+            alert('保存成功');
+          // location.reload();
+        });
+    }
+    Entity.prototype.check = function(){
+        return true;
+    }
+    Entity.prototype.getData = function(){
+        var data = {};
+        this.form.find('.J_modules').each(function(i,module){
+            var moduleName = $(module).attr('data-module');
+            data[moduleName] = [];
+            $(module).find('.J_module_item').each(function(j,item){
+                var itemData = {};
+                $(item).find('.J_field').each(function(k,field){
+                    itemData[$(field).attr('name')] = $(field).val();
+                });
+                data[moduleName].push(itemData);
+            });
+        });
+        this.form.find(".J_module").each(function(i,module){
+            var moduleName = $(module).attr('data-module');
+            data[moduleName] = {};
+            $(module).find('.J_field').each(function(j,field){
+                data[moduleName][$(field).attr('name')] = $(field).val();
+            });
+        });
+        return data;
+    }
+    Entity.prototype.setData = function(data){
+        var content ;
+        if (!data) {
+            return;
+        }
+        if(data.estate_id){
+            this.estate_id = data.estate_id;
+        }
+        if (data.content) {
+            content = JSON.parse(data.content);
+        }
+        if (content) {
+            this.form.find('.J_modules').each(function(i,module){
+                var moduleName = $(module).attr('data-module');
+                var moduleData = content[moduleName];
+                $(module).find('.J_module_item').each(function(j,item){
+                    var itemData = moduleData[j];
+                    if(itemData){
+                        $(item).find('.J_field').each(function(k,field){
+                            $(field).val(itemData[$(field).attr('name')]) ;
+                        });
+                    }
+                });
+            });
+            this.form.find('.J_module').each(function(i,module){
+                var moduleName = $(module).attr('data-module');
+                var moduleData  = content[moduleName] ;
+                if(moduleData){
+                    $(module).find('.J_field').each(function(j,field){
+                        $(field).val(moduleData[$(field).attr('name')]);
+                    });
+                }
+
+            });
         }
     }
+    Entity.prototype.setEstateId = function(id){
+        this.estate_id = id;
+    }
+    Entity.prototype.fetch = function(){
+        //按estate id 拿数据
+        var self = this;
+        if(!this.estate_id || this.estate_id==WXAPP.EMPTY_ESTATE){
+            alert('请选择楼盘');
+            return;
+        }
+        WXAPP.Ajax('?r=entity/ajaxgetentitybyestateid', {
+            estate_id: this.estate_id,
+            type: this.type
+        }, function (res) {
+            self.form.show();
+            self.setData(res.data);
+        });
+    }
+    Entity.prototype.fetchList = function(){
+        var self = this;
+        WXAPP.Ajax('?r=entity/ajaxgetentitiesbyestateid',{
+            estate_id:this.estate_id,
+            type:this.type
+        },function(res){
+            var map = {
+                0:'未审核',
+                1:'已审核'
+            }
+            self.table.empty();
+            res.data.forEach(function(item){
+                self.table.append('<tr><td>'+item.estate_id+'</td><td>'+item.estate_name+'</td><td>'+item.create_time+'</td><td>'+map[item.status]+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a>'+(item.status=='0'?'<a class="blue J_delete" href="javascript:;" data-id="'+item.id+'">删除</a>':'')+'</td></tr>')
+            });
+            self.table.find('.J_edit').click(function(){
+                var id = $(this).attr('data-id');
+                WXAPP.Ajax('?r=entity/ajaxgetentitybyid',{
+                    id:id
+                },function(res){
+                    self.form.show();
+                    self.setData(res.data);
+                });
+            });
+        });
+    }
+
+
 
     WXAPP.Entity = Entity;
     WXAPP.EMPTY_ESTATE = -1;
 })();
 
 
-(function () {
-    //房友印象
-
-    var Impression = function (form) {
-        this.form = form;
-    };
-    Impression.prototype.save = function () {
-        if (!this.check()) {
-            return;
-        }
-        var data = this.getData();
-        var estate_id = data.estate_id;
-        delete data.estate_id;
-        WXAPP.Entity.save(estate_id, 'impression', data, function (res) {
-            alert('创建成功');
-            location.reload();
-        });
-    };
-    Impression.prototype.check = function () {
-        var data = this.getData();
-        if (!data.estate_id || data.estate_id == WXAPP.ENPTY_ESTATE) {
-            alert('请选择楼盘');
-            return false;
-        }
-        if (!data.number) {
-            alert('请填写初识总人数');
-            return false;
-        }
-        return true;
-    };
-    Impression.prototype.getData = function () {
-        var estate_id = this.form.find('.J_estate_list').val(),
-            num = this.form.find('.J_num').val().trim(),
-            impressions = this.form.find('.J_impression');
-        var imp = [];
-        impressions.each(function (i, item) {
-            var impression = $(item).find('.J_impression_input').val().trim(),
-                percent = $(item).find('.J_percent_input').val().trim();
-            if (impression && percent) {
-                imp.push({
-                    impression: impression,
-                    percent: percent
-                });
-            }
-        });
-
-        return {
-            estate_id: estate_id,
-            number: num,
-            impressions: imp
-        }
-    }
-    Impression.prototype.setData = function (data) {
-        var content , estate_id;
-        if (!data) {
-            return;
-        }
-        if (data.content) {
-            content = JSON.parse(data.content);
-        }
-        if (data.estate_id) {
-            estate_id = data.estate_id;
-        }
-        this.form.find('.J_estate_list').val(estate_id);
-        if (content) {
-            this.form.find('.J_num').val(content.number || '');
-            var impressions = this.form.find('.J_impression');
-            content.impressions && content.impressions.length && content.impressions.forEach(function (im, i) {
-                impressions.eq(i).find('.J_impression_input').val(im.impression);
-                impressions.eq(i).find('.J_percent_input').val(im.percent);
-            });
-        }
-
-    }
-
-    WXAPP.Impression = Impression;
-})();
-
-(function () {
-    //新增房友印象页面逻辑
-    var impressionForm = $('#J_new_impression');
-    if (!impressionForm.length) {
-        return;
-    }
-    var ip = new WXAPP.Impression(impressionForm);
-    impressionForm.find('.submit').click(function () {
-        ip.save();
-    });
-
-    //点击新增
-    $('.J_new_impression').click(function () {
-        impressionForm.show();
+(function(){
+    //Entity 页面初始化
+    var form = $('#J_entity_form'),
+        newBtn = $('#J_entity_new'),
+        table = $('#J_entity_table tbody');
+    var entity = new WXAPP.Entity(form.attr('data-type'),form,table);
+    newBtn.click(function(){
         var selectedEstate = $(this).parent().find('.J_estate_list').val();
-        if (selectedEstate != WXAPP.EMPTY_ESTATE) {
-            WXAPP.Ajax('?r=entity/ajaxgetentitybyestateid', {
-                estate_id: selectedEstate,
-                type: "impression"
-            }, function (res) {
-                ip.setData(res.data);
-            });
-        }
-
+        entity.setEstateId(selectedEstate);
+        entity.fetch();
     });
-
-    //change 列表
-    $('.J_new_impression').parent().find('.J_estate_list').change(function(){
+    newBtn.parent().find('.J_estate_list').change(function(){
         var id = $(this).val();
-        WXAPP.Ajax('?r=entity/ajaxgetentitiesbyestateid',{
-            estate_id:id,
-            type:'impression'
-        },function(res){
-            var table = $('#J_impression_table tbody');
-            var map = {
-                0:'未审核',
-                1:'已审核'
-            }
-            table.empty();
-            res.data.forEach(function(item){
-                table.append('<tr><td>'+item.estate_id+'</td><td>'+item.estate_name+'</td><td>'+item.create_time+'</td><td>'+map[item.status]+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a>'+(item.status=='0'?'<a class="blue J_delete" href="javascript:;" data-id="'+item.id+'">删除</a>':'')+'</td></tr>')
-            });
-            table.find('.J_edit').click(function(){
-                var id = $(this).attr('data-id');
-                WXAPP.Ajax('?r=entity/ajaxgetentitybyid',{
-                    id:id
-                },function(res){
-                    impressionForm.show();
-                    ip.setData(res.data);
-                });
-            });
-        });
+        entity.setEstateId(id);
+        entity.fetchList();
     });
+
 })();
 
 
@@ -375,8 +386,4 @@ window.WXAPP = window.WXAPP || {};
             });
         });
     });
-})();
-
-(function(){
-
 })();

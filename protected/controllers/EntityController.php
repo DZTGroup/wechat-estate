@@ -197,7 +197,7 @@ class EntityController extends Controller
                 //没有未审核的数据，插入一条,有的话就update
                 $model = new Entity();
                 //插入一条数据到Audit 表
-                $audit  = new Audit();
+                //$audit  = new Audit();
 
             }else{
                 $exist = true;
