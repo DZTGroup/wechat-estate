@@ -169,6 +169,106 @@ window.WXAPP = window.WXAPP || {};
     });
 })();
 
+
+
+(function(){
+    //楼盘Class
+    function Estate(form){
+        this.form = form;
+    }
+    Estate.prototype.save = function(id){
+        if(this.check()){
+            var data = this.getData();
+            if(this.id){
+                data.id = this.id;
+            }
+            WXAPP.Ajax('?r=estate/ajaxsave',data,function(){
+                alert('保存成功');
+                location.reload();
+            });
+        }
+    }
+    Estate.prototype.check = function(){
+        var data = this.getData();
+        for(var key in data){
+            if(data.hasOwnProperty(key)){
+                if(!data[key]){
+                    alert('请填写'+key);
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    Estate.prototype.getData = function(){
+        var data = {};
+        this.form.find('.J_field').each(function(i,item){
+            data[$(item).attr('name')] = $(item).val();
+        })
+        return data;
+    }
+    Estate.prototype.setData = function(data){
+        this.form.find('.J_field').each(function(i,item){
+            $(item).val(data[$(item).attr('name')] || '');
+        });
+    }
+    Estate.prototype.empty = function(){
+        this.form.find('.J_field').each(function(i,item){
+            $(item).val('');
+        })
+    }
+    Estate.prototype.setId = function(id){
+        this.id = id;
+    }
+
+    WXAPP.Estate = Estate;
+})();
+(function(){
+    //楼盘管理
+    var table = $('#J_estate_table');
+    if(!table.length){
+        return ;
+    }
+
+    var estate = new WXAPP.Estate($('.J_estate_form'));
+
+    //编辑
+    table.find('.J_edit').click(function(){
+        var id = $(this).attr('data-id')
+        WXAPP.Ajax('?r=estate/ajaxgetestatebyid',{
+            id:id
+        },function(res){
+            estate.form.show();
+            estate.setData(res.data);
+            estate.setId(id);
+        });
+    });
+    //删除
+    table.find('.J_delete').click(function(){
+        if(confirm('确定要删除该楼盘吗？删除后无法恢复！')){
+            WXAPP.Ajax('?r=estate/ajaxdelete',{
+                id:$(this).attr('data-id')
+            },function(res){
+                alert('删除成功!');
+                location.reload();
+            });
+        }
+    });
+    //新增
+    table.find('.J_new_estate').click(function(){
+        estate.empty();
+        estate.setId(null);
+        estate.form.show();
+    });
+    //保存
+    estate.form.find('.J_save').click(function(){
+        estate.save();
+    });
+    //取消
+    estate.form.find('.J_cancel').click(function(){
+        estate.form.hide();
+    });
+})();
 (function(){
     var AuditEstate = {
         setAuditListData:function(){

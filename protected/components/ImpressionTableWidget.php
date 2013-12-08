@@ -8,7 +8,7 @@
 
 class ImpressionTableWidget extends CWidget{
 
-    public $estate_id;
+    public $id;
 
     public function init(){
 
@@ -18,7 +18,7 @@ class ImpressionTableWidget extends CWidget{
 
         $model = array();
         $this->render('impressiontable',array(
-            "model"=>$model
+            "id"=>$this->id
         ));
     }
 } 
