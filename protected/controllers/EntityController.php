@@ -253,10 +253,10 @@ class EntityController extends Controller
         //如果有'未审核的'，就显示未审核的
         if(isset($_POST['estate_id']) && isset($_POST['type'])){
             $model = Yii::app()->db->createCommand()
-                ->select('e2.content as estate_name,e1.*')
+                ->select('e2.name as estate_name,e1.*')
                 ->from('Entity e1')
-                ->join('Entity e2', 'e1.estate_id=e2.estate_id')
-                ->where('e2.type="estate" and e1.type=:type and e1.status="0" and e1.estate_id=:estate_id', array(
+                ->join('Estate e2', 'e1.estate_id=e2.id')
+                ->where('e1.type=:type and e1.status="0" and e1.estate_id=:estate_id', array(
                     ':estate_id'=>$_POST['estate_id'],
                     ':type'=>$_POST['type']
                 ))->query();
@@ -266,10 +266,10 @@ class EntityController extends Controller
             if(count($model)==0){
                 //没有未审核的
                 $model = Yii::app()->db->createCommand()
-                    ->select('e2.content as estate_name,e1.*')
+                    ->select('e2.name as estate_name,e1.*')
                     ->from('Entity e1')
-                    ->join('Entity e2', 'e1.estate_id=e2.estate_id')
-                    ->where('e2.type="estate" and e1.type=:type and e1.status="1" and e1.estate_id=:estate_id', array(
+                    ->join('Estate e2', 'e1.estate_id=e2.id')
+                    ->where('e1.type=:type and e1.status="1" and e1.estate_id=:estate_id', array(
                         ':estate_id'=>$_POST['estate_id'],
                         ':type'=>$_POST['type']
                     ))

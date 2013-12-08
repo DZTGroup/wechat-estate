@@ -13,7 +13,7 @@ class EstateListWidget extends CWidget {
 
     }
     public function run(){
-        $model = Entity::model()->findAll('type=:type',array(':type'=>'estate'));
+        $model = Estate::model()->findAll('user_id=:user_id',array(':user_id'=>Yii::app()->user->getUserId()));
 
         $this->render('estatelist',array(
             'model'=>$model,
