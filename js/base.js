@@ -21,13 +21,19 @@ window.WXAPP = window.WXAPP || {};
 })();
 
 (function () {
-    function Entity(type,form,table,newBtn){
+    function Entity(type,form,table,newBtn,options){
         this.type = type;
         this.form = form;
         this.table = table;
         this.newBtn = newBtn;
+        this.options = {};
+        options = options || {};
+        for(var op in options){
+            this.options[op] = options[op];
+        }
         this.bindEvent();
         this.mode = 'insert'; // or update
+
     }
     Entity.prototype.bindEvent = function(){
         var self = this;
@@ -40,7 +46,9 @@ window.WXAPP = window.WXAPP || {};
             self.form.show();
         });
         this.newBtn.parent().find('.J_estate_list').change(function(){
-            self.newBtn.hide();
+            if(!self.options.multiple){
+                self.newBtn.hide();
+            }
             self.form.hide();
             var id = $(this).val();
             self.setEstateId(id);
@@ -178,7 +186,7 @@ window.WXAPP = window.WXAPP || {};
             if(item.status=='0'){
                 hasUnChecked = true;
             }
-            self.table.append('<tr><td>'+item.estate_id+'</td><td>'+item.estate_name+'</td><td>'+item.create_time+'</td><td>'+self.getStatus(item.status)+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a></td></tr>')
+            self.table.append(self.tableTemplate.call(self,item));
         });
         if(!hasUnChecked){
             self.newBtn.show();
@@ -209,6 +217,9 @@ window.WXAPP = window.WXAPP || {};
         this.form.find('input').val('');
         this.form.find('textarea').val('');
     }
+    Entity.prototype.tableTemplate = function(item){
+        return '<tr><td>'+item.estate_id+'</td><td>'+item.estate_name+'</td><td>'+item.create_time+'</td><td>'+this.getStatus(item.status)+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a></td></tr>';
+    }
 
     WXAPP.Entity = Entity;
     WXAPP.EMPTY_ESTATE = -1;
@@ -220,7 +231,15 @@ window.WXAPP = window.WXAPP || {};
     var form = $('#J_entity_form'),
         newBtn = $('#J_entity_new'),
         table = $('#J_entity_table tbody');
-    var entity = new WXAPP.Entity(form.attr('data-type'),form,table ,newBtn);
+    var entity = new WXAPP.Entity(form.attr('data-type'),form,table ,newBtn,{
+        multiple:form.attr('data-multiple')==="true"
+    });
+    if(entity.type=="reservation"){
+        entity.tableTemplate = function(item){
+            var content = JSON.parse(item.content);
+            return '<tr><td>'+item.id+'</td><td>'+content.event.name+'</td><td>'+item.estate_name+'</td><td>'+content.event.start_date+'-'+content.event.end_date+'</td><td>'+item.create_time+'</td><td>'+this.getStatus(item.status)+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a></td></tr>';
+        }
+    }
 })();
 
 

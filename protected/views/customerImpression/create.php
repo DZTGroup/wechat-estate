@@ -16,9 +16,9 @@
     <!-- 添加新房友印象 】】-->
     <div class="com-min" id="J_entity_form" data-type="impression" style="display: none;">
         <h3>增加楼房印象</h3>
-        <div class="order-lb"><label>所属楼盘：</label>
-            <?php $this->widget('EstateListWidget',array('class_name'=>'li-hd'));?>
-        </div>
+<!--        <div class="order-lb"><label>所属楼盘：</label>-->
+<!--            --><?php //$this->widget('EstateListWidget',array('class_name'=>'li-hd'));?>
+<!--        </div>-->
         <div class="order-lb J_module" data-module="init"><label>初始总人数：</label> <input class="inp-tex inp-100 J_field" name="number" type="text"></div>
         <div class="J_modules" data-module="impressions">
         <?php
