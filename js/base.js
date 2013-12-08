@@ -26,27 +26,40 @@ window.WXAPP = window.WXAPP || {};
         this.form = form;
         this.table = table;
         this.bindEvent();
+        this.mode = 'insert'; // or update
     }
     Entity.prototype.bindEvent = function(){
         var self = this;
         this.form.find('.J_submit').click(function(){
-            self.save();
+            self[self.mode]();
         });
         this.form.find('.J_cancel').click(function(){
             self.form.hide();
         });
     }
-    Entity.prototype.save = function(callback){
+    Entity.prototype.insert = function(callback){
         if(!this.check()){
             return;
         }
-        WXAPP.Ajax('?r=entity/ajaxsave', {
+        WXAPP.Ajax('?r=entity/ajaxinsert', {
             estate_id: this.estate_id,
             type: this.type,
             content: JSON.stringify(this.getData())
         }, callback || function(){
-            alert('保存成功');
+            alert('创建成功');
           // location.reload();
+        });
+    }
+    Entity.prototype.update = function(id,callback){
+        if(!this.check()){
+            return;
+        }
+        WXAPP.Ajax('?r=entity/ajaxupdate', {
+            id:id,
+            content: JSON.stringify(this.getData())
+        }, callback || function(){
+            alert('修改成功');
+            // location.reload();
         });
     }
     Entity.prototype.check = function(){
@@ -134,27 +147,30 @@ window.WXAPP = window.WXAPP || {};
             estate_id:this.estate_id,
             type:this.type
         },function(res){
-            var map = {
-                0:'未审核',
-                1:'已审核'
-            }
-            self.table.empty();
-            res.data.forEach(function(item){
-                self.table.append('<tr><td>'+item.estate_id+'</td><td>'+item.estate_name+'</td><td>'+item.create_time+'</td><td>'+map[item.status]+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a>'+(item.status=='0'?'<a class="blue J_delete" href="javascript:;" data-id="'+item.id+'">删除</a>':'')+'</td></tr>')
-            });
-            self.table.find('.J_edit').click(function(){
-                var id = $(this).attr('data-id');
-                WXAPP.Ajax('?r=entity/ajaxgetentitybyid',{
-                    id:id
-                },function(res){
-                    self.form.show();
-                    self.setData(res.data);
-                });
+            self.renderList(res);
+        });
+    }
+    Entity.prototype.renderList = function(res){
+        var map = {
+            0:'未审核',
+            1:'已审核'
+        }
+        var self = this;
+        self.table.empty();
+        res.data.forEach(function(item){
+            self.table.append('<tr><td>'+item.estate_id+'</td><td>'+item.estate_name+'</td><td>'+item.create_time+'</td><td>'+map[item.status]+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a>'+(item.status=='0'?'<a class="blue J_delete" href="javascript:;" data-id="'+item.id+'">删除</a>':'')+'</td></tr>')
+        });
+        self.table.find('.J_edit').click(function(){
+            self.mode='update';
+            var id = $(this).attr('data-id');
+            WXAPP.Ajax('?r=entity/ajaxgetentitybyid',{
+                id:id
+            },function(res){
+                self.form.show();
+                self.setData(res.data);
             });
         });
     }
-
-
 
     WXAPP.Entity = Entity;
     WXAPP.EMPTY_ESTATE = -1;
@@ -169,6 +185,7 @@ window.WXAPP = window.WXAPP || {};
     var entity = new WXAPP.Entity(form.attr('data-type'),form,table);
     newBtn.click(function(){
         var selectedEstate = $(this).parent().find('.J_estate_list').val();
+        entity.mode='insert';
         entity.setEstateId(selectedEstate);
         entity.fetch();
     });
