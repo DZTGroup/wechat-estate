@@ -1,6 +1,5 @@
 <?php /* @var $this Controller */ ?>
 <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="js/base.js" charset="utf-8"></script>
 <?php $this->beginContent('//layouts/main'); ?>
     <div class="header">
         <div class="com-cent">
@@ -9,11 +8,12 @@
             <ul class="hd-link">
                 <li class="curr"><a href="?r=user/admin">用户设置</a></li>
                 <li><a href="?r=audit/estate">审核</a></li>
-                <li><a href="release_data.html">已发布数据</a></li>
-                <li><a href="ordea_data.html">订单数据</a></li>
+                <li><a href="?r=audit/list">已发布数据</a></li>
+                <li><a href="?r=audit/order">订单数据</a></li>
             </ul>
         </div>
     </div>
+
 <div class="span-19">
 	<div id="content">
 		<?php echo $content; ?>
@@ -34,3 +34,4 @@
 	</div><!-- sidebar -->
 </div>
 <?php $this->endContent(); ?>
+<script src="js/base.js" charset="utf-8"></script>

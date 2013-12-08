@@ -204,7 +204,6 @@ class EntityController extends Controller
                 //没有未审核的数据，插入一条,有的话就update
                 $model = new Entity();
                 //插入一条数据到Audit 表
-                $audit  = new Audit();
 
             }else{
                 $exist = true;
@@ -215,6 +214,20 @@ class EntityController extends Controller
             $model->content = $content;
             $model->status = '0';
             $model->save();
+
+            $audit=Audit::model()->find('entity_id:=entity_id',array(':entity_id'=>$model->id));
+            if($audit==null){
+                $audit= new Audit();
+            }
+
+            $audit->entity_id=$model->id;
+            $audit->operator_id=Yii::app()->user->getUserId();
+            $audit->entity_status='0';
+            $audit->estate_id=$estate_id;
+            $audit->entity_type=$_POST['type'];
+
+            $audit->save();
+
 
             echo json_encode(array(
                'code'=>200,
