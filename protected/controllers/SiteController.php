@@ -76,7 +76,7 @@ class SiteController extends Controller
                 if(Yii::app()->user->isAdmin())
                     $this->redirect("?r=user/admin");
                 else
-                    $this->redirect("?r=customerimpression/index");
+                    $this->redirect("?r=estate/create");
 
             }
 
@@ -93,4 +93,27 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+    public function actionChangePassword(){
+
+        $model=new PasswordForm();
+
+        if(isset($_POST['PasswordForm']))
+        {
+            $model->attributes=$_POST['PasswordForm'];
+
+            $count=User::model()->updateByPk(Yii::app()->user->getUserId(),array('pass'=>$model['password']));
+            if($count>0){
+                echo 'password change successfully!';
+               // $this->redirect('?site/index');
+                //$this->redirect("?r=estate/create");
+                $this->redirect($this->createUrl('index'));
+            }
+        }
+        else
+        {
+            $this->render('password',array('model'=>$model));
+        }
+
+    }
 }
