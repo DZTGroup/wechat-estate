@@ -190,6 +190,7 @@ window.WXAPP = window.WXAPP || {};
         entity.fetch();
     });
     newBtn.parent().find('.J_estate_list').change(function(){
+        newBtn.hide();
         var id = $(this).val();
         entity.setEstateId(id);
         entity.fetchList();
