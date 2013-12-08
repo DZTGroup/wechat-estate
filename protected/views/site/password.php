@@ -23,7 +23,7 @@
                     <dl class="tan-login-dl">
                         <dt>新密码：</dt>
                         <dd>
-                            <?php echo $form->textField($model,'password'); ?>
+                            <?php echo $form->passwordField($model,'password'); ?>
                         </dd>
                     </dl>
 
