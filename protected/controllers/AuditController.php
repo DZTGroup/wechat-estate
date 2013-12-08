@@ -28,16 +28,16 @@ class AuditController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
+				'actions'=>array('index','view','ajaxupdateauditbyid','group'),
+				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','estate','ajaxgetauditestatedata'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -170,4 +170,54 @@ class AuditController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+    public function actionEstate()
+    {
+        $model=new Audit();
+        $this->render('estate',array(
+            'model'=>$model,
+        ));
+    }
+
+    public function actionGroup()
+    {
+        $model=new Audit();
+        $this->render('group',array(
+            'model'=>$model,
+        ));
+    }
+    public function actionAjaxGetAuditEstateData(){
+
+        $model = Yii::app()->db->createCommand()
+            ->select('e1.*,e2.name,e3.name as username')
+            ->from('Audit e1')
+            ->join('Estate e2', 'e1.estate_id=e2.id')
+            ->join('User e3','e3.id=e1.operator_id')
+            ->where('e1.entity_type=:entity_type and e1.entity_status=:status', array(
+                ':entity_type'=>'estate',
+                ':status'=>0
+            ))->query();
+        $arr = array();
+
+        forEach($model as $k=>$row){
+            array_push($arr,$row);
+        }
+
+        echo json_encode(array(
+            'code' => 200,
+            'data' => $arr
+        ));
+    }
+
+    public function actionAjaxUpdateAuditById(){
+        $count1 =Audit::model()->updateByPk($_POST['id'],array('entity_status'=>$_POST['status']));
+        $count2 =Entity::model()->updateByPk($_POST['entity_id'],array('status'=>$_POST['status']));
+        if($count1>0&&$count2>0){
+            echo json_encode(array(
+                'code'=>200,
+                'data'=> array()
+            ));
+        }
+    }
+
 }

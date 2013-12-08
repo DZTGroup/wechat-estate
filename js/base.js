@@ -169,3 +169,57 @@ window.WXAPP = window.WXAPP || {};
     });
 })();
 
+(function(){
+    var AuditEstate = {
+        setAuditListData:function(){
+            WXAPP.Ajax('?r=audit/ajaxgetauditestatedata',{
+                type:'estate'
+            },function(res){
+                var table = $('#J_audit_estate_table tbody');
+                var map = {
+                    0:'待审核'
+                }
+                table.empty();
+                res.data.forEach(function(item){
+                    table.append('<tr><td>'+item.estate_id+'</td>' +
+                        '<td>'+item.name+'</td><td>'
+                        +item.create_time+'</td><td>'
+                        +item.username+'</td><td>'
+                        +map[item.entity_status]
+                        +'</td><td><a class="blue J_detail" href="javascript:;" data-id="'+item.id
+                        +'" entity-id="'+item.entity_id+'">详情</a>'
+                        +'<a class="blue J_pass" href="javascript:;" data-id="'+item.id
+                        +'" entity-id="'+item.entity_id+'">通过</a>'
+                        +'<a class="blue J_fail" href="javascript:;" data-id="'+item.id
+                        +'" entity-id="'+item.entity_id+'">驳回</a>'
+                        +'</td></tr>')
+                });
+                table.find('.J_pass').click(function(){
+                    var id = $(this).attr('data-id');
+                    var entity_id=$(this).attr('entity-id');
+                    WXAPP.Ajax('?r=audit/ajaxupdateauditbyid',{
+                        id:id,status:1,entity_id:entity_id
+                    },function(res){
+                        if(res.code==200){
+                            alert('审核成功！');
+                        }
+                    });
+                });
+
+                table.find('.J_fail').click(function(){
+                    var id = $(this).attr('data-id');
+                    var entity_id=$(this).attr('entity-id');
+                    WXAPP.Ajax('?r=audit/ajaxupdateauditbyid',{
+                        id:id,status:2,entity_id:entity_id
+                    },function(res){
+                        if(res.code==200){
+                            alert('已驳回！');
+                        }
+                    });
+                });
+            });
+        }
+    };
+    WXAPP.AuditEstate = AuditEstate;
+})();
+
