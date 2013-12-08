@@ -39,7 +39,7 @@ class EntityController extends Controller
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'view', 'ajaxinsert','ajaxupdata', 'ajaxgetentitybyestateid', 'create', 'update', 'ajaxgetentitiesbyestateid'),
+                'actions' => array('index', 'view', 'ajaxinsert', 'ajaxupdata', 'ajaxgetentitybyestateid', 'create', 'update', 'ajaxgetentitiesbyestateid'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -189,28 +189,28 @@ class EntityController extends Controller
 
     }
 
-    protected function insert($estate_id, $type, $content, $status)
+    protected function insert($estate_id, $type, $content, $status,$group_id)
     {
         $model = new Entity();
-        $model->group_id = $this->generateId();
+        $model->group_id = $group_id;
         $model->estate_id = $estate_id;
         $model->type = $type;
         $model->content = $content;
         $model->status = $status;
         $result = $model->save();
 
-        $audit = Audit::model()->find('entity_id:=entity_id', array(':entity_id' => $model->id));
-        if ($audit == null) {
-            $audit = new Audit();
-        }
-
-        $audit->entity_id = $model->id;
-        $audit->operator_id = Yii::app()->user->getUserId();
-        $audit->entity_status = '0';
-        $audit->estate_id = $estate_id;
-        $audit->entity_type = $type;
-
-        $audit->save();
+//        $audit = Audit::model()->find('entity_id:=entity_id', array(':entity_id' => $model->id));
+//        if ($audit == null) {
+//            $audit = new Audit();
+//        }
+//
+//        $audit->entity_id = $model->id;
+//        $audit->operator_id = Yii::app()->user->getUserId();
+//        $audit->entity_status = '0';
+//        $audit->estate_id = $estate_id;
+//        $audit->entity_type = $type;
+//
+//        $audit->save();
 
         return array(
             'model' => $model,
@@ -232,7 +232,8 @@ class EntityController extends Controller
                 'result' => $result
             );
         } else {
-            return $this->insert($model->estate_id, $model->type, $content, '0');
+            //就直接插一条group_id 一样的
+            return $this->insert($model->estate_id, $model->type, $content, '0',$model->group_id);
         }
     }
 
@@ -243,11 +244,11 @@ class EntityController extends Controller
             $type = $_POST['type'];
             $content = $_POST['content'];
 
-            $r = $this->insert($estate_id, $type, $content, '0');
+            $r = $this->insert($estate_id, $type, $content, '0',$this->generateId());
             $model = $r['model'];
 
             $result = $r['result'];
-            if($result){
+            if ($result) {
                 echo json_encode(array(
                     'code' => 200,
                     'data' => array(
@@ -255,10 +256,10 @@ class EntityController extends Controller
                         'type' => $model->type,
                         'content' => $model->content,
                         'status' => $model->status,
-                        'group_id'=>$model->group_id
+                        'group_id' => $model->group_id
                     )
                 ));
-            }else{
+            } else {
                 echo json_encode(array(
                     'code' => 500,
                     'data' => array()
@@ -320,41 +321,36 @@ class EntityController extends Controller
     public function actionAjaxGetEntitiesByEstateId()
     {
         //根据楼盘ID 拿entities
-        //如果没有‘未审核’的，就显示最后一条已审核的
-        //如果有'未审核的'，就显示未审核的
+
         if (isset($_POST['estate_id']) && isset($_POST['type'])) {
-            $model = Yii::app()->db->createCommand()
-                ->select('e2.name as estate_name,e1.*')
-                ->from('Entity e1')
-                ->join('Estate e2', 'e1.estate_id=e2.id')
-                ->where('e1.type=:type and e1.status="0" and e1.estate_id=:estate_id', array(
-                    ':estate_id' => $_POST['estate_id'],
-                    ':type' => $_POST['type']
-                ))->query();
+            $subTable = 'select id,estate_id,max(create_time) as create_time,content,status from Entity where type="'.$_POST['type'].'" and estate_id="'.$_POST['estate_id'].'" group by group_id';
+            $list = Yii::app()->db
+                ->createCommand('select Estate.name as estate_name ,entity.* from  (' . $subTable . ') as entity,Estate where entity.estate_id=Estate.id')
+                ->queryAll();
 
             $arr = array();
 
-            if (count($model) == 0) {
-                //没有未审核的
-                $model = Yii::app()->db->createCommand()
-                    ->select('e2.name as estate_name,e1.*')
-                    ->from('Entity e1')
-                    ->join('Estate e2', 'e1.estate_id=e2.id')
-                    ->where('e1.type=:type and e1.status="1" and e1.estate_id=:estate_id', array(
-                        ':estate_id' => $_POST['estate_id'],
-                        ':type' => $_POST['type']
-                    ))
-                    ->order('create_time desc')
-                    ->query();
-            }
+//            if (count($model) == 0) {
+//                //没有未审核的
+//                $model = Yii::app()->db->createCommand()
+//                    ->select('e2.name as estate_name,e1.*')
+//                    ->from('Entity e1')
+//                    ->join('Estate e2', 'e1.estate_id=e2.id')
+//                    ->where('e1.type=:type and e1.status="1" and e1.estate_id=:estate_id', array(
+//                        ':estate_id' => $_POST['estate_id'],
+//                        ':type' => $_POST['type']
+//                    ))
+//                    ->order('create_time desc')
+//                    ->query();
+//            }
 
-            forEach ($model as $k => $row) {
-                array_push($arr, $row);
-            }
+//            forEach ($model as $k => $row) {
+//                array_push($arr, $row);
+//            }
 
             echo json_encode(array(
                 'code' => 200,
-                'data' => $arr
+                'data' => $list
             ));
         }
     }
