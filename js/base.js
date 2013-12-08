@@ -449,3 +449,38 @@ window.WXAPP = window.WXAPP || {};
         });
     });
 })();
+
+(function(){
+    AuditAdmin={
+        listAllPassedData:function(){
+            WXAPP.Ajax('?r=audit/ajaxgetauditpasseddata',{
+
+            },function(res){
+                var table = $('#J_audit_list_all_passed_data_table tbody');
+                var map = {
+                    1:'审核通过',
+                    'intro':'楼盘',
+                    'apartment':'户型',
+                    'group':'看房团',
+                    'picture':'照片墙',
+                    'reservation':'认筹',
+                    'comment':'专家建议'
+
+                }
+                table.empty();
+                res.data.forEach(function(item){
+                    table.append('<tr><td>'+item.estate_id+'</td>' +
+                        '<td>'+item.name+'</td><td>'
+                        +map[item.entity_type]+'</td><td>'
+                        +item.create_time+'</td><td>'
+                        +map[item.entity_status]
+                        +'</td><td><a class="blue J_detail" href="javascript:;" data-id="'+item.id
+                        +'" entity-id="'+item.entity_id+'">详情</a>'
+                        +'</td></tr>')
+                });
+            });
+        }
+    }
+
+    WXAPP.AuditAdmin=AuditAdmin;
+})();

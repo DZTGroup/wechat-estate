@@ -32,7 +32,7 @@ class AuditController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('estate','ajaxgetauditestatedata','ajaxgetauditimpressionbyestateid'),
+				'actions'=>array('estate','ajaxgetauditestatedata','ajaxgetauditimpressionbyestateid','ajaxgetauditpasseddata'),
 				'users'=>array('@'),
 			),
 
@@ -178,6 +178,26 @@ class AuditController extends Controller
         $model=new Audit();
         $this->render('list',array(
             'model'=>$model,
+        ));
+    }
+
+    public function actionAjaxGetAuditPassedData(){
+        $model = Yii::app()->db->createCommand()
+            ->select('e1.*,e2.name')
+            ->from('Audit e1')
+            ->join('Estate e2', 'e1.estate_id=e2.id')
+            ->where('e1.entity_status=:status order by e1.estate_id', array(
+                ':status'=>1
+            ))->query();
+        $arr = array();
+
+        forEach($model as $k=>$row){
+            array_push($arr,$row);
+        }
+
+        echo json_encode(array(
+            'code' => 200,
+            'data' => $arr
         ));
     }
 
