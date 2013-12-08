@@ -2,9 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: quanwang06
- * Date: 13-12-7
- * Time: 下午12:26
+ * Date: 13-12-8
+ * Time: 上午11:35
  */
+
 ?>
 <script>
     WXAPP.AuditEstate.setAuditListData();
@@ -20,17 +21,22 @@
         </ul>
     </div>
 </div>
-
+<div class="cent-auto" style="margin-top: 20px">
+    <div class="order-lb">
+        <label>楼盘名称</label>
+        <?php $this->widget('EstateListWidget',array('class_name'=>'li-hd'));?>
+    </div>
+</div>
 <div class="cent-auto">
     <!-- 管理列表表单【【 -->
     <div class="box-table"><!-- 添加hide隐藏 -->
-        <table width="760" border="0" cellspacing="1" cellpadding="0" bgcolor="#d7d7d7" id="J_audit_estate_table">
+        <table width="760" border="0" cellspacing="1" cellpadding="0" bgcolor="#d7d7d7" id="J_audit_group_table">
             <thead>
             <tr>
-                <th>楼盘ID</th>
+                <th>看房团名称</th>
                 <th>楼盘名称</th>
                 <th>提交时间</th>
-                <th>操作员</th>
+                <th>看房时间</th>
                 <th>状态</th>
                 <th>操作</th>
             </tr>
