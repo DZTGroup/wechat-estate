@@ -12,6 +12,7 @@
  * @property string $create_time
  * @property string $reserved_field_1
  * @property string $reserved_field_2
+ * @property integer $group_id
  */
 class Entity extends CActiveRecord
 {
@@ -31,15 +32,15 @@ class Entity extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('estate_id, type, status,content', 'required'),
-			array('estate_id', 'numerical', 'integerOnly'=>true),
+			array('estate_id, type, status, create_time, group_id', 'required'),
+			array('estate_id, group_id', 'numerical', 'integerOnly'=>true),
 			array('type', 'length', 'max'=>11),
 			array('status', 'length', 'max'=>1),
 			array('reserved_field_1, reserved_field_2', 'length', 'max'=>45),
 			array('content', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, estate_id, type, content, status, create_time, reserved_field_1, reserved_field_2', 'safe', 'on'=>'search'),
+			array('id, estate_id, type, content, status, create_time, reserved_field_1, reserved_field_2, group_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,6 +69,7 @@ class Entity extends CActiveRecord
 			'create_time' => 'Create Time',
 			'reserved_field_1' => 'Reserved Field 1',
 			'reserved_field_2' => 'Reserved Field 2',
+			'group_id' => 'Group',
 		);
 	}
 
@@ -97,6 +99,7 @@ class Entity extends CActiveRecord
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('reserved_field_1',$this->reserved_field_1,true);
 		$criteria->compare('reserved_field_2',$this->reserved_field_2,true);
+		$criteria->compare('group_id',$this->group_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
