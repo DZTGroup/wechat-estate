@@ -31,7 +31,7 @@
                     <li><a href="?r=estate/view">楼盘详情</a></li>
                 </ul>
             </li>
-            <li><a href="house_manage.html">看房团管理</a></li>
+            <li><a href="?r=watchgroup/create">看房团管理</a></li>
             <li class="curr menu-p"><a href="#none">楼盘印象管理</a>
                 <ul class="menu-xia">
                     <li><a href="?r=customerimpression/view">房友印象查询</a></li>

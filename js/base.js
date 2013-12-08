@@ -39,6 +39,10 @@ window.WXAPP = window.WXAPP || {};
         var self = this;
         this.newBtn.click(function(){
             var selectedEstate = $(this).parent().find('.J_estate_list').val();
+            if(selectedEstate==WXAPP.EMPTY_ESTATE){
+                alert('请选择楼盘');
+                return;
+            }
             self.mode='insert';
             self.setEstateId(selectedEstate);
             //self.fetch();
@@ -154,21 +158,6 @@ window.WXAPP = window.WXAPP || {};
     Entity.prototype.setId = function(id){
         this.id = id;
     }
-    Entity.prototype.fetch = function(){
-        //按estate id 拿数据
-        var self = this;
-        if(!this.estate_id || this.estate_id==WXAPP.EMPTY_ESTATE){
-            alert('请选择楼盘');
-            return;
-        }
-        WXAPP.Ajax('?r=entity/ajaxgetentitybyestateid', {
-            estate_id: this.estate_id,
-            type: this.type
-        }, function (res) {
-            self.form.show();
-            self.setData(res.data);
-        });
-    }
     Entity.prototype.fetchList = function(){
         var self = this;
         WXAPP.Ajax('?r=entity/ajaxgetentitiesbyestateid',{
@@ -238,6 +227,12 @@ window.WXAPP = window.WXAPP || {};
         entity.tableTemplate = function(item){
             var content = JSON.parse(item.content);
             return '<tr><td>'+item.id+'</td><td>'+content.event.name+'</td><td>'+item.estate_name+'</td><td>'+content.event.start_date+'-'+content.event.end_date+'</td><td>'+item.create_time+'</td><td>'+this.getStatus(item.status)+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a></td></tr>';
+        }
+    }
+    if(entity.type=="group"){
+        entity.tableTemplate = function(item){
+            var content = JSON.parse(item.content);
+            return '<tr><td>'+content.title_setting.title+'</td><td>'+item.estate_name+'</td><td>'+content.event.watch_end_date+'前</td><td>'+item.create_time+'</td><td>'+this.getStatus(item.status)+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a></td></tr>';
         }
     }
 })();
