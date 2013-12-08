@@ -19,6 +19,13 @@ class EntityController extends Controller
 		);
 	}
 
+    function generateId(){
+        var $post = new UUID();
+        $post->save();
+        return $post->primaryKey;
+
+    }
+
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.

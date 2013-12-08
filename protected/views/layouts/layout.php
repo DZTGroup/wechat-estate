@@ -36,13 +36,13 @@
                 <ul class="menu-xia">
                     <li><a href="?r=customerimpression/view">房友印象查询</a></li>
                     <li><a href="?r=customerimpression/create">房友印象设置</a></li>
-                    <li><a href="?r=customerimpression/set">专家点评管理</a></li>
+                    <li><a href="?r=expertcomment/create">专家点评管理</a></li>
                 </ul>
             </li>
             <li class="menu-p">
                 <a href="order_li.html">认筹管理</a>
                 <ul class="menu-xia"  >
-                    <li><a href="order_li.html">认筹列表</a></li>
+                    <li><a href="?r=reservation/create">认筹列表</a></li>
                     <li><a href="order.html">认筹订单</a></li>
                 </ul>
             </li>

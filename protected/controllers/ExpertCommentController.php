@@ -6,7 +6,7 @@ class ExpertCommentController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/layout';
 
 	/**
 	 * @return array action filters
@@ -62,20 +62,8 @@ class ExpertCommentController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new ExpertComment;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['ExpertComment']))
-		{
-			$model->attributes=$_POST['ExpertComment'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
 
 		$this->render('create',array(
-			'model'=>$model,
 		));
 	}
 
