@@ -28,11 +28,11 @@ class AuditController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('ajaxupdateauditbyid','group','impression','comment','reservation','picture','list'),
+				'actions'=>array('ajaxupdateauditbyid','group','impression','comment','reservation','picture','list','ajaxgetauditdata'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('estate','ajaxgetauditestatedata','ajaxgetauditimpressionbyestateid','ajaxgetauditpasseddata'),
+				'actions'=>array('estate','ajaxgetauditestatedata','ajaxgetauditpasseddata'),
 				'users'=>array('@'),
 			),
 
@@ -141,37 +141,23 @@ class AuditController extends Controller
 
     public function actionAjaxUpdateAuditById(){
         $count1 =Audit::model()->updateByPk($_POST['id'],array('entity_status'=>$_POST['status']));
-        $count2 =Entity::model()->updateByPk($_POST['entity_id'],array('status'=>$_POST['status']));
-        if($count1>0&&$count2>0){
+        if($_POST['status']=='1'){
+            $count2=Entity::model()->updateAll(array('status'=>'3'),'estate_id=:estate_id and type=:type and status=:status',
+                array(':estate_id'=>$_POST['estate_id'],':type'=>$_POST['entity_type'],':status'=>'1'
+            ));
+            if($count2<0)
+            {
+                return;
+            }
+
+        }
+         $count3 =Entity::model()->updateByPk($_POST['entity_id'],array('status'=>$_POST['status']));
+        if($count1>0&&$count3>0){
             echo json_encode(array(
                 'code'=>200,
                 'data'=> array()
             ));
         }
-    }
-
-    public function actionAjaxGetAuditImpressionByEstateId(){
-        $model = Yii::app()->db->createCommand()
-            ->select('e1.*,e2.name,e4.name as username')
-            ->from('Audit e1')
-            ->join('Estate e2', 'e1.estate_id=e2.id')
-            ->join('User e4','e4.id=e1.operator_id')
-            ->where('e1.entity_type=:entity_type and e1.entity_status=:status and e1.estate_id=:estate_id', array(
-                ':entity_type'=>'impression',
-                ':status'=>0,
-                ':estate_id'=>$_POST['estate_id']
-
-            ))->query();
-        $arr = array();
-
-        forEach($model as $k=>$row){
-            array_push($arr,$row);
-        }
-
-        echo json_encode(array(
-            'code' => 200,
-            'data' => $arr
-        ));
     }
 
     public function actionList(){
@@ -201,4 +187,26 @@ class AuditController extends Controller
         ));
     }
 
+    public function actionAjaxGetAuditData(){
+        $model = Yii::app()->db->createCommand()
+            ->select('e1.*,e2.name,e4.name as username')
+            ->from('Audit e1')
+            ->join('Estate e2', 'e1.estate_id=e2.id')
+            ->join('User e4','e4.id=e1.operator_id')
+            ->where('e1.entity_type=:entity_type and e1.entity_status=:status order by e1.estate_id', array(
+                ':entity_type'=>$_POST['type'],
+                ':status'=>0,
+
+            ))->query();
+        $arr = array();
+
+        forEach($model as $k=>$row){
+            array_push($arr,$row);
+        }
+
+        echo json_encode(array(
+            'code' => 200,
+            'data' => $arr
+        ));
+    }
 }

@@ -577,3 +577,55 @@ Stack trace:
 REQUEST_URI=/~quanwang06/wechat-estate/index.php?r=audit/order
 HTTP_REFERER=http://localhost/~quanwang06/wechat-estate/index.php?r=audit/impression
 ---
+2013/12/08 16:48:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "watchgroup/create".' in /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('watchgroup/crea...')
+#1 /Users/quanwang06/Sites/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/quanwang06/Sites/wechat-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/~quanwang06/wechat-estate/index.php?r=watchgroup/create
+HTTP_REFERER=http://localhost/~quanwang06/wechat-estate/index.php?r=estate/create
+---
+2013/12/08 16:48:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "watchgroup/create".' in /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('watchgroup/crea...')
+#1 /Users/quanwang06/Sites/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/quanwang06/Sites/wechat-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/~quanwang06/wechat-estate/index.php?r=watchgroup/create
+HTTP_REFERER=http://localhost/~quanwang06/wechat-estate/index.php?r=estate/create
+---
+2013/12/09 05:04:11 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /Users/quanwang06/Sites/yii/framework/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /Users/quanwang06/Sites/yii/framework/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(WebUser), 'You are not aut...')
+#1 /Users/quanwang06/Sites/yii/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /Users/quanwang06/Sites/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /Users/quanwang06/Sites/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /Users/quanwang06/Sites/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /Users/quanwang06/Sites/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /Users/quanwang06/Sites/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(282): CController->run('ajaxgetauditdat...')
+#8 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('audit/ajaxgetau...')
+#9 /Users/quanwang06/Sites/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /Users/quanwang06/Sites/wechat-estate/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/~quanwang06/wechat-estate/index.php?r=audit/ajaxgetauditdata
+HTTP_REFERER=http://localhost/~quanwang06/wechat-estate/index.php?r=audit/comment
+---
+2013/12/09 05:04:18 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /Users/quanwang06/Sites/yii/framework/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /Users/quanwang06/Sites/yii/framework/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(WebUser), 'You are not aut...')
+#1 /Users/quanwang06/Sites/yii/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /Users/quanwang06/Sites/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /Users/quanwang06/Sites/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /Users/quanwang06/Sites/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /Users/quanwang06/Sites/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /Users/quanwang06/Sites/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(282): CController->run('ajaxgetauditdat...')
+#8 /Users/quanwang06/Sites/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('audit/ajaxgetau...')
+#9 /Users/quanwang06/Sites/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /Users/quanwang06/Sites/wechat-estate/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/~quanwang06/wechat-estate/index.php?r=audit/ajaxgetauditdata
+HTTP_REFERER=http://localhost/~quanwang06/wechat-estate/index.php?r=audit/comment
+---

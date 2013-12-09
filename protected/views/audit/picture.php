@@ -20,11 +20,6 @@
     </div>
 </div>
 <div class="cent-auto">
-
-    <div class="J_audit">
-        <label>楼盘名称</label>
-        <?php $this->widget('EstateListWidget',array('class_name'=>'li-hd'));?>
-    </div>
     <!-- 管理列表表单【【 -->
     <div class="box-table"><!-- 添加hide隐藏 -->
         <table width="760" border="0" cellspacing="1" cellpadding="0" bgcolor="#d7d7d7" id="J_audit_table">
