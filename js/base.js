@@ -393,6 +393,11 @@ window.WXAPP = window.WXAPP || {};
                         + '" entity-id="' + item.entity_id + '">详情</a>'
                         + '</td></tr>')
                 });
+
+                table.find('.J_detail').click(function(){
+                    var id=$(this).attr('entity-id');
+                    //location.href='?r=estate/info&id='+id;
+                });
             });
         }
     }
@@ -423,6 +428,11 @@ window.WXAPP = window.WXAPP || {};
                 +'" entity-id="'+item.entity_id+'">驳回</a>'
                 +'</td></tr>')
         });
+
+        table.find('.J_details').click(function(){
+
+        });
+
         table.find('.J_pass').click(function(){
             var id = $(this).attr('data-id');
             var entity_id=$(this).attr('entity-id');
