@@ -7,6 +7,13 @@
  */
 
 ?>
+
+<script>
+    $(document).ready(function(){
+        WXAPP.Audit.setPictureWallData();
+    });
+</script>
+
 <div class="box-menu">
     <div class="com-menu">
         <ul class="menu">

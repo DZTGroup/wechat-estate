@@ -8,7 +8,7 @@
 ?>
 <script>
     $(document).ready(function(){
-        WXAPP.AuditEstate.setAuditListData();
+        WXAPP.Audit.setEstateData();
     });
 </script>
 
