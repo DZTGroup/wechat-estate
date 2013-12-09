@@ -35,8 +35,8 @@
             <li><a href="?r=watchgroup/create">看房团管理</a></li>
             <li class="curr menu-p"><a href="#none">楼盘印象管理</a>
                 <ul class="menu-xia">
-                    <li><a href="?r=customerimpression/view">房友印象查询</a></li>
-                    <li><a href="?r=customerimpression/create">房友印象设置</a></li>
+                    <li><a href="?r=impression/view">房友印象查询</a></li>
+                    <li><a href="?r=impression/create">房友印象设置</a></li>
                     <li><a href="?r=expertcomment/create">专家点评管理</a></li>
                 </ul>
             </li>
