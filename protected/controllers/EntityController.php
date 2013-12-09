@@ -53,21 +53,6 @@ class EntityController extends Controller
     }
 
 
-
-    public function InsertDataToAudit($data)
-    {
-        $model = Audit::model();
-
-        $model->entity_id = $data['id'];
-        $model->operator_id = Yii::app()->user->getUserId();
-        $model->entity_status = $data['status'];
-        $model->estate_id = $data['estate_id'];
-        $model->entity_type = $data['entity_type'];
-
-        $model->save();
-
-    }
-
     protected function insert($estate_id, $type, $content, $status,$group_id)
     {
         $model = new Entity();
@@ -78,9 +63,10 @@ class EntityController extends Controller
         $model->status = $status;
         $result = $model->save();
 
-        $audit = Audit::model()->find('entity_id=:entity_id', array(
-            ':entity_id' => $model->id,));
-        if ($audit == null) {
+        $audit = Audit::model()->find('estate_id=:estate_id and entity_type=:entity_type', array(
+            ':estate_id' => $model->estate_id,
+            ':entity_type'=>$model->type));
+        if ($audit == null || $model->type=='group') {
             $audit = new Audit();
         }
 
