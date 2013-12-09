@@ -13,7 +13,9 @@
     <div style="display: none;" id="J_entity_form" data-type="intro">
     <div class="com-min" >
         <h3>楼盘详情顶页</h3>
-        <div class="tipe-lb"><label class="blk-none">.</label> <button class="btn-cha" type="button">上传标题图</button> (推荐图片尺寸：720*175；图片小于100k)</div>
+        <div class="tipe-lb">
+            <label class="blk-none">.</label>
+            <span style="" class="btn-cha J_upload" type="button">上传标题图</span> (推荐图片尺寸：720*175；图片小于100k)</div>
     </div>
     <!--
     <div class="com-min J_module" data-module="shop_info" >
@@ -70,7 +72,7 @@
         <div class="tipe-lb"><label>简单描述：</label> <input class="inp-tex inp-300 J_field" name="desc" type="text"></div>
         <div class="tipe-lb"><label>正文：</label> <textarea class="text-kuang J_field" name="text" cols="" rows="">250个字以内</textarea></div>
     </div>
-    <div class="cent-bott"><button class="btn-cha J_submit" type="button">提交</button> <button class="btn-cha J_cancel" type="button">取消</button></div>
     -->
+    <div class="cent-bott"><button class="btn-cha J_submit" type="button">提交</button> <button class="btn-cha J_cancel" type="button">取消</button></div>
     </div>
 </div>

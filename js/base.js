@@ -21,35 +21,36 @@ window.WXAPP = window.WXAPP || {};
 })();
 
 (function () {
-    function Entity(type,form,table,newBtn,options){
+    function Entity(type, form, table, newBtn, options) {
         this.type = type;
         this.form = form;
         this.table = table;
         this.newBtn = newBtn;
         this.options = {};
         options = options || {};
-        for(var op in options){
+        for (var op in options) {
             this.options[op] = options[op];
         }
         this.bindEvent();
         this.mode = 'insert'; // or update
 
     }
-    Entity.prototype.bindEvent = function(){
+
+    Entity.prototype.bindEvent = function () {
         var self = this;
-        this.newBtn.click(function(){
+        this.newBtn.click(function () {
             var selectedEstate = $(this).parent().find('.J_estate_list').val();
-            if(selectedEstate==WXAPP.EMPTY_ESTATE){
+            if (selectedEstate == WXAPP.EMPTY_ESTATE) {
                 alert('请选择楼盘');
                 return;
             }
-            self.mode='insert';
+            self.mode = 'insert';
             self.setEstateId(selectedEstate);
             self.empty();
             self.form.show();
         });
-        this.newBtn.parent().find('.J_estate_list').change(function(){
-            if(!self.options.multiple){
+        this.newBtn.parent().find('.J_estate_list').change(function () {
+            if (!self.options.multiple) {
                 self.newBtn.hide();
             }
             self.form.hide();
@@ -57,93 +58,93 @@ window.WXAPP = window.WXAPP || {};
             self.setEstateId(id);
             self.fetchList();
         });
-        this.form.find('.J_submit').click(function(){
+        this.form.find('.J_submit').click(function () {
             self[self.mode]();
         });
-        this.form.find('.J_cancel').click(function(){
+        this.form.find('.J_cancel').click(function () {
             self.form.hide();
         });
 
     }
-    Entity.prototype.insert = function(callback){
-        if(!this.check()){
+    Entity.prototype.insert = function (callback) {
+        if (!this.check()) {
             return;
         }
         WXAPP.Ajax('?r=entity/ajaxinsert', {
             estate_id: this.estate_id,
             type: this.type,
             content: JSON.stringify(this.getData())
-        }, callback || function(){
+        }, callback || function () {
             alert('创建成功');
-           location.reload();
+            location.reload();
         });
     }
-    Entity.prototype.update = function(callback){
-        if(!this.check()){
+    Entity.prototype.update = function (callback) {
+        if (!this.check()) {
             return;
         }
         WXAPP.Ajax('?r=entity/ajaxupdate', {
-            id:this.id,
+            id: this.id,
             content: JSON.stringify(this.getData())
-        }, callback || function(){
+        }, callback || function () {
             alert('修改成功');
             location.reload();
         });
     }
-    Entity.prototype.check = function(){
+    Entity.prototype.check = function () {
         return true;
     }
-    Entity.prototype.getData = function(){
+    Entity.prototype.getData = function () {
         var data = {};
-        this.form.find('.J_modules').each(function(i,module){
+        this.form.find('.J_modules').each(function (i, module) {
             var moduleName = $(module).attr('data-module');
             data[moduleName] = [];
-            $(module).find('.J_module_item').each(function(j,item){
+            $(module).find('.J_module_item').each(function (j, item) {
                 var itemData = {};
-                $(item).find('.J_field').each(function(k,field){
+                $(item).find('.J_field').each(function (k, field) {
                     itemData[$(field).attr('name')] = $(field).val();
                 });
                 data[moduleName].push(itemData);
             });
         });
-        this.form.find(".J_module").each(function(i,module){
+        this.form.find(".J_module").each(function (i, module) {
             var moduleName = $(module).attr('data-module');
             data[moduleName] = {};
-            $(module).find('.J_field').each(function(j,field){
+            $(module).find('.J_field').each(function (j, field) {
                 data[moduleName][$(field).attr('name')] = $(field).val();
             });
         });
         return data;
     }
-    Entity.prototype.setData = function(data){
-        var content ;
+    Entity.prototype.setData = function (data) {
+        var content;
         if (!data) {
             return;
         }
-        if(data.estate_id){
+        if (data.estate_id) {
             this.estate_id = data.estate_id;
         }
         if (data.content) {
             content = JSON.parse(data.content);
         }
         if (content) {
-            this.form.find('.J_modules').each(function(i,module){
+            this.form.find('.J_modules').each(function (i, module) {
                 var moduleName = $(module).attr('data-module');
                 var moduleData = content[moduleName];
-                $(module).find('.J_module_item').each(function(j,item){
+                $(module).find('.J_module_item').each(function (j, item) {
                     var itemData = moduleData[j];
-                    if(itemData){
-                        $(item).find('.J_field').each(function(k,field){
-                            $(field).val(itemData[$(field).attr('name')]) ;
+                    if (itemData) {
+                        $(item).find('.J_field').each(function (k, field) {
+                            $(field).val(itemData[$(field).attr('name')]);
                         });
                     }
                 });
             });
-            this.form.find('.J_module').each(function(i,module){
+            this.form.find('.J_module').each(function (i, module) {
                 var moduleName = $(module).attr('data-module');
-                var moduleData  = content[moduleName] ;
-                if(moduleData){
-                    $(module).find('.J_field').each(function(j,field){
+                var moduleData = content[moduleName];
+                if (moduleData) {
+                    $(module).find('.J_field').each(function (j, field) {
                         $(field).val(moduleData[$(field).attr('name')]);
                     });
                 }
@@ -151,65 +152,65 @@ window.WXAPP = window.WXAPP || {};
             });
         }
     }
-    Entity.prototype.setEstateId = function(id){
+    Entity.prototype.setEstateId = function (id) {
         this.estate_id = id;
     }
-    Entity.prototype.setId = function(id){
+    Entity.prototype.setId = function (id) {
         this.id = id;
     }
-    Entity.prototype.fetchList = function(){
+    Entity.prototype.fetchList = function () {
         var self = this;
-        WXAPP.Ajax('?r=entity/ajaxgetentitiesbyestateid',{
-            estate_id:this.estate_id,
-            type:this.type
-        },function(res){
+        WXAPP.Ajax('?r=entity/ajaxgetentitiesbyestateid', {
+            estate_id: this.estate_id,
+            type: this.type
+        }, function (res) {
             self.renderList(res);
         });
     }
-    Entity.prototype.renderList = function(res){
+    Entity.prototype.renderList = function (res) {
         var self = this;
         self.table.empty();
         var hasUnChecked = false;
-        if(!res.data.length){
+        if (!res.data.length) {
             alert('该楼盘还没有数据')
         }
-        res.data.forEach(function(item){
-            if(item.status=='0'){
+        res.data.forEach(function (item) {
+            if (item.status == '0') {
                 hasUnChecked = true;
             }
-            self.table.append(self.tableTemplate.call(self,item));
+            self.table.append(self.tableTemplate.call(self, item));
         });
-        if(!hasUnChecked){
+        if (!hasUnChecked) {
             self.newBtn.show();
         }
-        self.table.find('.J_edit').click(function(){
-            self.mode='update';
+        self.table.find('.J_edit').click(function () {
+            self.mode = 'update';
             var id = $(this).attr('data-id');
             self.setId(id);
-            WXAPP.Ajax('?r=entity/ajaxgetentitybyid',{
-                id:id
-            },function(res){
+            WXAPP.Ajax('?r=entity/ajaxgetentitybyid', {
+                id: id
+            }, function (res) {
                 self.form.show();
                 self.setData(res.data);
             });
         });
     }
-    Entity.prototype.getStatus = function(code){
+    Entity.prototype.getStatus = function (code) {
         var status = {
-            0:'未审核',
-            1:'已审核',
-            2:'驳回',
-            3:'已过期'
+            0: '未审核',
+            1: '已审核',
+            2: '驳回',
+            3: '已过期'
         }
         return status[code];
 
     }
-    Entity.prototype.empty = function(){
+    Entity.prototype.empty = function () {
         this.form.find('input').val('');
         this.form.find('textarea').val('');
     }
-    Entity.prototype.tableTemplate = function(item){
-        return '<tr><td>'+item.estate_id+'</td><td>'+item.estate_name+'</td><td>'+item.create_time+'</td><td>'+this.getStatus(item.status)+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a></td></tr>';
+    Entity.prototype.tableTemplate = function (item) {
+        return '<tr><td>' + item.estate_id + '</td><td>' + item.estate_name + '</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a></td></tr>';
     }
 
     WXAPP.Entity = Entity;
@@ -217,179 +218,185 @@ window.WXAPP = window.WXAPP || {};
 })();
 
 
-(function(){
+(function () {
     //Entity 页面初始化
     var form = $('#J_entity_form'),
         newBtn = $('#J_entity_new'),
         table = $('#J_entity_table tbody');
-    var entity = new WXAPP.Entity(form.attr('data-type'),form,table ,newBtn,{
-        multiple:form.attr('data-multiple')==="true"
+    var entity = new WXAPP.Entity(form.attr('data-type'), form, table, newBtn, {
+        multiple: form.attr('data-multiple') === "true"
     });
-    if(entity.type=="reservation"){
-        entity.tableTemplate = function(item){
+    if (entity.type == "reservation") {
+        entity.tableTemplate = function (item) {
             var content = JSON.parse(item.content);
-            return '<tr><td>'+item.id+'</td><td>'+content.event.name+'</td><td>'+item.estate_name+'</td><td>'+content.event.start_date+'-'+content.event.end_date+'</td><td>'+item.create_time+'</td><td>'+this.getStatus(item.status)+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a></td></tr>';
+            return '<tr><td>' + item.id + '</td><td>' + content.event.name + '</td><td>' + item.estate_name + '</td><td>' + content.event.start_date + '-' + content.event.end_date + '</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a></td></tr>';
         }
     }
-    if(entity.type=="group"){
-        entity.tableTemplate = function(item){
+    if (entity.type == "group") {
+        entity.tableTemplate = function (item) {
             var content = JSON.parse(item.content);
-            return '<tr><td>'+content.title_setting.title+'</td><td>'+item.estate_name+'</td><td>'+content.event.watch_end_date+'前</td><td>'+item.create_time+'</td><td>'+this.getStatus(item.status)+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a></td></tr>';
+            return '<tr><td>' + content.title_setting.title + '</td><td>' + item.estate_name + '</td><td>' + content.event.watch_end_date + '前</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a></td></tr>';
         }
     }
 })();
 
-(function(){
+(function () {
     //日历
     $('.ico-calendar').prev().datepicker({
-        dateFormat:'yy-mm-dd'
+        dateFormat: 'yy-mm-dd'
     });
 
     //图片上传
-    $('.J_upload').each(function(i,button){
-        swfu = new SWFUpload({
-            upload_url : "http://www.swfupload.org/upload.php",
-            flash_url : "http://www.swfupload.org/swfupload.swf",
-            flash9_url : "http://www.swfupload.org/swfupload_fp9.swf",
-            file_size_limit : "20 MB" //文件大小限制
-             });
+    $('.J_upload').each(function (i, button) {
+        var id = 'J_upload'+(+new Date());
+        $(button).attr('id',id);
+        var swfu = new SWFUpload({
+            upload_url: "upload_file.php",
+            flash_url: "js/upload/flash/swfupload.swf",
+            flash9_url: "http://www.swfupload.org/swfupload_fp9.swf",
+            file_size_limit: "20 MB", //文件大小限制
+            button_placeholder_id:id,
+            button_width:83,
+            button_height:31,
+            button_image_url:'img/upload.png'
+        });
     });
 })();
 
 
-
-(function(){
+(function () {
     //楼盘Class
-    function Estate(form){
+    function Estate(form) {
         this.form = form;
     }
-    Estate.prototype.save = function(id){
-        if(this.check()){
+
+    Estate.prototype.save = function (id) {
+        if (this.check()) {
             var data = this.getData();
-            if(this.id){
+            if (this.id) {
                 data.id = this.id;
             }
-            WXAPP.Ajax('?r=estate/ajaxsave',data,function(){
+            WXAPP.Ajax('?r=estate/ajaxsave', data, function () {
                 alert('保存成功');
                 location.reload();
             });
         }
     }
-    Estate.prototype.check = function(){
+    Estate.prototype.check = function () {
         var data = this.getData();
-        for(var key in data){
-            if(data.hasOwnProperty(key)){
-                if(!data[key]){
-                    alert('请填写'+key);
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                if (!data[key]) {
+                    alert('请填写' + key);
                     return false;
                 }
             }
         }
         return true;
     }
-    Estate.prototype.getData = function(){
+    Estate.prototype.getData = function () {
         var data = {};
-        this.form.find('.J_field').each(function(i,item){
+        this.form.find('.J_field').each(function (i, item) {
             data[$(item).attr('name')] = $(item).val();
         })
         return data;
     }
-    Estate.prototype.setData = function(data){
-        this.form.find('.J_field').each(function(i,item){
+    Estate.prototype.setData = function (data) {
+        this.form.find('.J_field').each(function (i, item) {
             $(item).val(data[$(item).attr('name')] || '');
         });
     }
-    Estate.prototype.empty = function(){
-        this.form.find('.J_field').each(function(i,item){
+    Estate.prototype.empty = function () {
+        this.form.find('.J_field').each(function (i, item) {
             $(item).val('');
         })
     }
-    Estate.prototype.setId = function(id){
+    Estate.prototype.setId = function (id) {
         this.id = id;
     }
 
     WXAPP.Estate = Estate;
 })();
-(function(){
+(function () {
     //楼盘管理
     var table = $('#J_estate_table');
-    if(!table.length){
-        return ;
+    if (!table.length) {
+        return;
     }
 
     var estate = new WXAPP.Estate($('.J_estate_form'));
 
     //编辑
-    table.find('.J_edit').click(function(){
+    table.find('.J_edit').click(function () {
         var id = $(this).attr('data-id')
-        WXAPP.Ajax('?r=estate/ajaxgetestatebyid',{
-            id:id
-        },function(res){
+        WXAPP.Ajax('?r=estate/ajaxgetestatebyid', {
+            id: id
+        }, function (res) {
             estate.form.show();
             estate.setData(res.data);
             estate.setId(id);
         });
     });
     //删除
-    table.find('.J_delete').click(function(){
-        if(confirm('确定要删除该楼盘吗？删除后无法恢复！')){
-            WXAPP.Ajax('?r=estate/ajaxdelete',{
-                id:$(this).attr('data-id')
-            },function(res){
+    table.find('.J_delete').click(function () {
+        if (confirm('确定要删除该楼盘吗？删除后无法恢复！')) {
+            WXAPP.Ajax('?r=estate/ajaxdelete', {
+                id: $(this).attr('data-id')
+            }, function (res) {
                 alert('删除成功!');
                 location.reload();
             });
         }
     });
     //新增
-    table.find('.J_new_estate').click(function(){
+    table.find('.J_new_estate').click(function () {
         estate.empty();
         estate.setId(null);
         estate.form.show();
     });
     //保存
-    estate.form.find('.J_save').click(function(){
+    estate.form.find('.J_save').click(function () {
         estate.save();
     });
     //取消
-    estate.form.find('.J_cancel').click(function(){
+    estate.form.find('.J_cancel').click(function () {
         estate.form.hide();
     });
 })();
 
-(function(){
-    var AuditAdmin={
-        listAllPassedData:function(){
-            WXAPP.Ajax('?r=audit/ajaxgetauditpasseddata',{
+(function () {
+    AuditAdmin = {
+        listAllPassedData: function () {
+            WXAPP.Ajax('?r=audit/ajaxgetauditpasseddata', {
 
-            },function(res){
+            }, function (res) {
                 var table = $('#J_audit_list_all_passed_data_table tbody');
                 var map = {
-                    1:'审核通过',
-                    'intro':'楼盘',
-                    'apartment':'户型',
-                    'group':'看房团',
-                    'picture':'照片墙',
-                    'reservation':'认筹',
-                    'comment':'专家建议'
+                    1: '审核通过',
+                    'intro': '楼盘',
+                    'apartment': '户型',
+                    'group': '看房团',
+                    'picture': '照片墙',
+                    'reservation': '认筹',
+                    'comment': '专家建议'
 
                 }
                 table.empty();
-                res.data.forEach(function(item){
-                    table.append('<tr><td>'+item.estate_id+'</td>' +
-                        '<td>'+item.name+'</td><td>'
-                        +map[item.entity_type]+'</td><td>'
-                        +item.create_time+'</td><td>'
-                        +map[item.entity_status]
-                        +'</td><td><a class="blue J_detail" href="javascript:;" data-id="'+item.id
-                        +'" entity-id="'+item.entity_id+'">详情</a>'
-                        +'</td></tr>')
+                res.data.forEach(function (item) {
+                    table.append('<tr><td>' + item.estate_id + '</td>' +
+                        '<td>' + item.name + '</td><td>'
+                        + map[item.entity_type] + '</td><td>'
+                        + item.create_time + '</td><td>'
+                        + map[item.entity_status]
+                        + '</td><td><a class="blue J_detail" href="javascript:;" data-id="' + item.id
+                        + '" entity-id="' + item.entity_id + '">详情</a>'
+                        + '</td></tr>')
                 });
             });
         }
     }
 
-    WXAPP.AuditAdmin=AuditAdmin;
+    WXAPP.AuditAdmin = AuditAdmin;
 })();
 
 (function(){
