@@ -1,5 +1,6 @@
 <?php /* @var $this Controller */ ?>
-<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/jquery-ui-1.10.3.custom.min.js"></script>
 <?php $this->beginContent('//layouts/main'); ?>
     <div class="header">
         <div class="com-cent">
@@ -34,4 +35,5 @@
 	</div><!-- sidebar -->
 </div>
 <?php $this->endContent(); ?>
+<script src="js/upload/swfupload.js"></script>
 <script src="js/base.js" charset="utf-8"></script>

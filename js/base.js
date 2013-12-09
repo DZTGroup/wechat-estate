@@ -469,7 +469,7 @@ window.WXAPP = window.WXAPP || {};
     }
     WXAPP.Audit = Audit;
 
-    $('.J_audit').find('.J_estate_list').change(function(){
+    $('#J_audit').find('.J_estate_list').change(function(){
         var id = $(this).val();
         WXAPP.Ajax('?r=audit/ajaxgetauditdatabyestateid',{
             estate_id:id,

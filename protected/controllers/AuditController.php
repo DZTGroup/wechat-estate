@@ -141,7 +141,7 @@ class AuditController extends Controller
 
     public function actionAjaxUpdateAuditById(){
         $count1 =Audit::model()->updateByPk($_POST['id'],array('entity_status'=>$_POST['status']));
-        if($_POST['status']=='1'){
+        if($_POST['status']=='1'&& $_POST['entity_type']!='group'){
             $count2=Entity::model()->updateAll(array('status'=>'3'),'estate_id=:estate_id and type=:type and status=:status',
                 array(':estate_id'=>$_POST['estate_id'],':type'=>$_POST['entity_type'],':status'=>'1'
             ));
