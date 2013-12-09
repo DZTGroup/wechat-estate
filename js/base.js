@@ -147,9 +147,10 @@ window.WXAPP = window.WXAPP || {};
                 var moduleData = content[moduleName];
                 if (moduleData) {
                     $(module).find('.J_field').each(function (j, field) {
-                        $(field).val(moduleData[$(field).attr('name')]);
-                        if($(field).get(0).nodeName.toLowerCase()==="img"){
-                            $(field).attr('src','upload_files/'+self.estate_id+"/"+moduleData[$(field).attr('name')]);
+                        var value = moduleData[$(field).attr('name')];
+                        $(field).val(value);
+                        if ($(field).get(0).nodeName.toLowerCase() === "img" && value) {
+                            $(field).attr('src', 'upload_files/' + self.estate_id + "/" + value);
                         }
                     });
                 }
@@ -159,9 +160,10 @@ window.WXAPP = window.WXAPP || {};
     }
     Entity.prototype.setEstateId = function (id) {
         this.estate_id = id;
-        try{
+        try {
             window.setEstateId(id);
-        }catch(e){ }
+        } catch (e) {
+        }
     }
     Entity.prototype.setId = function (id) {
         this.id = id;
@@ -256,44 +258,44 @@ window.WXAPP = window.WXAPP || {};
 
     //图片上传
     $('.J_upload').each(function (i, button) {
-        var id = 'J_upload'+(+new Date());
-        $(button).attr('id',id);
-        var infoSpan = $(button).next();
+        var id = 'J_upload' + (+new Date());
+        $(button).attr('id', id);
+        var infoSpan = $(button).parent().parent().find('.J_display');
         var swfu = new SWFUpload({
             upload_url: "upload_file.php",
             flash_url: "js/upload/flash/swfupload.swf",
             flash9_url: "http://www.swfupload.org/swfupload_fp9.swf",
             file_size_limit: "100 KB", //文件大小限制
-            button_placeholder_id:id,
-            button_width:83,
-            button_height:31,
-            button_image_url:'img/upload.png',
-            file_post_name:'file',
-            file_dialog_complete_handler:function(){
+            button_placeholder_id: id,
+            button_width: 83,
+            button_height: 31,
+            button_image_url: 'img/upload.png',
+            file_post_name: 'file',
+            file_dialog_complete_handler: function () {
                 this.addPostParam('estate_id', window.getEstateId());
                 this.startUpload();
 
                 infoSpan.find('.info').html('正在上传..');
             },
-            upload_progress_handler:function(){
+            upload_progress_handler: function () {
                 //console.log(arguments);
             },
-            upload_success_handler:function(file,res){
+            upload_success_handler: function (file, res) {
                 res = JSON.parse(res);
-                if(res.code==200){
+                if (res.code == 200) {
                     infoSpan.find('.info').html('上传成功!');
-                    infoSpan.find('img').val(res.data.id).attr('src',res.data.src);
-                }else{
+                    infoSpan.find('img').val(res.data.id).attr('src', res.data.src);
+                } else {
                     alert(res.data.msg);
                 }
             }
         });
     });
-    var estate_id ;
-    window.setEstateId = function(id){
+    var estate_id;
+    window.setEstateId = function (id) {
         estate_id = id;
     }
-    window.getEstateId = function(){
+    window.getEstateId = function () {
         return estate_id;
     }
 })();
@@ -414,7 +416,7 @@ window.WXAPP = window.WXAPP || {};
                     'picture': '照片墙',
                     'reservation': '认筹',
                     'comment': '专家建议',
-                    'impression':'用户印象'
+                    'impression': '用户印象'
 
                 }
                 table.empty();
@@ -429,8 +431,8 @@ window.WXAPP = window.WXAPP || {};
                         + '</td></tr>')
                 });
 
-                table.find('.J_detail').click(function(){
-                    var id=$(this).attr('entity-id');
+                table.find('.J_detail').click(function () {
+                    var id = $(this).attr('entity-id');
                     //location.href='?r=estate/info&id='+id;
                 });
             });
@@ -440,56 +442,56 @@ window.WXAPP = window.WXAPP || {};
     WXAPP.AuditAdmin = AuditAdmin;
 })();
 
-(function(){
-    function successCallBack(res){
+(function () {
+    function successCallBack(res) {
         var table = $('#J_audit_table tbody');
         var map = {
-            0:'待审核'
+            0: '待审核'
         }
         table.empty();
-        res.data.forEach(function(item){
-            table.append('<tr><td>'+item.estate_id+'</td>' +
-                '<td>'+item.name+'</td><td>'
-                +item.create_time+'</td><td>'
-                +item.username+'</td><td>'
-                +map[item.entity_status]
-                +'</td><td><a class="blue J_detail" href="javascript:;" data-id="'+item.id
-                +'" entity-id="'+item.entity_id+'">详情</a>'
-                +'<a class="blue J_pass" href="javascript:;" data-id="'+item.id
-                +'" entity-id="'+item.entity_id
-                +'" estate-id="'+item.estate_id
-                +'" entity-type="'+item.entity_type+'">通过</a>'
-                +'<a class="blue J_fail" href="javascript:;" data-id="'+item.id
-                +'" entity-id="'+item.entity_id+'">驳回</a>'
-                +'</td></tr>')
+        res.data.forEach(function (item) {
+            table.append('<tr><td>' + item.estate_id + '</td>' +
+                '<td>' + item.name + '</td><td>'
+                + item.create_time + '</td><td>'
+                + item.username + '</td><td>'
+                + map[item.entity_status]
+                + '</td><td><a class="blue J_detail" href="javascript:;" data-id="' + item.id
+                + '" entity-id="' + item.entity_id + '">详情</a>'
+                + '<a class="blue J_pass" href="javascript:;" data-id="' + item.id
+                + '" entity-id="' + item.entity_id
+                + '" estate-id="' + item.estate_id
+                + '" entity-type="' + item.entity_type + '">通过</a>'
+                + '<a class="blue J_fail" href="javascript:;" data-id="' + item.id
+                + '" entity-id="' + item.entity_id + '">驳回</a>'
+                + '</td></tr>')
         });
 
-        table.find('.J_details').click(function(){
+        table.find('.J_details').click(function () {
 
         });
 
-        table.find('.J_pass').click(function(){
+        table.find('.J_pass').click(function () {
             var id = $(this).attr('data-id');
-            var entity_id=$(this).attr('entity-id');
-            var estate_id=$(this).attr('estate-id');
-            var entity_type=$(this).attr('entity-type');
-            WXAPP.Ajax('?r=audit/ajaxupdateauditbyid',{
-                id:id,status:1,entity_id:entity_id,estate_id:estate_id,entity_type:entity_type
-            },function(res){
-                if(res.code==200){
+            var entity_id = $(this).attr('entity-id');
+            var estate_id = $(this).attr('estate-id');
+            var entity_type = $(this).attr('entity-type');
+            WXAPP.Ajax('?r=audit/ajaxupdateauditbyid', {
+                id: id, status: 1, entity_id: entity_id, estate_id: estate_id, entity_type: entity_type
+            }, function (res) {
+                if (res.code == 200) {
                     location.reload();
                     alert('审核成功！');
                 }
             });
         });
 
-        table.find('.J_fail').click(function(){
+        table.find('.J_fail').click(function () {
             var id = $(this).attr('data-id');
-            var entity_id=$(this).attr('entity-id');
-            WXAPP.Ajax('?r=audit/ajaxupdateauditbyid',{
-                id:id,status:2,entity_id:entity_id
-            },function(res){
-                if(res.code==200){
+            var entity_id = $(this).attr('entity-id');
+            WXAPP.Ajax('?r=audit/ajaxupdateauditbyid', {
+                id: id, status: 2, entity_id: entity_id
+            }, function (res) {
+                if (res.code == 200) {
                     location.reload();
                     alert('已驳回！');
                 }
@@ -497,38 +499,86 @@ window.WXAPP = window.WXAPP || {};
         });
     }
 
-    var Audit={
-        setImpressionData:function(){
-            WXAPP.Ajax('?r=audit/ajaxgetauditdata',{
-                type:'impression'
-            },successCallBack);
+    var Audit = {
+        setImpressionData: function () {
+            WXAPP.Ajax('?r=audit/ajaxgetauditdata', {
+                type: 'impression'
+            }, successCallBack);
         },
 
-        setCommentData:function(){
-            WXAPP.Ajax('?r=audit/ajaxgetauditdata',{
-                type:'comment'
-            },successCallBack);
+        setCommentData: function () {
+            WXAPP.Ajax('?r=audit/ajaxgetauditdata', {
+                type: 'comment'
+            }, successCallBack);
         },
 
-        setPictureWallData:function(){
-            WXAPP.Ajax('?r=audit/ajaxgetauditdata',{
-                type:'picture'
-            },successCallBack);
+        setPictureWallData: function () {
+            WXAPP.Ajax('?r=audit/ajaxgetauditdata', {
+                type: 'picture'
+            }, successCallBack);
         },
 
-        setEstateData:function(){
-            WXAPP.Ajax('?r=audit/ajaxgetauditdata',{
-                type:'intro'
-            },successCallBack);
+        setEstateData: function () {
+            WXAPP.Ajax('?r=audit/ajaxgetauditdata', {
+                type: 'intro'
+            }, successCallBack);
         }
     }
     WXAPP.Audit = Audit;
 
-    $('#J_audit').find('.J_estate_list').change(function(){
+    $('#J_audit').find('.J_estate_list').change(function () {
         var id = $(this).val();
-        WXAPP.Ajax('?r=audit/ajaxgetauditdatabyestateid',{
-            estate_id:id,
-            entity_type:'group'
-        },successCallBack);
+        WXAPP.Ajax('?r=audit/ajaxgetauditdatabyestateid', {
+            estate_id: id,
+            entity_type: 'group'
+        }, successCallBack);
     });
+})();
+
+//照片墙设置
+(function () {
+    var descLayer = $('#J_desc_layer');
+    var layerbg = $("#J_layer_bg")
+    descLayer.find('.J_save').click(function () {
+        descTarget.val(descLayer.find('.J_text').val());
+        descLayer.hide();
+        layerbg.hide();
+    })
+    descLayer.find('.J_cancel').click(function () {
+        descLayer.hide();
+        layerbg.hide();
+    });
+    var descTarget = null;
+    $('.J_pic_desc_btn').click(function () {
+        var desc = $(this).next().val();
+        descTarget = $(this).next();
+        descLayer.find('.J_text').val(desc);
+        descLayer.show();
+        layerbg.show();
+    });
+
+    var titleLayer = $('#J_title_layer');
+    titleLayer.find('.J_save').click(function () {
+        titleTarget.val(titleLayer.find('.J_title').val());
+        subtitleTarget.val(titleLayer.find('.J_subtitle').val());
+        titleLayer.hide();
+        layerbg.hide();
+    })
+    titleLayer.find('.J_cancel').click(function () {
+        titleLayer.hide();
+        layerbg.hide();
+    });
+    var titleTarget;
+    var subtitleTarget;
+    $('.J_pic_title_btn').click(function () {
+        var title = $(this).next().val();
+        var subtitle = $(this).next().next().val();
+        titleTarget = $(this).next();
+        subtitleTarget = $(this).next().next();
+        titleLayer.find('.J_title').val(title);
+        titleLayer.find('.J_subtitle').val(subtitle);
+        titleLayer.show();
+        layerbg.show();
+    });
+
 })();
