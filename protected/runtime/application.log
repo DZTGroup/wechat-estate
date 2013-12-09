@@ -748,3 +748,12 @@ Stack trace:
 REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=customerimpression/view
 HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=expertcomment/create
 ---
+2013/12/09 11:12:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "watchgroup/create".' in /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/mangix/workspace/repos/dztgroup/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('watchgroup/crea...')
+#1 /Users/mangix/workspace/repos/dztgroup/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/mangix/workspace/repos/dztgroup/weixin-estate/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/repos/dztgroup/weixin-estate/index.php?r=watchgroup/create
+HTTP_REFERER=http://localhost/repos/dztgroup/weixin-estate/index.php?r=estate/view
+---
