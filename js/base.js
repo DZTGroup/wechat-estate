@@ -45,7 +45,6 @@ window.WXAPP = window.WXAPP || {};
             }
             self.mode='insert';
             self.setEstateId(selectedEstate);
-            //self.fetch();
             self.empty();
             self.form.show();
         });
@@ -76,7 +75,7 @@ window.WXAPP = window.WXAPP || {};
             content: JSON.stringify(this.getData())
         }, callback || function(){
             alert('创建成功');
-          // location.reload();
+           location.reload();
         });
     }
     Entity.prototype.update = function(callback){
@@ -88,7 +87,7 @@ window.WXAPP = window.WXAPP || {};
             content: JSON.stringify(this.getData())
         }, callback || function(){
             alert('修改成功');
-            // location.reload();
+            location.reload();
         });
     }
     Entity.prototype.check = function(){
@@ -171,6 +170,9 @@ window.WXAPP = window.WXAPP || {};
         var self = this;
         self.table.empty();
         var hasUnChecked = false;
+        if(!res.data.length){
+            alert('该楼盘还没有数据')
+        }
         res.data.forEach(function(item){
             if(item.status=='0'){
                 hasUnChecked = true;
@@ -235,6 +237,23 @@ window.WXAPP = window.WXAPP || {};
             return '<tr><td>'+content.title_setting.title+'</td><td>'+item.estate_name+'</td><td>'+content.event.watch_end_date+'前</td><td>'+item.create_time+'</td><td>'+this.getStatus(item.status)+'</td><td><a class="blue J_edit" href="javascript:;" data-id="'+item.id+'">编辑</a></td></tr>';
         }
     }
+})();
+
+(function(){
+    //日历
+    $('.ico-calendar').prev().datepicker({
+        dateFormat:'yy-mm-dd'
+    });
+
+    //图片上传
+    $('.J_upload').each(function(i,button){
+        swfu = new SWFUpload({
+            upload_url : "http://www.swfupload.org/upload.php",
+            flash_url : "http://www.swfupload.org/swfupload.swf",
+            flash9_url : "http://www.swfupload.org/swfupload_fp9.swf",
+            file_size_limit : "20 MB" //文件大小限制
+             });
+    });
 })();
 
 

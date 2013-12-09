@@ -52,7 +52,7 @@
     </div>
     <div class="com-min J_module" data-module="share_info">
         <h3>推广分享</h3>
-        <div class="tipe-lb"><label>.</label> <button class="btn-cha" type="button">上传标题图</button> (推荐图片尺寸：720*130；图片小于100k)</div>
+        <div class="tipe-lb"><label>.</label> <button class="btn-cha J_upload" type="button">上传标题图</button> (推荐图片尺寸：720*130；图片小于100k)</div>
         <div class="tipe-lb"><label>分享标题：</label> <input class="inp-tex inp-300 J_field" name="title" type="text"></div>
         <div class="tipe-lb"><label>简单描述：</label> <input class="inp-tex inp-300 J_field" name="desc" type="text"></div>
         <div class="tipe-lb"><label>正文：</label> <textarea class="text-kuang J_field" name="text" cols="" rows="">250个字以内</textarea></div>

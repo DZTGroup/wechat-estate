@@ -203,7 +203,8 @@ class EntityController extends Controller
         //根据楼盘ID 拿entities
 
         if (isset($_POST['estate_id']) && isset($_POST['type'])) {
-            $subTable = 'select id,estate_id,max(create_time) as create_time,content,status from Entity where type="'.$_POST['type'].'" and estate_id="'.$_POST['estate_id'].'" group by group_id';
+            $group_table = 'select group_id,max(create_time) as create_time from Entity where type="'.$_POST['type'].'" and estate_id="'.$_POST['estate_id'].'" group by group_id';
+            $subTable = 'select t2.* from ('.$group_table.')t1 left join Entity t2 on t1.group_id=t2.group_id and t1.create_time=t2.create_time ';
             $list = Yii::app()->db
                 ->createCommand('select Estate.name as estate_name ,entity.* from  (' . $subTable . ') as entity,Estate where entity.estate_id=Estate.id')
                 ->queryAll();
