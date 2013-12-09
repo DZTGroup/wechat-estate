@@ -118,6 +118,7 @@ window.WXAPP = window.WXAPP || {};
     }
     Entity.prototype.setData = function (data) {
         var content;
+        var self = this;
         if (!data) {
             return;
         }
@@ -136,6 +137,7 @@ window.WXAPP = window.WXAPP || {};
                     if (itemData) {
                         $(item).find('.J_field').each(function (k, field) {
                             $(field).val(itemData[$(field).attr('name')]);
+
                         });
                     }
                 });
@@ -146,6 +148,9 @@ window.WXAPP = window.WXAPP || {};
                 if (moduleData) {
                     $(module).find('.J_field').each(function (j, field) {
                         $(field).val(moduleData[$(field).attr('name')]);
+                        if($(field).get(0).nodeName.toLowerCase()==="img"){
+                            $(field).attr('src','upload_files/'+self.estate_id+"/"+moduleData[$(field).attr('name')]);
+                        }
                     });
                 }
 
@@ -154,6 +159,9 @@ window.WXAPP = window.WXAPP || {};
     }
     Entity.prototype.setEstateId = function (id) {
         this.estate_id = id;
+        try{
+            window.setEstateId(id);
+        }catch(e){ }
     }
     Entity.prototype.setId = function (id) {
         this.id = id;
@@ -250,17 +258,44 @@ window.WXAPP = window.WXAPP || {};
     $('.J_upload').each(function (i, button) {
         var id = 'J_upload'+(+new Date());
         $(button).attr('id',id);
+        var infoSpan = $(button).next();
         var swfu = new SWFUpload({
             upload_url: "upload_file.php",
             flash_url: "js/upload/flash/swfupload.swf",
             flash9_url: "http://www.swfupload.org/swfupload_fp9.swf",
-            file_size_limit: "20 MB", //文件大小限制
+            file_size_limit: "100 KB", //文件大小限制
             button_placeholder_id:id,
             button_width:83,
             button_height:31,
-            button_image_url:'img/upload.png'
+            button_image_url:'img/upload.png',
+            file_post_name:'file',
+            file_dialog_complete_handler:function(){
+                this.addPostParam('estate_id', window.getEstateId());
+                this.startUpload();
+
+                infoSpan.find('.info').html('正在上传..');
+            },
+            upload_progress_handler:function(){
+                //console.log(arguments);
+            },
+            upload_success_handler:function(file,res){
+                res = JSON.parse(res);
+                if(res.code==200){
+                    infoSpan.find('.info').html('上传成功!');
+                    infoSpan.find('img').val(res.data.id).attr('src',res.data.src);
+                }else{
+                    alert(res.data.msg);
+                }
+            }
         });
     });
+    var estate_id ;
+    window.setEstateId = function(id){
+        estate_id = id;
+    }
+    window.getEstateId = function(){
+        return estate_id;
+    }
 })();
 
 
