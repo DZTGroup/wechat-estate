@@ -378,7 +378,8 @@ window.WXAPP = window.WXAPP || {};
                     'group': '看房团',
                     'picture': '照片墙',
                     'reservation': '认筹',
-                    'comment': '专家建议'
+                    'comment': '专家建议',
+                    'impression':'用户印象'
 
                 }
                 table.empty();
@@ -431,6 +432,7 @@ window.WXAPP = window.WXAPP || {};
                 id:id,status:1,entity_id:entity_id,estate_id:estate_id,entity_type:entity_type
             },function(res){
                 if(res.code==200){
+                    location.reload();
                     alert('审核成功！');
                 }
             });
@@ -443,6 +445,7 @@ window.WXAPP = window.WXAPP || {};
                 id:id,status:2,entity_id:entity_id
             },function(res){
                 if(res.code==200){
+                    location.reload();
                     alert('已驳回！');
                 }
             });

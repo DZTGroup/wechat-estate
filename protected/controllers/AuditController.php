@@ -29,11 +29,11 @@ class AuditController extends Controller
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('ajaxupdateauditbyid','group','impression','comment','reservation','picture','list','ajaxgetauditdata'),
-				'users'=>array('@'),
+                'expression'=>'$user->isAdmin()'
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('estate','ajaxgetauditestatedata','ajaxgetauditpasseddata','ajaxgetauditdatabyestateid'),
-				'users'=>array('@'),
+                'expression'=>'$user->isAdmin()'
 			),
 
 			array('deny',  // deny all users

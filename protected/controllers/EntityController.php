@@ -66,7 +66,7 @@ class EntityController extends Controller
         $audit = Audit::model()->find('estate_id=:estate_id and entity_type=:entity_type', array(
             ':estate_id' => $model->estate_id,
             ':entity_type'=>$model->type));
-        if ($audit == null) {
+        if ($audit == null || $model->type=='group') {
             $audit = new Audit();
         }
 
