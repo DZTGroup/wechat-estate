@@ -15,14 +15,7 @@
         <div class="com-min J_module" data-module="banner">
             <h3>楼盘详情顶页</h3>
 
-            <div class="tipe-lb">
-                <label class="blk-none">.</label>
-                <span class="btn-cha J_upload" type="button">上传标题图</span> (推荐图片尺寸：720*175；图片小于100k)
-                <div>
-                    <span class="info" style="color: red;"></span>
-                    <img src="" class="J_field" name="img" value="">
-                </div>
-            </div>
+            <?php $this->widget('UploadWidget');?>
         </div>
         <!--
         <div class="com-min J_module" data-module="shop_info" >

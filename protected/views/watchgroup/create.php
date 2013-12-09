@@ -18,7 +18,7 @@
     <div id="J_entity_form" style="display: none;" data-type="group" data-multiple="true">
         <div class="com-min J_module" data-module="title_setting">
             <h3>标题设置</h3>
-            <div class="tipe-lb"><button class="btn-cha" type="button">上传标题图</button> (推荐图片尺寸：720*130；图片小于100k)</div>
+            <?php $this->widget('UploadWidget');?>
             <div class="tipe-lb"><label><span class="red">*</span>标题文案：</label> <input class="inp-tex inp-300 J_field" name="title" type="text"></div>
             <div class="tipe-lb"><label>期数：</label> <input class="inp-tex inp-300 J_field" name="session" type="text"></div>
         </div>
