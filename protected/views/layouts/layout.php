@@ -5,7 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>微信 房产管理后台</title>
     <link rel="stylesheet" href="css/styler.css" type="text/css" />
-    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.3.custom.min.css" type="text/css" />
+
 </head>
 <body>
 <!-- 头部 【【-->
@@ -59,6 +60,9 @@
 </div>
 <!-- 二级菜单 】】 -->
 <?php echo $content; ?>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="js/upload/swfupload.js"></script>
 <script src="js/base.js" charset="utf-8"></script>
 </body>
 </html>
