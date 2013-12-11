@@ -1,5 +1,5 @@
 <?php
-
+require_once(dirname(__FILE__)."/database.php");
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
@@ -56,11 +56,11 @@ return array(
 		// uncomment the following to use a MySQL database
 
 		'db'=>array(
-			'connectionString' => 'mysql:host=112.124.55.78;dbname=wxfc',
-			'emulatePrepare' => true,
-			'username' => 'zunhao',
-			'password' => '655075d7dd',
-			'charset' => 'utf8',
+            'connectionString' => 'mysql:host='.DB_HOST.';dbname='.DB_DATABASENAME,
+            'emulatePrepare' => true,
+            'username' => DB_USER,
+            'password' => DB_PASS,
+            'charset' => 'utf8',
 		),
 
 		'errorHandler'=>array(
