@@ -28,7 +28,7 @@ class EstateController extends Controller
     {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('info','view','create','ajaxgetestatebyid','ajaxdelete','ajaxsave'),
+                'actions' => array('info','view','create','type','ajaxgetestatebyid','ajaxdelete','ajaxsave'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -57,6 +57,13 @@ class EstateController extends Controller
     {
         $list = Estate::model()->findAll('user_id=:user_id', array(':user_id' => Yii::app()->user->getUserId()));
         $this->render('create', array(
+            'list' => $list
+        ));
+    }
+    public function actionType()
+    {
+        $list = Estate::model()->findAll('user_id=:user_id', array(':user_id' => Yii::app()->user->getUserId()));
+        $this->render('type', array(
             'list' => $list
         ));
     }
