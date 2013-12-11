@@ -56,8 +56,8 @@
             <p class="ui-c-light" id="contMore">更多</p>
         </div>
     </div>
-    <div class="mod-footer" onclick="event.cancelBubble=true;return false;">
-        <a href="#" class="mod-footer__button" onclick="event.cancelBubble=true;BBSList.goCreator();return false;">我也说几句</a>
+    <div class="mod-footer">
+        <a href="?r=post/create" class="mod-footer__button"">我也说几句</a>
     </div>
 </div>
 

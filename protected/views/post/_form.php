@@ -1,76 +1,60 @@
 <?php
-/* @var $this PostController */
-/* @var $model BBSPost */
-/* @var $form CActiveForm */
+$this->layout='';
 ?>
+
+<?php $form=$this->beginWidget('CActiveForm', array(
+    'id'=>'bbspost-form',
+)); ?>
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'bbspost-form',
-	// Please note: When you enable ajax validation, make sure the corresponding
-	// controller action is handling ajax validation correctly.
-	// There is a call to performAjaxValidation() commented in generated controller code.
-	// See class documentation of CActiveForm for details on this.
-	'enableAjaxValidation'=>false,
-)); ?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <link href="http://imgcache.gtimg.cn/lifestyle/proj-house/css/form.css" rel="stylesheet" />
+        <style type="text/css">
+            .photo_container{width:92px;height:92px;overflow: hidden;display:table-cell;vertical-align:middle;float: left}
+            #photo{max-width: 92px;}
+            textarea{
+                -webkit-box-sizing: border-box;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="wrapper" id="container">
+        <div class="mod-top-bar" style="position:relative"><!-- 隐藏头部加上样式ui-d-n -->
+            <a href="#" class="mod-top-bar__back" id="btnBack"><span class="icon-back"></span></a>
+            <h2 class="mod-top-bar__title">发表新话题</h2>
+            <a href="#" class="button-normal button-primary mod-top-bar__button" id="btnSend">发送</a>
+        </div>
+        <div class="mod-box ui-mt-large-x" style="margin-top: 10px">
+            <div class="mod-box__form">
+                <label>
+                    <?php echo $form->textField($model,'title',array('size'=>25,'maxlength'=>25,
+                        'placeholder'=>"标题（最多20字）",'style'=>"width: 268px",'class'=>"mod-box__form-input")); ?>
+                </label>
+                <label>
+                    <?php echo $form->textField($model,'content',array('size'=>45,'maxlength'=>45,
+                        'style'=>"min-height: 66px;width:280px",'placeholder'=>"正文（禁止发布广告、色情等违反法律的内容）",
+                        'class'=>"mod-box__form-textarea")); ?>
+                </label>
+            </div>
+        </div>
+        <div class="mod-photo">
+            <a href="#" class="button-photo" id="btnUpload" enabled="true"><span class="icon-pic-green"></span>上传配图</a>
+        </div>
+        <div id="paddingDiv" style="height:10px"></div>
+    </div>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+    <script type="text/javascript" src="js/common.js?ver=2.4.7"></script>
+    </body>
+    </html>
 
-	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'estate_id'); ?>
-		<?php echo $form->textField($model,'estate_id'); ?>
-		<?php echo $form->error($model,'estate_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>25,'maxlength'=>25)); ?>
-		<?php echo $form->error($model,'title'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'content'); ?>
-		<?php echo $form->textField($model,'content',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'content'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'picture_url'); ?>
-		<?php echo $form->textField($model,'picture_url',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'picture_url'); ?>
-	</div>
-
-	<div class="row">
+	<div class="row" style="display: none"
 		<?php echo $form->labelEx($model,'wechat_id'); ?>
 		<?php echo $form->textField($model,'wechat_id',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'wechat_id'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'create_time'); ?>
-		<?php echo $form->textField($model,'create_time'); ?>
-		<?php echo $form->error($model,'create_time'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'pv_num'); ?>
-		<?php echo $form->textField($model,'pv_num'); ?>
-		<?php echo $form->error($model,'pv_num'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'praise_num'); ?>
-		<?php echo $form->textField($model,'praise_num'); ?>
-		<?php echo $form->error($model,'praise_num'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
-
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
