@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,10 +47,10 @@
                 </ul>
             </li>
             <li class="menu-p">
-                <a href="photo_inquiry.html">照片管理</a>
+                <a href="?r=picwall/create">照片管理</a>
                 <ul class="menu-xia" >
                     <li><a href="photo_inquiry.html">照片查询</a></li>
-                    <li><a href="photo_manage.html">照片管理</a></li>
+                    <li><a href="?r=picwall/create">照片管理</a></li>
                 </ul>
             </li>
             <li><a href="new.html">多页态</a></li>

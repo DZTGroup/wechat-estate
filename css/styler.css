@@ -109,15 +109,18 @@ a{text-decoration:none;}
 .com-tu{width:320px;height:320px;background-color:#999;position:absolute;top:60px;left:475px;}
 .com-map{width:700px;height:400px;overflow:hidden;background-color:#999;}
 .six-box{float:left;overflow:hidden;width:615px;height:300px;}
-.six-box li{float:left;width:190px;height:70px;text-align:center;margin:0 15px 15px 0;background-color:#999;padding-top:50px;font-size:12px;color:#333;}
+.six-box li{position:relative;float:left;width:190px;height:70px;text-align:center;margin:0 15px 15px 0;background-color:#999;padding-top:50px;font-size:12px;color:#333;}
+.six-box img{width:100%;height: 100%; position: absolute;left:0;top:0;z-index: 9;}
+.six-box .load_btn{position: relative;z-index: 10;}
 
 /*　弹层　*/
-.box-layer{width:560px;position:relative;background-color:#FFF;border:solid 1px #336699;}
+.box-layer{width:560px;left:50%;top:100px;margin-left: -280px; z-index: 100000; position:fixed;background-color:#FFF;border:solid 1px #336699;}
 .box-layer .title{height:32px;background-color:#EBF2FA;}
 .box-layer .title h2{font-size:14px;color:#666;padding-left:12px;line-height:32px;}
 .box-layer .close{width:18px;height:18px;overflow:hidden;line-height:300px;background:url(../img/btn.png) no-repeat 0 -33px;position:absolute;top:7px;right:12px;}
 .box-layer .close:hover{background-position:-19px -33px;}
 .box-layer .tip-mian{padding:25px 15px;}
+.layer_bg {width: 100%;height: 100%; position: fixed;z-index:1000;background-color:rgba(0,0,0,.5);top:0;left:0;}
 .p-shuju p{padding:4px 0;font-size:13px;color:#666;}
 .but-auto{padding-top:15px;text-align:center;}
 .but-auto .an-butn{width:77px;height:32px;text-align:center;line-height:32px;font-size:14px;color:#FFF;background:url(../img/btn.png) no-repeat;display:inline-block;}
