@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(__FILE__)."/database.php");
 
 // This is the configuration for yiic console application.
 // Any writable CConsoleApplication properties can be configured here.
@@ -17,10 +18,10 @@ return array(
 		// uncomment the following to use a MySQL database
 
 		'db'=>array(
-			'connectionString' => 'mysql:host=112.124.55.78;dbname=wxfc',
+			'connectionString' => 'mysql:host='.DB_HOST.';dbname='.DB_DATABASENAME,
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '655075d7dd',
+			'username' => DB_USER,
+			'password' => DB_PASS,
 			'charset' => 'utf8',
 		),
 
