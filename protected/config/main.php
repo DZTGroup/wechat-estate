@@ -58,7 +58,7 @@ return array(
 		'db'=>array(
 			'connectionString' => 'mysql:host=112.124.55.78;dbname=wxfc',
 			'emulatePrepare' => true,
-			'username' => 'root',
+			'username' => 'zunhao',
 			'password' => '655075d7dd',
 			'charset' => 'utf8',
 		),
