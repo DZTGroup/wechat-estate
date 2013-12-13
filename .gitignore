@@ -1,5 +1,5 @@
 .idea
 *.log
-/protected/runtime/application.log
+protected/runtime/application.log
 .DS_Store
 upload_files
