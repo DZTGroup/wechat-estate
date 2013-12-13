@@ -1,5 +1,6 @@
 window.WXAPP = window.WXAPP || {};
 
+//ajax
 (function () {
     var Ajax = function (url, data, success) {
         $.ajax({
@@ -20,6 +21,7 @@ window.WXAPP = window.WXAPP || {};
     WXAPP.Ajax = Ajax;
 })();
 
+//Entity
 (function () {
     function Entity(type, form, table, newBtn, options) {
         this.type = type;
@@ -227,7 +229,7 @@ window.WXAPP = window.WXAPP || {};
     WXAPP.EMPTY_ESTATE = -1;
 })();
 
-
+//Entity Init
 (function () {
     //Entity 页面初始化
     var form = $('#J_entity_form'),
@@ -250,6 +252,7 @@ window.WXAPP = window.WXAPP || {};
     }
 })();
 
+//日历，图片上传
 (function () {
     //日历
     $('.ico-calendar').prev().datepicker({
@@ -301,6 +304,7 @@ window.WXAPP = window.WXAPP || {};
 })();
 
 
+//楼盘
 (function () {
     //楼盘Class
     function Estate(form) {
@@ -401,6 +405,7 @@ window.WXAPP = window.WXAPP || {};
     });
 })();
 
+//审批
 (function () {
     AuditAdmin = {
         listAllPassedData: function () {

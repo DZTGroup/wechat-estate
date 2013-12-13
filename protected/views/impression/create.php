@@ -19,7 +19,9 @@
 <!--        <div class="order-lb"><label>所属楼盘：</label>-->
 <!--            --><?php //$this->widget('EstateListWidget',array('class_name'=>'li-hd'));?>
 <!--        </div>-->
-        <div class="order-lb J_module" data-module="init"><label>初始总人数：</label> <input class="inp-tex inp-100 J_field" name="number" type="text"></div>
+        <div class="order-lb J_module" data-module="init">
+            <label>初始总人数：</label> <input class="inp-tex inp-100 J_field" name="number" type="text">
+        </div>
         <div class="J_modules" data-module="impressions">
         <?php
             $arr = array('1'=>'一', '2' => '二', '3' => '三', '4' => '四', '5' => '五', '6' => '六');

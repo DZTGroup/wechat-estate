@@ -1,17 +1,17 @@
 <div class="cent-auto">
     <div class="com-min">
-        <h3>楼盘简介管理</h3>
+        <h3>户型管理</h3>
 
         <div class="order-lb"><label>楼盘名称：</label>
             <?php $this->widget('EstateListWidget', array('class_name' => 'li-hd')); ?>
-            <button class="btn-cha " id="J_entity_new" type="button">新增楼盘简介</button>
+            <button class="btn-cha " id="J_entity_new" type="button">新增户型简介</button>
         </div>
     </div>
     <div class="box-table">
         <?php $this->widget('ImpressionTableWidget', array('id' => 'J_intro_table')); ?>
     </div>
 
-    <div style="display: none;" id="J_entity_form" data-type="intro">
+    <div style="display: none;" id="J_entity_form" data-type="apartment">
         <div class="com-min J_module" data-module="banner">
             <h3>楼盘详情顶页</h3>
 
