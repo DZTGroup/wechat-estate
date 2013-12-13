@@ -16,27 +16,19 @@
         .mod-body-bg{background-image: url(http://imgcache.gtimg.cn/lifestyle/proj-house/img/bg-main1.jpg);}
         .wrapper{padding-bottom: 50px}
     </style>
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="js/base.js" charset="utf-8"></script>
 </head>
+
+<script>
+    $(document).ready(function(){
+        WXAPP.Post.getListData('1');
+    });
+</script>
 <body class="mod-body-bg" style="padding:0">
 <!--<script type="text/template" id="listTpl">-->
-    <li id="topic_id">
-        <div class="mod-box" onclick="showDetail();return false;">
-            <h3 class="mod-box__title ui-mb-small">
-                  翠花的第一个帖子
-            </h3>
-            <div class="mod-box__time">
-                <span class="ui-fl-l ui-c-light">翠花  3小时前</span>
-                <span class="ui-c-light"><span class="icon-eye"></span>浏览 （11）</span>
-            </div>
-            <div class="mod-box__content ui-mb-medium">
-                翠花是傻逼，老毛也是傻逼
-            </div>
-
-            <div class="mod-box__control">
-                <i class="icon-heart"></i></span>浏览 （11）</span>
-                <i class="icon-comment"></i><span>评论（1）</span>
-            </div>
-    </li>
+    <li id="topic_id"></li>
 
 <div id="emptyDiv" class="mod-box" style="display: none">
     <div class="mod-box__wait">

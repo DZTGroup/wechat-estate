@@ -28,7 +28,7 @@ class PostController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','list'),
+				'actions'=>array('index','view','list','ajaxgetpostlist','ajaxpostnewpost'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -128,10 +128,27 @@ class PostController extends Controller
 		));
 	}
 
-    public function actionList($estate_id)
+    public function actionList()
     {
-        $model=BBSPost::model()->findAll('estate_id=:estate_id order by create_time desc',array(':estate_id'=>$estate_id));
-        $this->render('list',array('model'=>$model));
+        $this->render('list');
+    }
+
+    public function actionAjaxGetPostList(){
+        $model = Yii::app()->db->createCommand()
+            ->select('*')
+            ->from('BBS_Post')
+            ->where('estate_id=:estate_id order by create_time desc',array(':estate_id'=>$_POST['estate_id']))
+            ->query();
+        $arr = array();
+
+        forEach($model as $k=>$row){
+            array_push($arr,$row);
+        }
+
+        echo json_encode(array(
+            'code' => 200,
+            'data' => $arr
+        ));
     }
 
 	/**
@@ -176,4 +193,23 @@ class PostController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+    public function actionAjaxPostNewPost(){
+        $bbs_post=new BBSPost();
+        $bbs_post->estate_id = $_POST['estate_id'];
+        $bbs_post->title = $_POST['title'];
+        $bbs_post->content = $_POST['content'];
+        $bbs_post->wechat_id = $_POST['wechat_id'];
+
+        $result=$bbs_post->save();
+        if ($result) {
+            echo json_encode(array(
+                'code' => 200,
+            ));
+        } else {
+            echo json_encode(array(
+                'code' => 500,
+            ));
+        }
+    }
 }

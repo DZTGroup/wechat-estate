@@ -582,3 +582,52 @@ window.WXAPP = window.WXAPP || {};
     });
 
 })();
+
+
+(function(){
+    function postListSuccessCallback(res) {
+        var postBody = $('#topic_id');
+        res.data.forEach(function (item) {
+            postBody.append('<div class="mod-box" onclick="showDetail();">'
+                +'<h3 class="mod-box__title ui-mb-small">'
+                +item.title+'</h3>'
+                +'<div class="mod-box__time">'
+                +'<span class="ui-fl-l ui-c-light">'+item.wechat_id+' '+item.create_time+'</span>'
+                +'<span class="ui-c-light"><span class="icon-eye"></span>浏览 （11）</span></div>'
+                +'<div class="mod-box__content ui-mb-medium">'
+                +item.content+'</div>'
+                +'<div class="mod-box__control">'
+                +'<i class="icon-heart"></i></span>浏览 （11）</span>'
+                +'<i class="icon-comment"></i><span>评论（1）</span>'
+                +'</div>'
+                +'</div>')
+        });
+    }
+    var Post={
+        getListData:function(estate_id){
+            WXAPP.Ajax('?r=post/ajaxgetpostlist', {
+                estate_id:estate_id
+            }, postListSuccessCallback);
+        }
+
+    };
+    WXAPP.Post = Post;
+
+    
+    var post_form=$('#bbs_post_form');
+    var current_estate_id=$('#estate_id').val();
+    var wechat_id=$('#wechat_id').val();
+
+    $('#post_btnSend').click(function(){
+        var title=post_form.find('#tfTitle').val();
+        var content=post_form.find('#tfContent').val();
+
+        WXAPP.Ajax('?r=post/ajaxpostnewpost', {
+            estate_id: current_estate_id,wechat_id:wechat_id,post_title:title,post_content:content
+        }, function(res){
+            if(res.code==200){
+               location.href='?r=post/list&estate_id='+current_estate_id;
+            }
+        });
+    });
+})();
