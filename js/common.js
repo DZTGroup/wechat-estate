@@ -44,7 +44,7 @@
     $initBadjs();
     window._sendBadjs = $sendBadjs;
 })();
-var FCAPP = FCAPP || {
+window.FCAPP = window.FCAPP || {
     Common: {
         CONFIG: {
             errJumpNote: '您长时间未操作<br>为帐号安全请重新刷新'

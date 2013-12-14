@@ -31,10 +31,9 @@
                 </ul>
             </li>
             <li><a href="?r=watch/create">看房团管理</a></li>
-            <li class="curr menu-p"><a href="#none">楼盘印象管理</a>
+            <li class="curr menu-p"><a href="?r=impression/create">楼盘印象管理</a>
                 <ul class="menu-xia">
                     <li><a href="?r=impression/view">房友印象查询</a></li>
-                    <li><a href="?r=impression/create">房友印象设置</a></li>
                     <li><a href="?r=expert/create">专家点评管理</a></li>
                 </ul>
             </li>
@@ -52,7 +51,7 @@
                     <li><a href="?r=picwall/create">照片管理</a></li>
                 </ul>
             </li>
-            <li><a href="new.html">多页态</a></li>
+            <li><a href="new.html">多业态</a></li>
         </ul>
     </div>
 </div>

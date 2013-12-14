@@ -182,19 +182,19 @@ window.WXAPP = window.WXAPP || {};
     Entity.prototype.renderList = function (res) {
         var self = this;
         self.table.empty();
-        var hasUnChecked = false;
         if (!res.data.length) {
-            alert('该楼盘还没有数据')
+            self.newBtn.show();
+            alert('该楼盘还没有数据');
         }
         res.data.forEach(function (item) {
-            if (item.status == '0') {
-                hasUnChecked = true;
-            }
+//            if (item.status == '0') {
+//                hasUnChecked = true;
+//            }
             self.table.append(self.tableTemplate.call(self, item));
         });
-        if (!hasUnChecked) {
-            self.newBtn.show();
-        }
+//        if (!hasUnChecked) {
+//            self.newBtn.show();
+//        }
         self.table.find('.J_edit').click(function () {
             self.mode = 'update';
             var id = $(this).attr('data-id');
@@ -842,7 +842,7 @@ window.WXAPP = window.WXAPP || {};
     }
 
     function showEditType(data, cb) {
-        var layer = $('<div class="box-layer" style="width:700px;">' +
+        var layer = $('<div class="box-layer" style="position:absolute;width:700px;top:'+($(window).scrollTop()+70) +';">'+
             ' <div class="title"><h2>户型图</h2></div>' +
             ' <a class="close J_cancel" href="javascript:;" title="关闭">关闭</a>' +
             ' <div class="tip-mian">' +
@@ -853,8 +853,8 @@ window.WXAPP = window.WXAPP || {};
         var html = '<div class="J_item"><input class="J_field" name="name" >' +
             '<div><span class="load_btn"> <span class="btn-cha J_upload"></span></span>' +
             '<div class="J_display">' +
-            '<img src="" class="J_field" name="img" value="">' +
-            '</div></div>'
+            '<img src="" class="J_field" name="img" width="50" height="50" value="">' +
+            '</div></div><hr/>'
         '</div>';
 
         if (data) {
@@ -896,7 +896,7 @@ window.WXAPP = window.WXAPP || {};
     }
 
     function showEditPanoramagram(data, cb) {
-        var layer = '<div class="box-layer" style="width:600px;">' +
+        var layer = '<div class="box-layer" style="position:absolute;width:600px;top:'+($(window).scrollTop()+70) +';">'+
             ' <div class="title"><h2>户型数据</h2></div>' +
             ' <a class="close J_cancel" href="javascript:;" title="关闭">关闭</a>' +
             ' <div class="tip-mian">' +
@@ -986,6 +986,13 @@ window.WXAPP = window.WXAPP || {};
 //专家点评
 (function(){
     var html='<div class="J_module" data-module="expert">' +
+        '<div class="tipe-lb"><label>专家头像：</label>' +
+            '<div><span class="load_btn"> <span class="btn-cha J_upload"></span></span>' +
+                '<div class="J_display">' +
+                    '<img src="" class="J_field" name="img" width="50" height="50" value="">' +
+                '</div>' +
+            '</div>' +
+        '</div>'+
         ' <div class="tipe-lb "><label>专家名字：</label> <input class="inp-tex inp-300 J_field" name="name" type="text">' +
         ' </div>' +
         ' <div class="tipe-lb"><label>专家头街：</label> <input class="inp-tex inp-300 J_field" name="title" type="text" placeholder="(10个字以内)">' +
@@ -1017,8 +1024,12 @@ window.WXAPP = window.WXAPP || {};
                 var l = $(html).appendTo(form.find('.J_expert_holder'));
                 l.find('.J_field').each(function(i,field){
                     $(field).val(expert[$(field).attr('name')]);
+                    if(field.nodeName.toLowerCase()==="img"){
+                        field.src='upload_files/' + entity.estate_id + "/" + expert[$(field).attr('name')];
+                    }
                 });
             });
+            WXAPP.bindLoad(form.find('.J_upload'))
         }
     }
     entity.getData = function(){

@@ -1,6 +1,6 @@
 <div class="cent-auto">
     <div class="com-min">
-        <h3>楼盘简介管理</h3>
+        <h3>楼盘简介</h3>
 
         <div class="order-lb"><label>楼盘名称：</label>
             <?php $this->widget('EstateListWidget', array('class_name' => 'li-hd')); ?>
@@ -63,12 +63,9 @@
             </div>
             <div class="tipe-lb"><label>腾讯视频链接：</label> <input class="inp-tex inp-300 J_field" name="link" type="text">
             </div>
-            <div class="tipe-lb"><label>正文：</label> <textarea class="text-kuang J_field" name="text" cols="" rows=""
-                                                              placeholder="250个字以内"></textarea></div>
         </div>
         <div class="com-min" data-module="traffic_info">
             <h3>周边交通</h3>
-
             <div class="tipe-lb"><label>正文：</label> <textarea class="text-kuang J_field" name="text" cols="" rows=""
                                                               placeholder="400个字以内"></textarea></div>
         </div>
