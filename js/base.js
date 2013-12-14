@@ -842,7 +842,7 @@ window.WXAPP = window.WXAPP || {};
     }
 
     function showEditType(data, cb) {
-        var layer = $('<div class="box-layer" style="width:700px;">' +
+        var layer = $('<div class="box-layer" style="position:absolute;width:700px;top:'+($(window).scrollTop()+70) +';">'+
             ' <div class="title"><h2>户型图</h2></div>' +
             ' <a class="close J_cancel" href="javascript:;" title="关闭">关闭</a>' +
             ' <div class="tip-mian">' +
@@ -853,8 +853,8 @@ window.WXAPP = window.WXAPP || {};
         var html = '<div class="J_item"><input class="J_field" name="name" >' +
             '<div><span class="load_btn"> <span class="btn-cha J_upload"></span></span>' +
             '<div class="J_display">' +
-            '<img src="" class="J_field" name="img" value="">' +
-            '</div></div>'
+            '<img src="" class="J_field" name="img" width="50" height="50" value="">' +
+            '</div></div><hr/>'
         '</div>';
 
         if (data) {
@@ -896,7 +896,7 @@ window.WXAPP = window.WXAPP || {};
     }
 
     function showEditPanoramagram(data, cb) {
-        var layer = '<div class="box-layer" style="width:600px;">' +
+        var layer = '<div class="box-layer" style="position:absolute;width:600px;top:'+($(window).scrollTop()+70) +';">'+
             ' <div class="title"><h2>户型数据</h2></div>' +
             ' <a class="close J_cancel" href="javascript:;" title="关闭">关闭</a>' +
             ' <div class="tip-mian">' +
