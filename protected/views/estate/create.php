@@ -14,7 +14,6 @@
                     <td><?php echo $row->id ?></td>
                     <td><?php echo $row->create_time ?></td>
                     <td><a class="blue J_edit" data-id="<?php echo $row->id ?>" href="javascript:;">编辑</a>
-                        <a class="blue J_delete" data-id="<?php echo $row->id ?>" href="javascript:;">删除</a>
                     </td>
                 </tr>
             <?php } ?>

@@ -27,12 +27,15 @@
     <div id="J_entity_form" style="display: none;" data-type="reservation" data-multiple="true">
         <div class="com-min J_module" data-module="event">
             <h3>活动说明</h3>
-
             <div class="tipe-lb">
-                <label> .</label>
-                <button class="btn-cha" type="button">上传标题图</button>
-                (推荐图片尺寸：720*130；图片小于100k)
+                <label class="blk-none">.</label>
+                <span><span class="btn-cha J_upload" type="button"></span> (推荐图片尺寸：720*130；图片小于100k)</span>
+                <div class="J_display">
+                    <span class="info" style="color: red;"></span>
+                    <img src="" class="J_field" name="img" value="">
+                </div>
             </div>
+
             <div class="tipe-lb">
                 <label><span class="red">*</span>认筹名称：</label>
                 <input class="inp-tex inp-300 J_field" name="name" type="text">
@@ -44,8 +47,13 @@
                            class="text-tips J_field"><span
                         class="ico-calendar"><!-- 日历图标 --></span></span>
                 <select size="1" class="li-hd J_field" name="start_time">
-                    <option value="0:00">0:00</option>
-                    <option value="1:00">1:00</option>
+                    <?php
+                        for($i=0;$i<24;$i++){
+                    ?>
+                            <option value="<?php echo $i?>:00"><?php echo $i?>:00</option>
+                    <?php
+                        }
+                    ?>
                 </select>
             </div>
             <div class="tipe-lb">
@@ -54,8 +62,13 @@
                     <input type="text" maxlength="10" placeholder="年-月-日" name="end_date" class="text-tips J_field">
                     <span class="ico-calendar"></span></span>
                 <select size="1" class="li-hd J_field" name="end_time">
-                    <option value="0:00">0:00</option>
-                    <option value="1:00">1:00</option>
+                    <?php
+                    for($i=0;$i<24;$i++){
+                        ?>
+                        <option value="<?php echo $i?>:00"><?php echo $i?>:00</option>
+                    <?php
+                    }
+                    ?>
                 </select>
             </div>
             <div class="tipe-lb">
