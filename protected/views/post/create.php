@@ -13,9 +13,6 @@ $this->layout='';
                 -webkit-box-sizing: border-box;
             }
         </style>
-        <script src="js/jquery-2.0.3.min.js"></script>
-        <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
-        <script src="js/base.js" charset="utf-8"></script>
     </head>
     <body>
     <div style="display: none">
@@ -42,12 +39,13 @@ $this->layout='';
                 </label>
             </div>
         </div>
-        <div class="mod-photo">
-            <a href="#" class="button-photo" id="btnUpload" enabled="true"><span class="icon-pic-green"></span>上传配图</a>
-        </div>
         <div id="paddingDiv" style="height:10px"></div>
     </div>
 
     <script type="text/javascript" src="js/common.js?ver=2.4.7"></script>
     </body>
+
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="js/base.js" charset="utf-8"></script>
     </html>

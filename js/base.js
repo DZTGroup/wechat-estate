@@ -597,36 +597,89 @@ window.WXAPP = window.WXAPP || {};
 })();
 
 
-(function () {
+(function(){
+
     function postListSuccessCallback(res) {
         var postBody = $('#topic_id');
         res.data.forEach(function (item) {
-            postBody.append('<div class="mod-box" onclick="showDetail();">'
-                + '<h3 class="mod-box__title ui-mb-small">'
-                + item.title + '</h3>'
-                + '<div class="mod-box__time">'
-                + '<span class="ui-fl-l ui-c-light">' + item.wechat_id + ' ' + item.create_time + '</span>'
-                + '<span class="ui-c-light"><span class="icon-eye"></span>浏览 （11）</span></div>'
-                + '<div class="mod-box__content ui-mb-medium">'
-                + item.content + '</div>'
-                + '<div class="mod-box__control">'
-                + '<i class="icon-heart"></i></span>浏览 （11）</span>'
-                + '<i class="icon-comment"></i><span>评论（1）</span>'
-                + '</div>'
-                + '</div>')
+            postBody.append('<div class="mod-box" onclick="WXAPP.Post.showDetail(&#39;'+item.id+'&#39;)">'
+                +'<h3 class="mod-box__title ui-mb-small">'
+                +item.title+'</h3>'
+                +'<div class="mod-box__time">'
+                +'<span class="ui-fl-l ui-c-light">'+item.wechat_id+' '+item.create_time+'</span>'
+                +'<span class="ui-c-light"><span class="icon-eye"></span>浏览('+item.pv_num+')</span></div>'
+                +'<div class="mod-box__content ui-mb-medium">'
+                +item.content+'</div>'
+                +'<div class="mod-box__control">'
+//                +'<i class="icon-heart"></i></span>赞('+item.praise_num+')</span>'
+                +'<i class="icon-comment"></i><span>评论('+item.comment_num+')</span>'
+                +'</div>'
+                +'</div>')
         });
     }
+    function postDetailSuccessCallback(res) {
+        var postBody = $('#topic_id');
+            postBody.append('<div class="mod-box" onclick="WXAPP.Post.showDetail(&#39;'+res.data[0].id+'&#39;)">'
+                +'<h3 class="mod-box__title ui-mb-small">'
+                +res.data[0].title+'</h3>'
+                +'<div class="mod-box__time">'
+                +'<span class="ui-fl-l ui-c-light">'+res.data[0].wechat_id+' '+res.data[0].create_time+'</span>'
+                +'<span class="ui-c-light"><span class="icon-eye"></span>浏览('+res.data[0].pv_num+')</span></div>'
+                +'<div class="mod-box__content ui-mb-medium">'
+                +res.data[0].content+'</div>'
+                +'<div class="mod-box__control">'
+//                +'<i class="icon-heart"></i></span>赞('+res.data[0].praise_num+')</span>'
+                +'<i class="icon-comment"></i><span>评论('+res.comment.length+')</span>'
+                +'</div>'
+                +'</div>')
 
-    var Post = {
-        getListData: function (estate_id) {
+        var commentBody=$('#commentList');
+        if(res.comment.length>0){
+            res.comment.forEach(function(item){
+                commentBody.append('<div class="mod-box">'
+                    +'<div class="mod-box__time">'
+                    +'<span class="ui-fl-l ui-c-light">'+item.wechat_id+' '+item.create_time+'</span><br>'
+                    +'<div class="mod-box__content ui-mb-medium" style="text-align: left">'
+                    +item.content+'</div>'
+                    +'</div>'
+                    +'</div>')
+            });
+
+        }
+
+    }
+    var Post={
+        getListData:function(estate_id){
             WXAPP.Ajax('?r=post/ajaxgetpostlist', {
-                estate_id: estate_id
+                estate_id:estate_id,page_num:1
             }, postListSuccessCallback);
+        },
+
+        getDetailData:function(id){
+            WXAPP.Ajax('?r=post/ajaxgetpostdetail', {
+                id:id
+            }, postDetailSuccessCallback);
+        },
+
+        showDetail:function(id){
+            location.href='?r=post/detail&id='+id;
+        },
+        getMoreData:function(estate_id){
+            var page_num=$('#current_page_num').val()+1;
+            WXAPP.Ajax('?r=post/ajaxgetpostlist', {
+                estate_id:estate_id,page_num:page_num
+            }, postListSuccessCallback);
+
+            $('#current_page_num')[0].value=page_num;
         }
 
     };
     WXAPP.Post = Post;
 
+
+    var post_form=$('#bbs_post_form');
+    var current_estate_id=$('#estate_id').val();
+    var wechat_id=$('#wechat_id').val();
 
     var post_form = $('#bbs_post_form');
     var current_estate_id = $('#estate_id').val();
@@ -636,11 +689,23 @@ window.WXAPP = window.WXAPP || {};
         var title = post_form.find('#tfTitle').val();
         var content = post_form.find('#tfContent').val();
 
-        WXAPP.Ajax('?r=post/ajaxpostnewpost', {
-            estate_id: current_estate_id, wechat_id: wechat_id, post_title: title, post_content: content
-        }, function (res) {
-            if (res.code == 200) {
-                location.href = '?r=post/list&estate_id=' + current_estate_id;
+        WXAPP.Ajax('?r=post/ajaxcreatenewpost', {
+            estate_id: current_estate_id,wechat_id:wechat_id,post_title:title,post_content:content
+        }, function(res){
+            if(res.code==200){
+               location.href='?r=post/list&estate_id='+current_estate_id;
+            }
+        });
+    });
+
+    $('#btnComment').click(function(){
+        var content=$('#tfComment_content').val();
+        var current_post_id=$('#current_post_id').val();
+        WXAPP.Ajax('?r=post/ajaxcreatenewcomment', {
+            comment_content:content,wechat_id:wechat_id,post_id:current_post_id
+        }, function(res){
+            if(res.code==200){
+                location.href='?r=post/detail&id='+current_post_id;
             }
         });
     });
