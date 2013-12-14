@@ -28,7 +28,7 @@ class PostController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','list','ajaxgetpostlist','ajaxpostnewpost'),
+				'actions'=>array('index','view','list','ajaxcreatenewcomment','ajaxgetpostlist','ajaxcreatenewpost','detail','ajaxgetpostdetail'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -133,21 +133,71 @@ class PostController extends Controller
         $this->render('list');
     }
 
+    public function actionDetail(){
+
+        $this->render('detail');
+    }
+
     public function actionAjaxGetPostList(){
+        $page_size=3;
+        $model = Yii::app()->db->createCommand()
+            ->select('p.*,sum(case when c.post_id is not null then 1 else 0 end) as comment_num')
+            ->from('BBS_Post p')
+            ->leftJoin('BBS_Comment c','p.id=c.post_id')
+            ->where('estate_id=:estate_id group by p.id order by create_time desc limit 0,'.$page_size*$_POST['page_num'],array(':estate_id'=>$_POST['estate_id']))
+            ->query();
+        if($model!==null){
+
+            BBSPost::model()->updateAll(array('pv_num'=>new CDbExpression('pv_num+1')),'estate_id=:estate_id',
+                array(':estate_id'=>$_POST['estate_id'],));
+            $arr = array();
+
+            forEach($model as $k=>$row){
+                array_push($arr,$row);
+            }
+
+            echo json_encode(array(
+                'code' => 200,
+                'data' => $arr
+            ));
+        }
+        else{
+            echo json_encode(array(
+                'code' => 500
+            ));
+        }
+
+    }
+
+    public function actionAjaxGetPostDetail(){
         $model = Yii::app()->db->createCommand()
             ->select('*')
             ->from('BBS_Post')
-            ->where('estate_id=:estate_id order by create_time desc',array(':estate_id'=>$_POST['estate_id']))
+            ->where('id=:id',array(':id'=>$_POST['id']))
             ->query();
+        $comment= Yii::app()->db->createCommand()
+            ->select('*')
+            ->from('BBS_Comment')
+            ->where('post_id=:post_id order by create_time desc',array(':post_id'=>$_POST['id']))
+            ->query();
+
+        BBSPost::model()->updateByPk($_POST['id'],array('pv_num'=>new CDbExpression('pv_num+1')));
+
         $arr = array();
 
         forEach($model as $k=>$row){
             array_push($arr,$row);
         }
 
+        $arr_comment=array();
+        forEach($comment as $k=>$row){
+            array_push($arr_comment,$row);
+        }
+
         echo json_encode(array(
             'code' => 200,
-            'data' => $arr
+            'data' => $arr,
+            'comment'=>$arr_comment
         ));
     }
 
@@ -194,14 +244,32 @@ class PostController extends Controller
 		}
 	}
 
-    public function actionAjaxPostNewPost(){
+    public function actionAjaxCreateNewPost(){
         $bbs_post=new BBSPost();
         $bbs_post->estate_id = $_POST['estate_id'];
-        $bbs_post->title = $_POST['title'];
-        $bbs_post->content = $_POST['content'];
+        $bbs_post->title = $_POST['post_title'];
+        $bbs_post->content = $_POST['post_content'];
         $bbs_post->wechat_id = $_POST['wechat_id'];
 
         $result=$bbs_post->save();
+        if ($result) {
+            echo json_encode(array(
+                'code' => 200,
+            ));
+        } else {
+            echo json_encode(array(
+                'code' => 500,
+            ));
+        }
+    }
+
+    public function actionAjaxCreateNewComment(){
+        $bbs_comment=new BBSComment();
+        $bbs_comment->post_id = $_POST['post_id'];
+        $bbs_comment->content = $_POST['comment_content'];
+        $bbs_comment->wechat_id = $_POST['wechat_id'];
+
+        $result=$bbs_comment->save();
         if ($result) {
             echo json_encode(array(
                 'code' => 200,

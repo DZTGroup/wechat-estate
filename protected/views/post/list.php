@@ -27,8 +27,14 @@
     });
 </script>
 <body class="mod-body-bg" style="padding:0">
+
+<input style="display: none" id="current_page_num" value="1"/>
 <!--<script type="text/template" id="listTpl">-->
-    <li id="topic_id"></li>
+<div id="navBar" class="mod-top-bar"><!-- 隐藏头部加上样式ui-d-n -->
+    <a id="btnBack" href="#" class="mod-top-bar__back"><span class="icon-back"></span></a>
+    <h2 id="titleBar" class="mod-top-bar__title">论坛</h2>
+</div>
+    <li id="topic_id" style="margin-top: 50px"></li>
 
 <div id="emptyDiv" class="mod-box" style="display: none">
     <div class="mod-box__wait">
@@ -45,7 +51,7 @@
     <ul id="topicList"></ul>
     <div class="mod-box" id="btnMore" onclick="BBSList.loadMoreTopics();return false;">
         <div class="mod-box__wait" style="padding:5px 0px">
-            <p class="ui-c-light" id="contMore">更多</p>
+            <p class="ui-c-light" id="contMore" onclick="WXAPP.Post.getMoreData(1)">更多</p>
         </div>
     </div>
     <div class="mod-footer">
