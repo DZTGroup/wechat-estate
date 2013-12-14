@@ -1,6 +1,6 @@
 <?php
 
-class PostController extends Controller
+class UserpicwallController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,16 +28,16 @@ class PostController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','list','ajaxcreatenewcomment','ajaxgetpostlist','ajaxcreatenewpost','detail','ajaxgetpostdetail'),
+				'actions'=>array('index','view','list','ajaxgetpicwalldata'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create'),
-				'users'=>array('*'),
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','update'),
-				'users'=>array('@'),
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -62,14 +62,14 @@ class PostController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new BBSPost;
+		$model=new UserPictureWall;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BBSPost']))
+		if(isset($_POST['UserPictureWall']))
 		{
-			$model->attributes=$_POST['BBSPost'];
+			$model->attributes=$_POST['UserPictureWall'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -91,9 +91,9 @@ class PostController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['BBSPost']))
+		if(isset($_POST['UserPictureWall']))
 		{
-			$model->attributes=$_POST['BBSPost'];
+			$model->attributes=$_POST['UserPictureWall'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,7 +122,7 @@ class PostController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('BBSPost');
+		$dataProvider=new CActiveDataProvider('UserPictureWall');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,71 +133,46 @@ class PostController extends Controller
         $this->render('list');
     }
 
-    public function actionDetail(){
+    public function actionAjaxGetPicWallData(){
+        $estate_id=$_POST["estate_id"];
+        $pagesize = $_POST["pagesize"];
+        $pageindex = $_POST["pageindex"];
 
-        $this->render('detail');
-    }
+        $num_start = $pagesize * ($pageindex - 1);
 
-    public function actionAjaxGetPostList(){
-        $page_size=3;
-        $model = Yii::app()->db->createCommand()
-            ->select('p.*,sum(case when c.post_id is not null then 1 else 0 end) as comment_num')
-            ->from('BBS_Post p')
-            ->leftJoin('BBS_Comment c','p.id=c.post_id')
-            ->where('estate_id=:estate_id group by p.id order by create_time desc limit 0,'.$page_size*$_POST['page_num'],array(':estate_id'=>$_POST['estate_id']))
-            ->query();
-        if($model!==null){
-
-            BBSPost::model()->updateAll(array('pv_num'=>new CDbExpression('pv_num+1')),'estate_id=:estate_id',
-                array(':estate_id'=>$_POST['estate_id'],));
-            $arr = array();
-
-            forEach($model as $k=>$row){
-                array_push($arr,$row);
-            }
-
-            echo json_encode(array(
-                'code' => 200,
-                'data' => $arr
-            ));
-        }
-        else{
-            echo json_encode(array(
-                'code' => 500
-            ));
-        }
-
-    }
-
-    public function actionAjaxGetPostDetail(){
         $model = Yii::app()->db->createCommand()
             ->select('*')
-            ->from('BBS_Post')
-            ->where('id=:id',array(':id'=>$_POST['id']))
-            ->query();
-        $comment= Yii::app()->db->createCommand()
-            ->select('*')
-            ->from('BBS_Comment')
-            ->where('post_id=:post_id order by create_time desc',array(':post_id'=>$_POST['id']))
+            ->from('Picture_Wall')
+            ->where('estate_id=:estate_id order by create_time desc limit '.$num_start.','.$pagesize,array(':estate_id'=>$estate_id))
             ->query();
 
-        BBSPost::model()->updateByPk($_POST['id'],array('pv_num'=>new CDbExpression('pv_num+1')));
+        $count=Yii::app()->db->createCommand()
+            ->select('count(1) as total')
+            ->from('Picture_Wall')
+            ->where('estate_id=:estate_id order by create_time desc',array(':estate_id'=>$estate_id))
+            ->query();
 
-        $arr = array();
+        $count_temp=array();
+        forEach($count as $k=>$row)
+        {
+            array_push($count_temp,$row);
+        }
 
+        $arr_pic=array();
         forEach($model as $k=>$row){
-            array_push($arr,$row);
+            $id=$row['wechat_id'];
+            $ts=$row['create_time'];
+            $url=$row['url'];
+            $pic_array=array('createts'=>$ts,'height'=>0,'id'=>$id,'nickname'=>$id,
+                'thumbnailurl'=>'','url'=>$url,'width'=>0);
+            array_push($arr_pic,$pic_array);
         }
-
-        $arr_comment=array();
-        forEach($comment as $k=>$row){
-            array_push($arr_comment,$row);
-        }
+        $data=array('msg'=>'ok','ret'=>0,'picture'=>$arr_pic,
+                    'ret'=>0,'total'=>$count_temp[0]['total'],);
 
         echo json_encode(array(
             'code' => 200,
-            'data' => $arr,
-            'comment'=>$arr_comment
+            'data' =>$data,
         ));
     }
 
@@ -206,10 +181,10 @@ class PostController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new BBSPost('search');
+		$model=new UserPictureWall('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['BBSPost']))
-			$model->attributes=$_GET['BBSPost'];
+		if(isset($_GET['UserPictureWall']))
+			$model->attributes=$_GET['UserPictureWall'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -220,12 +195,12 @@ class PostController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return BBSPost the loaded model
+	 * @return UserPictureWall the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=BBSPost::model()->findByPk($id);
+		$model=UserPictureWall::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -233,51 +208,14 @@ class PostController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param BBSPost $model the model to be validated
+	 * @param UserPictureWall $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='bbspost-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='user-picture-wall-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
 	}
-
-    public function actionAjaxCreateNewPost(){
-        $bbs_post=new BBSPost();
-        $bbs_post->estate_id = $_POST['estate_id'];
-        $bbs_post->title = $_POST['post_title'];
-        $bbs_post->content = $_POST['post_content'];
-        $bbs_post->wechat_id = $_POST['wechat_id'];
-
-        $result=$bbs_post->save();
-        if ($result) {
-            echo json_encode(array(
-                'code' => 200,
-            ));
-        } else {
-            echo json_encode(array(
-                'code' => 500,
-            ));
-        }
-    }
-
-    public function actionAjaxCreateNewComment(){
-        $bbs_comment=new BBSComment();
-        $bbs_comment->post_id = $_POST['post_id'];
-        $bbs_comment->content = $_POST['comment_content'];
-        $bbs_comment->wechat_id = $_POST['wechat_id'];
-
-        $result=$bbs_comment->save();
-        if ($result) {
-            echo json_encode(array(
-                'code' => 200,
-            ));
-        } else {
-            echo json_encode(array(
-                'code' => 500,
-            ));
-        }
-    }
 }
