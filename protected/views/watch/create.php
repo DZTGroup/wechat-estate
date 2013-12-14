@@ -31,8 +31,13 @@
                     <span class="ico-calendar"></span>
                 </span>
                 <select size="1" class="li-hd J_field" name="sign_start_time">
-                    <option value="0:00">0:00</option>
-                    <option value="1:00">1:00</option>
+                    <?php
+                    for($i=0;$i<24;$i++){
+                        ?>
+                        <option value="<?php echo $i?>:00"><?php echo $i?>:00</option>
+                    <?php
+                    }
+                    ?>
                 </select>
             </div>
             <div class="tipe-lb">
@@ -42,8 +47,13 @@
                     <span class="ico-calendar"></span>
                 </span>
                 <select size="1" class="li-hd J_field" name="sign_end_time">
-                    <option value="0:00">0:00</option>
-                    <option value="1:00">1:00</option>
+                    <?php
+                    for($i=0;$i<24;$i++){
+                        ?>
+                        <option value="<?php echo $i?>:00"><?php echo $i?>:00</option>
+                    <?php
+                    }
+                    ?>
                 </select>
             </div>
             <div class="tipe-lb">
@@ -53,8 +63,13 @@
                     <span class="ico-calendar"></span>
                 </span>
                 <select size="1" class="li-hd J_field" name="watch_end_time">
-                    <option value="0:00">0:00</option>
-                    <option value="1:00">1:00</option>
+                    <?php
+                    for($i=0;$i<24;$i++){
+                        ?>
+                        <option value="<?php echo $i?>:00"><?php echo $i?>:00</option>
+                    <?php
+                    }
+                    ?>
                 </select>
             </div>
             <div class="tipe-lb"><label>活动优惠：</label> <textarea class="text-kuang J_field" name="discount" cols="" rows="" placeholder="150个字以内"></textarea></div>

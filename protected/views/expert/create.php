@@ -1,7 +1,7 @@
 <div class="cent-auto">
     <!-- 专家点评查询【【 -->
     <div class="com-min">
-        <h3>专家点评查询</h3>
+        <h3>专家点评管理</h3>
 
         <div class="order-lb"><label>楼盘名称：</label>
             <?php $this->widget('EstateListWidget', array('class_name' => 'li-hd')); ?>
