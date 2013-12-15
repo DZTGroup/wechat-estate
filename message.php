@@ -33,7 +33,6 @@
 			 $fromUsername = $postObj->FromUserName;
 			 $toUsername = $postObj->ToUserName;
 			 $userMsgType=$postObj->MsgType;
-			 $keyword = trim($postObj->Content);
 			 $time = time();
 			 $textTpl = "<xml>
 						<ToUserName><![CDATA[%s]]></ToUserName>
@@ -78,6 +77,18 @@
 		       		$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
 		       	    	
 					echo $resultStr;
+
+                    if($userMsgType=='location'){
+                        $location_x=$postObj->Location_X;
+                        $location_y=$postObj->Location_Y;
+
+                        $msgType = "text";
+                        $contentStr = "照片上传成功！";
+
+                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                        return $resultStr;
+
+                    }
 		    	}else{
 		       		echo "Input something...";
 				}
