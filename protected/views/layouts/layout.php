@@ -30,7 +30,11 @@
                     <li><a href="?r=estate/type">户型管理</a></li>
                 </ul>
             </li>
-            <li><a href="?r=watch/create">看房团管理</a></li>
+            <li class="menu-p"><a href="?r=watch/create">看房团管理</a>
+                <ul class="menu-xia">
+                    <li><a href="?r=watch/search">看房团查询</a></li>
+                </ul>
+            </li>
             <li class=" menu-p"><a href="?r=impression/create">楼盘印象管理</a>
                 <ul class="menu-xia">
                     <li><a href="?r=impression/view">房友印象查询</a></li>
