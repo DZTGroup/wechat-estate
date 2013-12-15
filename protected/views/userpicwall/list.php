@@ -1,5 +1,5 @@
 <?php
-$this->layout='';
+$this->layout='//layouts/lauout1';
 ?>
 
 <!DOCTYPE html>
@@ -11,22 +11,7 @@ $this->layout='';
     <meta name="viewport" id="myViewPort" content="width=320,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="white" />
-    <script type="text/javascript">
-        var search = location.search,
-            star = search.indexOf('title='),
-            end = search.indexOf('&',star),
-            title = '楼盘实景-微生活';
-        if(end==-1){
-            end = search.length;
-        }
-        if(star != -1){
-            title = search.substring(star+6,end)
-        }
-        try{title = decodeURIComponent(title);}catch(e){}
-        title = title.replace(/[<>]/gi,'');
-        document.write("<title>"+title+"</title>");
-
-    </script>
+    <title>楼盘实景-微生活</title>
     <link href="css/list.css" rel="stylesheet" />
     <style type="text/css">
         * {	-webkit-text-size-adjust: none;}
