@@ -1274,3 +1274,71 @@ window.WXAPP = window.WXAPP || {};
         return '<tr><td>' + content.title_setting.title + '</td><td>' + item.estate_name + '</td><td>' + content.event.watch_end_date + '前</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a></td></tr>';
     }
 })();
+
+
+//ugc 印象查询
+(function(){
+    $('.J_im_search').click(function(){
+        var estate_id = $('.J_estate_list').val(),
+            start_time = $('.ico-calendar').eq(0).prev().val(),
+            end_time = $('.ico-calendar').eq(1).prev().val();
+
+        if(estate_id===WXAPP.EMPTY_ESTATE){
+            alert('请选择楼盘')
+            return ;
+
+        }
+        $.ajax({
+            dataType:"jsonp",
+            url:'',
+            data:{
+                estate_id:estate_id,
+                start_time:start_time,
+                end_time:end_time
+            },
+            success:function(res){
+                //TODO
+
+            }
+        });
+
+        $('#J_im_result tbody').empty();
+    });
+
+})();
+
+//ugc 照片
+(function(){
+    $('.J_pic_search').click(function(){
+        var estate_id = $('.J_estate_list').val(),
+            start_time = $('.ico-calendar').eq(0).prev().val(),
+            end_time = $('.ico-calendar').eq(1).prev().val();
+        if(estate_id===WXAPP.EMPTY_ESTATE){
+            alert('请选择楼盘');
+            return ;
+        }
+
+        WXAPP.Ajax('?r=picwall/ajaxsearch',{
+            estate_id:estate_id,
+            start_time:start_time,
+            end_time:end_time
+        },function(rs){
+            $('.J_list').empty();
+            rs.data.forEach(function(item){
+                var l = $('<span><img src="'+item.url+'"> <button class="btn-cha J_del" type="button">删除</button></span>').appendTo($('.J_list'));
+                l.find('.J_del').click(function(){
+                    WXAPP.Ajax('?r=picwall/ajaxdelete',{
+                        id:item.id
+                    },function(){
+                        alert('删除成功');
+                        l.remove();
+                    });
+                });
+            });
+            if(!rs.data.length){
+                alert('没有数据');
+            }
+        });
+
+    });
+})();

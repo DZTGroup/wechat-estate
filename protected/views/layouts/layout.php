@@ -47,7 +47,7 @@
             <li class="menu-p">
                 <a href="?r=picwall/create">照片管理</a>
                 <ul class="menu-xia" >
-                    <li><a href="photo_inquiry.html">照片查询</a></li>
+                    <li><a href="?r=picwall/search">照片查询</a></li>
                     <li><a href="?r=picwall/create">照片管理</a></li>
                 </ul>
             </li>
