@@ -1,3 +1,7 @@
+<?php
+$this->layout='';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +25,7 @@
         try{title = decodeURIComponent(title);}catch(e){}
         title = title.replace(/[<>]/gi,'');
         document.write("<title>"+title+"</title>");
+
     </script>
     <link href="css/list.css" rel="stylesheet" />
     <style type="text/css">
