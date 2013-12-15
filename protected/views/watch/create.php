@@ -15,7 +15,7 @@
         </div>
 
     </div>
-    <div id="J_entity_form" style="display: none;" data-type="group" data-multiple="true">
+    <div id="J_watch_form" style="display: none;" data-type="group" data-multiple="true">
         <div class="com-min J_module" data-module="title_setting">
             <h3>标题设置</h3>
             <?php $this->widget('UploadWidget');?>
@@ -76,11 +76,20 @@
             <div class="tipe-lb"><label>看房须知：</label> <textarea class="text-kuang J_field" name="notice" cols="" rows="" placeholder="400个字以内"></textarea></div>
             <div class="tipe-lb"><label>看房声明：</label> <textarea class="text-kuang J_field" name="announce" cols="" rows="" placeholder="400个字以内"></textarea></div>
         </div>
-        <div class="com-min J_module" data-module="line">
+        <div class="com-min J_modules " data-module="lines">
             <h3>参团线路</h3>
-            <div class="tipe-lb"><label>线路名称：</label> <input class="inp-tex J_filed" name="name" type="text"></div>
-            <div class="tipe-lb"><label>说明：</label> <textarea class="text-kuang J_filed" name="tip" cols="" rows="" placeholder="500个字以内"></textarea></div>
+            <div class="J_lines">
+            <div class="J_module_item">
+                <div class="tipe-lb"><label>线路名称：</label> <input class="inp-tex J_field" name="name" type="text"></div>
+                <div class="tipe-lb"><label>说明：</label> <textarea class="text-kuang J_field" name="tip" cols="" rows="" placeholder="500个字以内"></textarea></div>
+            </div>
+            </div>
+
+
+
         </div>
+        <div class="com-min"><button class="btn-cha J_add_line" type="button">添加参团路线</button></div>
+
         <div class="cent-bott">
             <button class="btn-cha J_submit" type="button">完成</button>
             <button class="btn-cha J_cancel" type="button">取消</button>

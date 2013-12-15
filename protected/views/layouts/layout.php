@@ -41,17 +41,17 @@
                 <a href="order_li.html">认筹管理</a>
                 <ul class="menu-xia"  >
                     <li><a href="?r=reservation/create">认筹列表</a></li>
-                    <li><a href="order.html">认筹订单</a></li>
+                    <li><a href="?r=reservation/search">认筹订单</a></li>
                 </ul>
             </li>
             <li class="menu-p">
                 <a href="?r=picwall/create">照片管理</a>
                 <ul class="menu-xia" >
-                    <li><a href="photo_inquiry.html">照片查询</a></li>
+                    <li><a href="?r=picwall/search">照片查询</a></li>
                     <li><a href="?r=picwall/create">照片管理</a></li>
                 </ul>
             </li>
-            <li><a href="new.html">多业态</a></li>
+            <li><a href="?r=advertise/create">多业态</a></li>
         </ul>
     </div>
 </div>

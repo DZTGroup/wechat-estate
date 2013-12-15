@@ -61,10 +61,10 @@
 
             <div class="tipe-lb"><label>视频名称：</label> <input class="inp-tex inp-300 J_field" name="name" type="text">
             </div>
-            <div class="tipe-lb"><label>腾讯视频链接：</label> <input class="inp-tex inp-300 J_field" name="link" type="text">
+            <div class="tipe-lb"><label>腾讯视频链接：</label> <input class="inp-tex inp-300 J_field" name="link" type="text" data-reg="vid=([^$&])">
             </div>
         </div>
-        <div class="com-min" data-module="traffic_info">
+        <div class="com-min J_module" data-module="traffic_info">
             <h3>周边交通</h3>
             <div class="tipe-lb"><label>正文：</label> <textarea class="text-kuang J_field" name="text" cols="" rows=""
                                                               placeholder="400个字以内"></textarea></div>

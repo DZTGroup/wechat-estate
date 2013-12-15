@@ -2,4 +2,7 @@
 *.log
 protected/runtime/application.log
 .DS_Store
-upload_files
+
+#upload and defaults
+upload_files/*
+!upload_files/banner.jpg
