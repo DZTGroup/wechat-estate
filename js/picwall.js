@@ -5,7 +5,8 @@ FCAPP.PICWALL = {
         params: {
             cmd: 'query',
             appid: 'wx05940045fd60e0f1',
-            pagesize: 8
+            pagesize: 8,
+            estate_id:0
         },
         noteHeight: 30,
         oneDay: 3600 * 24,
@@ -261,8 +262,6 @@ FCAPP.PICWALL = {
         }
     },
     loadPage: function (page) {
-        var reg = new RegExp("(^|\\?|&)"+ estate_id +"=([^&]*)(\\s|&|$)", "i");
-        data.estate_id=unescape(RegExp.$2.replace(/\+/g, " "));
         var R = PICWALL.RUNTIME,
             data = PICWALL.CONFIG.params;
         data.callback = 'picResult';
@@ -391,4 +390,11 @@ FCAPP.PICWALL = {
 var PICWALL = FCAPP.PICWALL,
     tm = null,
     myScroll;
-$(document).ready(PICWALL.init);
+var reg = new RegExp("(^|\\?|&)"+ 'estate_id' +"=([^&]*)(\\s|&|$)", "i");
+if (reg.test(location.href)){
+    PICWALL.CONFIG.params.estate_id=unescape(RegExp.$2.replace(/\+/g, " "));
+}
+
+$(document).ready(
+    PICWALL.init
+);
