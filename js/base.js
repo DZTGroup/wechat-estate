@@ -460,12 +460,20 @@ window.WXAPP = window.WXAPP || {};
     function successCallBack(res) {
         var table = $('#J_audit_table tbody');
         var map = {
-            0: '待审核'
+            0: '待审核',
+            'intro': '楼盘',
+            'apartment': '户型',
+            'group': '看房团',
+            'picture': '照片墙',
+            'reservation': '认筹',
+            'comment': '专家建议',
+            'impression': '用户印象'
         }
         table.empty();
         res.data.forEach(function (item) {
             table.append('<tr><td>' + item.estate_id + '</td>' +
                 '<td>' + item.name + '</td><td>'
+                + map[item.entity_type] + '</td><td>'
                 + item.create_time + '</td><td>'
                 + item.username + '</td><td>'
                 + map[item.entity_status]
@@ -514,27 +522,8 @@ window.WXAPP = window.WXAPP || {};
     }
 
     var Audit = {
-        setImpressionData: function () {
+        setAllAuditData:function(){
             WXAPP.Ajax('?r=audit/ajaxgetauditdata', {
-                type: 'impression'
-            }, successCallBack);
-        },
-
-        setCommentData: function () {
-            WXAPP.Ajax('?r=audit/ajaxgetauditdata', {
-                type: 'comment'
-            }, successCallBack);
-        },
-
-        setPictureWallData: function () {
-            WXAPP.Ajax('?r=audit/ajaxgetauditdata', {
-                type: 'picture'
-            }, successCallBack);
-        },
-
-        setEstateData: function () {
-            WXAPP.Ajax('?r=audit/ajaxgetauditdata', {
-                type: 'intro'
             }, successCallBack);
         }
     }

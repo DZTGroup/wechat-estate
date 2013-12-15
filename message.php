@@ -105,17 +105,15 @@
                     $estate_location_lat=$estate_content['location_info']['lat'];
 
                     $distance=$this->get_dist($location_x,$location_y, $estate_location_lat ,$estate_location_lng);
-                    $filename = 'log';
-                    $fh = fopen($filename, "w");
-                    echo fwrite($fh,$location_y.'   ');
-                    echo fwrite($fh,$location_x.'   ');
-                    echo fwrite($fh,$estate_location_lng.'   ');
-                    echo fwrite($fh,$estate_location_lat.'   ');
-                    echo fwrite($fh,$distance);
-                    fclose($fh);
 
                     $msgType = "text";
-                    $contentStr = "照片上传成功！";
+                    if($distance<60){
+                        $contentStr = "照片上传成功！";
+                    }
+                    else{
+                        $contentStr="对不起，您不在楼盘的范围内，无法上传照片";
+                    }
+
 
                     $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                     echo $resultStr;
