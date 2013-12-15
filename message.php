@@ -70,6 +70,7 @@
 					//mysql_close($con);
 				    $url=$postObj->PicUrl;
 					$wechatId=$this->getUserName($app_id,$app_key,$fromUsername);
+                    mysql_query("SET NAMES UTF8");
 					$insertSql = "insert into Picture_Wall (estate_id,wechat_id,url) values ('".$estate_id."','".$wechatId."','".$url."');";
 					mysql_query($insertSql);
 					mysql_close($con);
@@ -107,7 +108,7 @@
                     $distance=$this->get_dist($location_x,$location_y, $estate_location_lat ,$estate_location_lng);
 
                     $msgType = "text";
-                    if($distance<60){
+                    if($distance<50){
                         $contentStr = "照片上传成功！";
                     }
                     else{

@@ -440,7 +440,9 @@ window.WXAPP = window.WXAPP || {};
                         + map[item.entity_type] + '</td><td>'
                         + item.create_time + '</td><td>'
                         + map[item.entity_status]
-                        + '</td><td><a class="blue J_detail" href="javascript:;" data-id="' + item.id
+                        + '</td><td><a class="blue J_detail" href="/weapp/public_html/html/'
+                        + item.entity_type +'.html?eid='+item.estate_id+'&openid=0" target="_blank"'
+                        +' data-id="' + item.id
                         + '" entity-id="' + item.entity_id + '">详情</a>'
                         + '</td></tr>')
                 });
@@ -477,7 +479,9 @@ window.WXAPP = window.WXAPP || {};
                 + item.create_time + '</td><td>'
                 + item.username + '</td><td>'
                 + map[item.entity_status]
-                + '</td><td><a class="blue J_detail" href="javascript:;" data-id="' + item.id
+                + '</td><td><a class="blue J_detail" href="/weapp/public_html/html/'
+                + item.entity_type +'.html?eid='+item.estate_id+'&openid=0" target="_blank"'
+                + 'data-id="' + item.id
                 + '" entity-id="' + item.entity_id + '">详情</a>'
                 + '<a class="blue J_pass" href="javascript:;" data-id="' + item.id
                 + '" entity-id="' + item.entity_id
