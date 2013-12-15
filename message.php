@@ -116,9 +116,17 @@
 
 			$getUserInfoUrl="https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$data['access_token']."&openid=".$open_id;
 
-			$userInfo = file_get_contents($getUserInfoUrl);  
+             $curl = curl_init($getUserInfoUrl);
 
-			$user_data=json_decode($userInfo, true); 
+             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+             curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
+
+             $content = curl_exec($curl);
+
+             curl_close($curl);
+
+             $user_data=json_decode($content, true);
 
 			return  $user_data['nickname'];
 
