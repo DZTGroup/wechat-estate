@@ -104,13 +104,9 @@
                     $estate_location_lng=$estate_content['location_info']['lng'];
                     $estate_location_lat=$estate_content['location_info']['lat'];
 
-                    $distance=$this->get_dist($location_x, $location_y, $estate_location_lng ,$estate_location_lat);
+                    $distance=$this->get_dist($location_y,$location_x, $estate_location_lng ,$estate_location_lat);
                     $filename = 'log';
                     $fh = fopen($filename, "w");
-                    echo fwrite($fh,$location_x.'   ');
-                    echo fwrite($fh,$location_y.'   ');
-                    echo fwrite($fh,$estate_location_lng.'   ');
-                    echo fwrite($fh,$estate_location_lat.'   ');
                     echo fwrite($fh,$distance);
                     fclose($fh);
 
