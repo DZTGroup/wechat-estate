@@ -14,7 +14,7 @@ FCAPP.PICWALL = {
         oneYear: 3600 * 24 * 365,
         //picURL: 'http://cgi.trade.qq.com/cgi-bin/common/picwall_manager.fcg',
         //picURL: 'http://112.124.55.78/weixinfc/get_pic.php',
-        picURL: 'http://localhost/~quanwang06/wechat-estate/index.php?r=userpicwall/ajaxgetpicwalldata',
+        picURL: 'http://www.weixinfc.com/wechat-estate/index.php?r=userpicwall/ajaxgetpicwalldata',
         hNames: {
             '': '您的',
             '10003': '九龙山',
