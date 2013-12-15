@@ -107,7 +107,7 @@
 
                     $filename = 'log';
                     $fh = fopen($filename, "w");
-                    echo fwrite($fh,'$entity_content');
+                    echo fwrite($fh,$entity_content);
                     //echo fwrite($fh,$estate_location_lng );
                     //echo fwrite($fh,$estate_location_lat );
                     fclose($fh);
