@@ -33,7 +33,6 @@
 			 $fromUsername = $postObj->FromUserName;
 			 $toUsername = $postObj->ToUserName;
 			 $userMsgType=$postObj->MsgType;
-			 $keyword = trim($postObj->Content);
 			 $time = time();
 			 $textTpl = "<xml>
 						<ToUserName><![CDATA[%s]]></ToUserName>
@@ -78,8 +77,17 @@
 		       		$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
 		       	    	
 					echo $resultStr;
-		    	}else{
-		       		echo "Input something...";
+
+
+		    	}else if($userMsgType=='location'){
+                        $location_x=$postObj->Location_X;
+                        $location_y=$postObj->Location_Y;
+
+                        $msgType = "text";
+                        $contentStr = "照片上传成功！";
+
+                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                        echo $resultStr;
 				}
 			}
 			 else{
@@ -116,9 +124,9 @@
 
 			$getUserInfoUrl="https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$data['access_token']."&openid=".$open_id;
 
-			$userInfo = file_get_contents($getUserInfoUrl);  
+			$userInfo = file_get_contents($getUserInfoUrl);
 
-			$user_data=json_decode($userInfo, true); 
+			$user_data=json_decode($userInfo, true);
 
 			return  $user_data['nickname'];
 
