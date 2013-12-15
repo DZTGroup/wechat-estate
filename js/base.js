@@ -221,7 +221,13 @@ window.WXAPP = window.WXAPP || {};
         this.form.find('textarea').val('');
     }
     Entity.prototype.tableTemplate = function (item) {
-        return '<tr><td>' + item.estate_id + '</td><td>' + item.estate_name + '</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a></td></tr>';
+        return '<tr><td>' + item.estate_id + '</td>' +
+            '<td>' + item.estate_name + '</td>' +
+            '<td>' + item.create_time + '</td>' +
+            '<td>' + this.getStatus(item.status) + '</td>' +
+            '<td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a> ' +
+            '<a href="/weapp/public_html/html/'+ item.type +'.html?eid='+item.estate_id+'&openid=0" target="_blank">预览</a>' +
+            '</td></tr>';
     }
 
     WXAPP.Entity = Entity;
@@ -243,7 +249,9 @@ window.WXAPP = window.WXAPP || {};
     if (entity.type == "reservation") {
         entity.tableTemplate = function (item) {
             var content = JSON.parse(item.content);
-            return '<tr><td>' + item.id + '</td><td>' + content.event.name + '</td><td>' + item.estate_name + '</td><td>' + content.event.start_date + '-' + content.event.end_date + '</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a></td></tr>';
+            return '<tr><td>' + item.id + '</td><td>' + content.event.name + '</td><td>' + item.estate_name + '</td><td>' + content.event.start_date + '-' + content.event.end_date + '</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a>' +
+                '<a href="/weapp/public_html/html/'+ item.type +'.html?eid='+item.estate_id+'&openid=0" target="_blank">预览</a>' +
+                '</td></tr>';
         }
     }
 })();
@@ -1272,7 +1280,9 @@ window.WXAPP = window.WXAPP || {};
     }
     entity.tableTemplate = function (item) {
         var content = JSON.parse(item.content);
-        return '<tr><td>' + content.title_setting.title + '</td><td>' + item.estate_name + '</td><td>' + content.event.watch_end_date + '前</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a></td></tr>';
+        return '<tr><td>' + content.title_setting.title + '</td><td>' + item.estate_name + '</td><td>' + content.event.watch_end_date + '前</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a>' +
+            '<a href="/weapp/public_html/html/'+ item.type +'.html?eid='+item.estate_id+'&openid=0" target="_blank">预览</a>' +
+            '</td></tr>';
     }
 })();
 

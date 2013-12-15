@@ -78,6 +78,9 @@ class EntityController extends Controller
 
         $audit->save();
 
+        $query = http_build_query(array('eid'=>$estate_id, 't'=>$type,'f'=>'0'));
+        file_get_contents('/weapp/php/cgi/sync.php?'.$query);
+
         return array(
             'model' => $model,
             'result' => $result
@@ -93,6 +96,9 @@ class EntityController extends Controller
         if ($model->status == '0') {
             $model->content = $content;
             $result = $model->save();
+
+            $query = http_build_query(array('eid'=>$model->estate_id, 't'=>$model->type,'f'=>'0'));
+            file_get_contents('/weapp/php/cgi/sync.php?'.$query);
             return array(
                 'model' => $model,
                 'result' => $result
