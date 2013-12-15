@@ -24,7 +24,6 @@
             </thead>
         <tbody></tbody>
         </table>
-        <div class="but-righ ma-top"><button class="btn-cha" type="button">下载数据</button></div>
     </div>
     <!-- 查询列表 】】-->
 </div>
