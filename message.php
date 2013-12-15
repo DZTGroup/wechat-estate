@@ -42,6 +42,9 @@
 						<Content><![CDATA[%s]]></Content>
 						<FuncFlag>0</FuncFlag>
 						</xml>";
+
+                $estate_id=$_REQUEST['estate_id'];
+
 				if($userMsgType=='image')
 		    	{
 		       		//db connection
@@ -52,7 +55,6 @@
 						die('Could not connect: ' . mysql_error());
 					}
 					mysql_select_db("wxfc", $con);
-					$estate_id=$_REQUEST['estate_id'];
 					$query = "select app_id, app_key from Estate where id='".$estate_id."'";
 			        $result = mysql_query($query);
 					$app_id=null;
@@ -82,6 +84,33 @@
 		    	}else if($userMsgType=='location'){
                         $location_x=$postObj->Location_X;
                         $location_y=$postObj->Location_Y;
+
+                        $con = mysql_connect("112.124.55.78","zunhao","655075d7dd");
+                        if (!$con)
+                        {
+                            die('Could not connect: ' . mysql_error());
+                        }
+                         mysql_select_db("wxfc", $con);
+                         $estate_id=$_REQUEST['estate_id'];
+                        $query = "select content from Entity where estate_id='".$estate_id."' and status='1'";
+                        $result = mysql_query($query);
+                         while($row = mysql_fetch_array($result))
+                         {
+                            $entity_content=$row[0];
+
+                         }
+
+                        $estate_content=json_decode($entity_content, true);
+
+                        $estate_location_lng=$estate_content['location_info']['lng'];
+                        $estate_location_lat=$estate_content['location_info']['lat'];
+
+                    $filename = 'log';
+                    $fh = fopen($filename, "w");
+                    echo fwrite($fh,$estate_content);
+                    echo fwrite($fh,$estate_location_lng );
+                    echo fwrite($fh,$estate_location_lat );
+                    fclose($fh);
 
                         $msgType = "text";
                         $contentStr = "照片上传成功！";
@@ -132,6 +161,21 @@
 
 
 		 }
+
+      private function get_dist($lng1, $lat1, $lng2 ,$lat2)
+      {
+          $r = 6371.137;
+          $dlat = deg2rad($lat2 - $lat1);
+          $dlng = deg2rad($lng2 - $lng1);
+
+          $a = pow(sin($dlat / 2), 2) +
+              cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+              pow(sin($dlng / 2), 2);
+
+          $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+          return $r * $c;
+      }
+
 }
 
 ?>
