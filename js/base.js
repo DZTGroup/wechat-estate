@@ -1047,3 +1047,191 @@ window.WXAPP = window.WXAPP || {};
         $(html).appendTo(form.find('.J_expert_holder'));
     }
 })();
+
+//多业态
+(function(){
+    var form = $('#J_ad_form'),
+        newBtn = $('#J_entity_new'),
+        table = $('#J_entity_table tbody');
+    if (!form.length) {
+        return;
+    }
+    form.find('.J_add').click(function(){
+        editItem(null,function(data){
+            var l = $('<li>已有业态：<span class="J_name">'+data.intro.name+'</span><input type="hidden"><button class="btn-cha J_edit" type="button">编辑</button></li>').appendTo(form.find('.J_list'));
+            l.find('input[type=hidden]').val(JSON.stringify(data));
+            l.find('.J_edit').click(function(){
+                editItem(data,function(rs){
+                    l.find('input[type=hidden]').val(JSON.stringify(rs));
+                });
+            });
+        });
+    });
+    var entity = new WXAPP.Entity(form.attr('data-type'), form, table, newBtn, {
+        multiple: form.attr('data-multiple') === "true"
+    });
+
+    entity.getData = function(){
+        debugger
+        var data = {
+            intro:{},
+            list:[]
+        };
+        form.find('.J_list input[type=hidden]').each(function(i,input){
+            data.list.push(JSON.parse(input.value));
+        });
+        form.find('.J_field').each(function(i,field){
+            data.intro[$(field).attr('name')] = $(field).val();
+        });
+        return data;
+    }
+    entity.setData = function(rs){
+        form.find('.J_list').empty();
+        form.find('.J_field').val('');
+        form.find('img').attr('src','');
+        var listHtml = '<li>已有业态：<span class="J_name"></span><input type="hidden"><button class="btn-cha J_edit" type="button">编辑</button></li>';
+        if(rs){
+            var data = JSON.parse(rs.content);
+            form.find('.J_intro .J_field').each(function(i,field){
+                $(field).val(data.intro[$(field).attr('name')]);
+                if(field.nodeName.toLowerCase()==="img"){
+                    field.src='upload_files/' + entity.estate_id + "/" + data.intro[$(field).attr('name')];
+                }
+            });
+
+            data.list && data.list.forEach(function(item){
+                var l = $(listHtml).appendTo(form.find('.J_list'));
+                l.find('.J_name').html(item.intro.name);
+                l.find('input[type=hidden]').val(JSON.stringify(item));
+                l.find('.J_edit').click(function(){
+                    editItem(item,function(data){
+                        l.find('input[type=hidden]').val(JSON.stringify(data));
+                    });
+                });
+            });
+        }
+    }
+    entity.empty = function(){
+        form.find('.J_list').empty();
+        form.find('.J_field').val('');
+        form.find('img').attr('src','');
+    }
+
+    function editItem(data,cb){
+        var html = '<hr/><div class="tipe-lb">' +
+            '<div>' +
+                '<span class="load_btn"> <span class="btn-cha J_upload"></span></span>(上传业态小图 推荐图片尺寸：720*130；图片小于100k)' +
+                '<div class="J_display">' +
+                    '<img src="" class="J_field" name="img" width="50" height="50" value="">' +
+                '</div>' +
+            '</div></div>' +
+            ' <div class="tipe-lb"><label>业态名称：：</label> <input class="inp-tex inp-300 J_field" name="name" type="text"></div>' +
+            ' <div class="tipe-lb"><label>业态英文名：</label> <input class="inp-tex inp-300 J_field" name="ename" type="text"></div>' +
+            ' <div class="tipe-lb">' +
+                '<div>' +
+                    '<span class="load_btn"> <span class="btn-cha J_upload"></span></span>(添加业态头图 推荐图片尺寸：720*130；图片小于100k)' +
+                    '<div class="J_display">' +
+                        '<img src="" class="J_field" name="img" width="50" height="50" value="">' +
+                    '</div>' +
+                '</div></div>' +
+            ' <div class="tipe-lb"><label>添加业态简介：</label> <textarea class="text-kuang J_field" name="desc" cols="" rows=""></textarea></div>' +
+             '<div class="box-table"><table width="360" border="0" cellspacing="1" cellpadding="0" bgcolor="#d7d7d7" style="margin-left:180px;">' +
+            ' <thead><tr> <th>优惠名称</th> <th>状态</th></thead></tr><tbody></tbody></table></div>'+
+            '<div class="tipe-lb">' +
+            '<button class="btn-cha J_add_coupon" type="button">添加新优惠</button> <button class="btn-cha J_save" type="button">保存业态</button>' +
+            '</div><hr/>'
+
+        var l = $(html).appendTo(form.find('.J_edit_holder').empty());
+        WXAPP.bindLoad(l.find('.J_upload'));
+        if(data){
+            l.find('.J_field').each(function(i,field){
+                $(field).val(data.intro[$(field).attr('name')]);
+                if(field.nodeName.toLowerCase()==="img"){
+                    field.src='upload_files/' + entity.estate_id + "/" + data.intro[$(field).attr('name')];
+                }
+            });
+            data.list && data.list.forEach(function(coupon){
+                var couponItem = $('<tr><td><input type="hidden" >'+coupon.name+'</td><td><a class="J_edit" href="javascript:;">编辑</a> <a class="J_delete" href="javascript:;">删除</a></td></tr>').appendTo(l.find('tbody'));
+                couponItem.find('input[type=hidden]').val(JSON.stringify(coupon));
+                couponItem.find('.J_edit').click(function(){
+                   editCoupon(coupon,function(data){
+                       couponItem.find('input[type=hidden]').val(JSON.stringify(data));
+                   });
+                });
+                couponItem.find('.J_delete').click(function(){
+                    couponItem.remove();
+                });
+            });
+        }
+        function getCoupon(){
+            var data = [];
+            l.find('table input[type=hidden]').each(function(i,hidden){
+                data.push(JSON.parse(hidden.value));
+            });
+            return data;
+        }
+
+        l.find('.J_save').click(function(){
+            var intro = {};
+            l.find('.J_field').each(function(i,field){
+                intro[$(field).attr('name')] = $(field).val();
+            });
+            var list = getCoupon();
+            cb({
+                intro:intro,
+                list:list
+            });
+            l.remove();
+        });
+        l.find('.J_add_coupon').click(function(){
+            editCoupon(null,function(coupon){
+                var couponItem = $('<tr><td><input type="hidden" >'+coupon.name+'</td><td><a class="J_edit" href="javascript:;">编辑</a> <a class="J_delete" href="javascript:;">删除</a></td></tr>').appendTo(l.find('tbody'));
+                couponItem.find('input[type=hidden]').val(JSON.stringify(coupon));
+                couponItem.find('.J_edit').click(function(){
+                    editCoupon(coupon,function(data){
+                        couponItem.find('input[type=hidden]').val(JSON.stringify(data));
+                    });
+                });
+                couponItem.find('.J_delete').click(function(){
+                    couponItem.remove();
+                });
+            });
+        })
+    }
+
+    function editCoupon(data,cb){
+        var layer = $('<div class="box-layer" style="width:700px;">' +
+            ' <div class="title"><h2>添加新优惠</h2></div>' +
+            ' <a class="close J_cancel" href="javascrit:;" title="关闭">关闭</a>' +
+            ' <div class="tip-mian">' +
+            ' <div class="p-shuju">' +
+            ' <div class="layer-lb"><label>优惠名称：</label> <input class="inp-tex inp-300 J_field" name="name" type="text"></div>' +
+            ' <div class="layer-lb"><label>优惠描述：</label> <input class="inp-tex inp-300 J_field" name="desc" type="text"></div>' +
+            ' <div class="layer-lb"><label>预约时间：</label> <input class="inp-tex inp-300 J_field" name="book_time" type="text"></div>' +
+            ' <div class="layer-lb"><label>预约电话1：</label> <input class="inp-tex inp-300 J_field" name="phone1" type="text"></div>' +
+            ' <div class="layer-lb"><label>预约电话2：</label> <input class="inp-tex inp-300 J_field" name="phone2" type="text"></div>' +
+            ' <div class="layer-lb"><label>服务时间：</label> <input class="inp-tex inp-300 J_field" name="service_time" type="text"></div>' +
+            ' <div class="layer-lb"><label>优惠说明：</label> <textarea class="layer-kuang J_field" name="announcement" cols="" rows=""></textarea></div>' +
+            ' <div class="layer-lb"><label>优惠须知：</label> <textarea class="layer-kuang J_field" name="notice" cols="" rows=""></textarea></div>' +
+            ' <div class="but-auto"><a class="an-butn J_save" href="javascript:;" title="提交">提交</a></div>' +
+            ' </div> </div> </div>').appendTo('body');
+
+        if(data){
+            layer.find('.J_field').each(function(i,field){
+                $(field).val(data[$(field).attr('name')]);
+            });
+        }
+        layer.find('.J_save').click(function(){
+            var data = {};
+            layer.find('.J_field').each(function(i,field){
+                data[$(field).attr('name')] = $(field).val();
+            });
+            cb(data);
+            layer.remove();
+        });
+        layer.find('.J_cancel').click(function(){
+            layer.remove();
+        })
+    }
+
+})();

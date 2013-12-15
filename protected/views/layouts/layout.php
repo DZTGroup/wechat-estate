@@ -51,7 +51,7 @@
                     <li><a href="?r=picwall/create">照片管理</a></li>
                 </ul>
             </li>
-            <li><a href="new.html">多业态</a></li>
+            <li><a href="?r=advertise/create">多业态</a></li>
         </ul>
     </div>
 </div>
