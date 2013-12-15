@@ -1105,6 +1105,7 @@ window.WXAPP = window.WXAPP || {};
     }
     entity.empty = function(){
         form.find('.J_list').empty();
+        form.find('.J_edit_holder').empty();
         form.find('.J_field').val('');
         form.find('img').attr('src','');
     }
