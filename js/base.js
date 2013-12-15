@@ -675,10 +675,6 @@ window.WXAPP = window.WXAPP || {};
     var current_estate_id=$('#estate_id').val();
     var wechat_id=$('#wechat_id').val();
 
-    var post_form = $('#bbs_post_form');
-    var current_estate_id = $('#estate_id').val();
-    var wechat_id = $('#wechat_id').val();
-
     $('#post_btnSend').click(function () {
         var title = post_form.find('#tfTitle').val();
         var content = post_form.find('#tfContent').val();

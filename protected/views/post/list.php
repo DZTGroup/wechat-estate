@@ -22,8 +22,16 @@
 </head>
 
 <script>
+    function getQueryStringRegExp(name)
+    {
+        var reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i");
+        if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
+    };
+
+
     $(document).ready(function(){
-        WXAPP.Post.getListData('1');
+        var estate_id=getQueryStringRegExp('estate_id');
+        WXAPP.Post.getListData(estate_id);
     });
 </script>
 <body class="mod-body-bg" style="padding:0">
