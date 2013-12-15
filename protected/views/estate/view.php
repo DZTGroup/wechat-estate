@@ -61,7 +61,7 @@
 
             <div class="tipe-lb"><label>视频名称：</label> <input class="inp-tex inp-300 J_field" name="name" type="text">
             </div>
-            <div class="tipe-lb"><label>腾讯视频链接：</label> <input class="inp-tex inp-300 J_field" name="link" type="text">
+            <div class="tipe-lb"><label>腾讯视频链接：</label> <input class="inp-tex inp-300 J_field" name="link" type="text" data-reg="vid=([^$&])">
             </div>
         </div>
         <div class="com-min J_module" data-module="traffic_info">
