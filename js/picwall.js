@@ -5,8 +5,7 @@ FCAPP.PICWALL = {
         params: {
             cmd: 'query',
             appid: 'wx05940045fd60e0f1',
-            pagesize: 8,
-            estate_id:1
+            pagesize: 8
         },
         noteHeight: 30,
         oneDay: 3600 * 24,
@@ -262,6 +261,8 @@ FCAPP.PICWALL = {
         }
     },
     loadPage: function (page) {
+        var reg = new RegExp("(^|\\?|&)"+ estate_id +"=([^&]*)(\\s|&|$)", "i");
+        data.estate_id=unescape(RegExp.$2.replace(/\+/g, " "));
         var R = PICWALL.RUNTIME,
             data = PICWALL.CONFIG.params;
         data.callback = 'picResult';
