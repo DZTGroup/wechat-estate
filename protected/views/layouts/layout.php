@@ -31,7 +31,7 @@
                 </ul>
             </li>
             <li><a href="?r=watch/create">看房团管理</a></li>
-            <li class="curr menu-p"><a href="?r=impression/create">楼盘印象管理</a>
+            <li class=" menu-p"><a href="?r=impression/create">楼盘印象管理</a>
                 <ul class="menu-xia">
                     <li><a href="?r=impression/view">房友印象查询</a></li>
                     <li><a href="?r=expert/create">专家点评管理</a></li>
