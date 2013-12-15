@@ -78,7 +78,8 @@
 		       	    	
 					echo $resultStr;
 
-                    if($userMsgType=='location'){
+
+		    	}else if($userMsgType=='location'){
                         $location_x=$postObj->Location_X;
                         $location_y=$postObj->Location_Y;
 
@@ -87,10 +88,6 @@
 
                         $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                         echo $resultStr;
-
-                    }
-		    	}else{
-		       		echo "Input something...";
 				}
 			}
 			 else{
