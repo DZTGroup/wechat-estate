@@ -1347,3 +1347,48 @@ window.WXAPP = window.WXAPP || {};
 
     });
 })();
+
+//看房团查询
+(function(){
+    var watchList = $('.J_watch_list');
+    if(watchList.length){
+        $('.J_estate_list').change(function(){
+            var id=$(this).val();
+            if(id===WXAPP.EMPTY_ESTATE){
+                return ;
+            }
+
+            WXAPP.Ajax('?r=watch/ajaxwatchlist',{
+                estate_id:id
+            },function(rs){
+                watchList.empty();
+                rs.data.forEach(function(watch){
+                    var content = JSON.parse(watch.content);
+                    watchList.append('<option value="'+watch.id+'">'+content.title_setting.title+'</option>');
+                });
+
+            });
+        });
+        $('.J_watch_search').click(function(){
+            var estate_id = $('.J_estate_list').val(),
+                entity_id = watchList.val();
+            if(estate_id===WXAPP.EMPTY_ESTATE || !entity_id){
+                return ;
+            }
+            WXAPP.Ajax('?r=watch/ajaxvisitsearch',{
+                estate_id:estate_id,
+                entity_id:entity_id
+            },function(res){
+                $('#J_visit_result tbody').empty();
+                res.data.forEach(function(item){
+                    $('<td>'+item.customer_id+'</td><td>'+item.customer_nickname+'</td><td>'+item.create_time+'</td>').appendTo($('#J_visit_result tbody'));
+                });
+                if(!res.data.length){
+                    alert('没有数据');
+                }
+
+            });
+
+        });
+    }
+})();
