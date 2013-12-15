@@ -86,7 +86,7 @@
                         $contentStr = "照片上传成功！";
 
                         $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                        return $resultStr;
+                        echo $resultStr;
 
                     }
 		    	}else{
