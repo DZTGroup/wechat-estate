@@ -28,7 +28,7 @@ class ImpressionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','ajaxsearch'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -171,4 +171,34 @@ class ImpressionController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+    public function actionAjaxSearch()
+    {
+        if (isset($_POST['estate_id'])) {
+            $estate_id = $_POST['estate_id'];
+            $start_time = $_POST['start_time'];
+            $end_time = $_POST['end_time'];
+            $sql = 'select * from Customer_Impression where estate_id="' . $estate_id . '"';
+            $time_sql = '';
+            if ($start_time && !$end_time) {
+                $time_sql = 'create_time>="' . $start_time . '"';
+            } else if ($start_time && $end_time) {
+                $time_sql = 'create_time>="' . $start_time . '" and create_time<="' . $end_time . '"';
+            } else if (!$start_time && $end_time) {
+                $time_sql = 'create_time<="' . $end_time . '"';
+            }
+            if ($time_sql) {
+                $sql = $sql . " and " . $time_sql;
+            }
+            $model = Yii::app()->db
+                ->createCommand($sql)
+                ->queryAll();
+
+            echo json_encode(array(
+                'code' => 200,
+                'data' => $model
+            ));
+
+        }
+    }
 }

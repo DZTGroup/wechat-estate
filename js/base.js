@@ -1289,21 +1289,25 @@ window.WXAPP = window.WXAPP || {};
             return ;
 
         }
-        $.ajax({
-            dataType:"jsonp",
-            url:'',
-            data:{
-                estate_id:estate_id,
-                start_time:start_time,
-                end_time:end_time
-            },
-            success:function(res){
-                //TODO
-
+        WXAPP.Ajax('?r=impression/ajaxsearch',{
+            estate_id:estate_id,
+            start_time:start_time,
+            end_time:end_time
+        },function(rs){
+            $('#J_im_result tbody').empty();
+            var html = [];
+            rs.data.forEach(function(item){
+                html.push('<td>'+item.customer_id+'</td><td>'+item.customer_nickname+'</td><td>'+item.impression+'</td><td>'+item.create_time+'</td>');
+            });
+            $(html.join('')).appendTo($('#J_im_result tbody'));
+            if(!rs.data.length){
+                alert('没有数据');
             }
+
         });
 
-        $('#J_im_result tbody').empty();
+
+
     });
 
 })();
