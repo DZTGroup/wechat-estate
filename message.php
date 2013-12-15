@@ -109,22 +109,10 @@
 
 		 private function getUserName($app_id,$app_key,$open_id){
 
-			$filename = 'log';
-		    $fh = fopen($filename, "w");
-		    echo fwrite($fh, 'hahahahahahahhhahhahahhahahahhaha');
-			echo fwrite($fh,$app_id);
-			echo fwrite($fh, $app_key);
-	  		echo fwrite($fh, $open_id);
-		    fclose($fh);
-
-		
 			$access_url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$app_id."&secret=".$app_key;  
 			$access = file_get_contents($access_url);  
 
-			$data=json_decode($access, true); 
-
-
-			//echo $data['access_token'];
+			$data=json_decode($access, true);
 
 			$getUserInfoUrl="https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$data['access_token']."&openid=".$open_id;
 
