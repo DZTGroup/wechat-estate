@@ -107,6 +107,10 @@
                     $distance=$this->get_dist($location_y,$location_x, $estate_location_lng ,$estate_location_lat);
                     $filename = 'log';
                     $fh = fopen($filename, "w");
+                    echo fwrite($fh,$location_y.'   ');
+                    echo fwrite($fh,$location_x.'   ');
+                    echo fwrite($fh,$estate_location_lng.'   ');
+                    echo fwrite($fh,$estate_location_lat.'   ');
                     echo fwrite($fh,$distance);
                     fclose($fh);
 
