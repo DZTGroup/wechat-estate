@@ -28,7 +28,7 @@ class ReservationController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','search'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -57,6 +57,12 @@ class ReservationController extends Controller
 		$this->render('create',array(
 		));
 	}
+    public function actionSearch()
+    {
+
+        $this->render('search',array(
+        ));
+    }
 
 
 }

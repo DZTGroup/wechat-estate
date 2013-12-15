@@ -41,7 +41,7 @@
                 <a href="order_li.html">认筹管理</a>
                 <ul class="menu-xia"  >
                     <li><a href="?r=reservation/create">认筹列表</a></li>
-                    <li><a href="order.html">认筹订单</a></li>
+                    <li><a href="?r=reservation/search">认筹订单</a></li>
                 </ul>
             </li>
             <li class="menu-p">
