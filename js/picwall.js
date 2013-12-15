@@ -395,6 +395,4 @@ if (reg.test(location.href)){
     PICWALL.CONFIG.params.estate_id=unescape(RegExp.$2.replace(/\+/g, " "));
 }
 
-$(document).ready(
-    PICWALL.init
-);
+$(document).ready(PICWALL.init);
