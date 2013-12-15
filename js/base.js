@@ -156,7 +156,6 @@ window.WXAPP = window.WXAPP || {};
                         }
                     });
                 }
-
             });
         }
     }
@@ -245,12 +244,6 @@ window.WXAPP = window.WXAPP || {};
         entity.tableTemplate = function (item) {
             var content = JSON.parse(item.content);
             return '<tr><td>' + item.id + '</td><td>' + content.event.name + '</td><td>' + item.estate_name + '</td><td>' + content.event.start_date + '-' + content.event.end_date + '</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a></td></tr>';
-        }
-    }
-    if (entity.type == "group") {
-        entity.tableTemplate = function (item) {
-            var content = JSON.parse(item.content);
-            return '<tr><td>' + content.title_setting.title + '</td><td>' + item.estate_name + '</td><td>' + content.event.watch_end_date + '前</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a></td></tr>';
         }
     }
 })();
@@ -1072,7 +1065,6 @@ window.WXAPP = window.WXAPP || {};
     });
 
     entity.getData = function(){
-        debugger
         var data = {
             intro:{},
             list:[]
@@ -1234,4 +1226,51 @@ window.WXAPP = window.WXAPP || {};
         })
     }
 
+})();
+
+//看房团
+(function(){
+    var form = $('#J_watch_form'),
+        newBtn = $('#J_entity_new'),
+        table = $('#J_entity_table tbody');
+    if (!form.length) {
+        return;
+    }
+    form.find('.J_add_line').click(function(){
+        createLine();
+    });
+    var entity = new WXAPP.Entity(form.attr('data-type'), form, table, newBtn, {
+        multiple: form.attr('data-multiple') === "true"
+    });
+
+    function createLine(){
+        var html = '<div class="J_module_item">' +
+            ' <div class="tipe-lb"><label>线路名称：</label> <input class="inp-tex J_field" name="name" type="text"></div>' +
+            ' <div class="tipe-lb"><label>说明：</label> <textarea class="text-kuang J_field" name="tip" cols="" rows="" placeholder="500个字以内"></textarea></div>' +
+            ' </div>'
+        return $(html).appendTo(form.find('.J_lines'));
+    }
+
+    entity.setData = function(rs){
+        WXAPP.Entity.prototype.setData.call(entity,rs);
+        //设置lines
+        if(rs){
+            var content = JSON.parse(rs.content);
+            var lines = content.lines;
+            if(lines){
+                $('.J_lines').empty();
+                lines.forEach(function(line,i){
+                        var lineDom = createLine();
+                        lineDom.find('.J_field').each(function(i,field){
+                            $(field).val(line[$(field).attr('name')])
+
+                        });
+                });
+            }
+        }
+    }
+    entity.tableTemplate = function (item) {
+        var content = JSON.parse(item.content);
+        return '<tr><td>' + content.title_setting.title + '</td><td>' + item.estate_name + '</td><td>' + content.event.watch_end_date + '前</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a></td></tr>';
+    }
 })();
