@@ -104,7 +104,7 @@
                     $estate_location_lng=$estate_content['location_info']['lng'];
                     $estate_location_lat=$estate_content['location_info']['lat'];
 
-                    $distance=$this->get_dist($location_y,$location_x, $estate_location_lng ,$estate_location_lat);
+                    $distance=$this->get_dist($location_x,$location_y, $estate_location_lat ,$estate_location_lng);
                     $filename = 'log';
                     $fh = fopen($filename, "w");
                     echo fwrite($fh,$location_y.'   ');
@@ -164,20 +164,25 @@
 
 		 }
 
-      private function get_dist($lng1, $lat1, $lng2 ,$lat2)
+      private function rad($d)
       {
-          $r = 6371.137;
-          $dlat = deg2rad($lat2 - $lat1);
-          $dlng = deg2rad($lng2 - $lng1);
-
-          $a = pow(sin($dlat / 2), 2) +
-              cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
-              pow(sin($dlng / 2), 2);
-
-          $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-          return $r * $c;
+          return $d * 3.1415926535898 / 180.0;
+      }
+      private function get_dist($lat1, $lng1, $lat2, $lng2)
+      {
+          $EARTH_RADIUS = 6378.137;
+          $radLat1 = $this->rad($lat1);
+          //echo $radLat1;
+          $radLat2 = $this->rad($lat2);
+          $a = $radLat1 - $radLat2;
+          $b = $this->rad($lng1) - $this->rad($lng2);
+          $s = 2 * asin(sqrt(pow(sin($a/2),2) +
+                  cos($radLat1)*cos($radLat2)*pow(sin($b/2),2)));
+          $s = $s *$EARTH_RADIUS;
+          $s = round($s * 10000) / 10000;
+          return $s;
       }
 
-}
+  }
 
 ?>
