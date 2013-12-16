@@ -42,6 +42,9 @@
 						<Content><![CDATA[%s]]></Content>
 						<FuncFlag>0</FuncFlag>
 						</xml>";
+
+                $estate_id=$_REQUEST['estate_id'];
+
 				if($userMsgType=='image')
 		    	{
 		       		//db connection
@@ -52,7 +55,6 @@
 						die('Could not connect: ' . mysql_error());
 					}
 					mysql_select_db("wxfc", $con);
-					$estate_id=$_REQUEST['estate_id'];
 					$query = "select app_id, app_key from Estate where id='".$estate_id."'";
 			        $result = mysql_query($query);
 					$app_id=null;
@@ -68,6 +70,7 @@
 					//mysql_close($con);
 				    $url=$postObj->PicUrl;
 					$wechatId=$this->getUserName($app_id,$app_key,$fromUsername);
+                    mysql_query("SET NAMES UTF8");
 					$insertSql = "insert into Picture_Wall (estate_id,wechat_id,url) values ('".$estate_id."','".$wechatId."','".$url."');";
 					mysql_query($insertSql);
 					mysql_close($con);
@@ -80,14 +83,41 @@
 
 
 		    	}else if($userMsgType=='location'){
-                        $location_x=$postObj->Location_X;
-                        $location_y=$postObj->Location_Y;
+                    $location_x=$postObj->Location_X;
+                    $location_y=$postObj->Location_Y;
 
-                        $msgType = "text";
+                    $con = mysql_connect("112.124.55.78","zunhao","655075d7dd");
+                    if (!$con)
+                    {
+                        die('Could not connect: ' . mysql_error());
+                    }
+                    mysql_select_db("wxfc", $con);
+                    $query = "select content from Entity where estate_id='".$estate_id."' and status='1'";
+                    $result = mysql_query($query);
+                    while($row = mysql_fetch_array($result))
+                    {
+                        $entity_content=$row[0];
+
+                    }
+
+                    $estate_content=json_decode($entity_content, true);
+
+                    $estate_location_lng=$estate_content['location_info']['lng'];
+                    $estate_location_lat=$estate_content['location_info']['lat'];
+
+                    $distance=$this->get_dist($location_x,$location_y, $estate_location_lat ,$estate_location_lng);
+
+                    $msgType = "text";
+                    if($distance<50){
                         $contentStr = "照片上传成功！";
+                    }
+                    else{
+                        $contentStr="对不起，您不在楼盘的范围内，无法上传照片";
+                    }
 
-                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                        echo $resultStr;
+
+                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                    echo $resultStr;
 				}
 			}
 			 else{
@@ -132,6 +162,26 @@
 
 
 		 }
-}
+
+      private function rad($d)
+      {
+          return $d * 3.1415926535898 / 180.0;
+      }
+      private function get_dist($lat1, $lng1, $lat2, $lng2)
+      {
+          $EARTH_RADIUS = 6378.137;
+          $radLat1 = $this->rad($lat1);
+          //echo $radLat1;
+          $radLat2 = $this->rad($lat2);
+          $a = $radLat1 - $radLat2;
+          $b = $this->rad($lng1) - $this->rad($lng2);
+          $s = 2 * asin(sqrt(pow(sin($a/2),2) +
+                  cos($radLat1)*cos($radLat2)*pow(sin($b/2),2)));
+          $s = $s *$EARTH_RADIUS;
+          $s = round($s * 10000) / 10000;
+          return $s;
+      }
+
+  }
 
 ?>

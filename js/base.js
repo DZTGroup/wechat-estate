@@ -442,7 +442,9 @@ window.WXAPP = window.WXAPP || {};
                         + map[item.entity_type] + '</td><td>'
                         + item.create_time + '</td><td>'
                         + map[item.entity_status]
-                        + '</td><td><a class="blue J_detail" href="javascript:;" data-id="' + item.id
+                        + '</td><td><a class="blue J_detail" href="/weapp/public_html/html/'
+                        + item.entity_type +'.html?eid='+item.estate_id+'&openid=0" target="_blank"'
+                        +' data-id="' + item.id
                         + '" entity-id="' + item.entity_id + '">详情</a>'
                         + '</td></tr>')
                 });
@@ -462,16 +464,26 @@ window.WXAPP = window.WXAPP || {};
     function successCallBack(res) {
         var table = $('#J_audit_table tbody');
         var map = {
-            0: '待审核'
+            0: '待审核',
+            'intro': '楼盘',
+            'apartment': '户型',
+            'group': '看房团',
+            'picture': '照片墙',
+            'reservation': '认筹',
+            'comment': '专家建议',
+            'impression': '用户印象'
         }
         table.empty();
         res.data.forEach(function (item) {
             table.append('<tr><td>' + item.estate_id + '</td>' +
                 '<td>' + item.name + '</td><td>'
+                + map[item.entity_type] + '</td><td>'
                 + item.create_time + '</td><td>'
                 + item.username + '</td><td>'
                 + map[item.entity_status]
-                + '</td><td><a class="blue J_detail" href="javascript:;" data-id="' + item.id
+                + '</td><td><a class="blue J_detail" href="/weapp/public_html/html/'
+                + item.entity_type +'.html?eid='+item.estate_id+'&openid=0" target="_blank"'
+                + 'data-id="' + item.id
                 + '" entity-id="' + item.entity_id + '">详情</a>'
                 + '<a class="blue J_pass" href="javascript:;" data-id="' + item.id
                 + '" entity-id="' + item.entity_id
@@ -516,27 +528,8 @@ window.WXAPP = window.WXAPP || {};
     }
 
     var Audit = {
-        setImpressionData: function () {
+        setAllAuditData:function(){
             WXAPP.Ajax('?r=audit/ajaxgetauditdata', {
-                type: 'impression'
-            }, successCallBack);
-        },
-
-        setCommentData: function () {
-            WXAPP.Ajax('?r=audit/ajaxgetauditdata', {
-                type: 'comment'
-            }, successCallBack);
-        },
-
-        setPictureWallData: function () {
-            WXAPP.Ajax('?r=audit/ajaxgetauditdata', {
-                type: 'picture'
-            }, successCallBack);
-        },
-
-        setEstateData: function () {
-            WXAPP.Ajax('?r=audit/ajaxgetauditdata', {
-                type: 'intro'
             }, successCallBack);
         }
     }
@@ -683,10 +676,6 @@ window.WXAPP = window.WXAPP || {};
     var post_form=$('#bbs_post_form');
     var current_estate_id=$('#estate_id').val();
     var wechat_id=$('#wechat_id').val();
-
-    var post_form = $('#bbs_post_form');
-    var current_estate_id = $('#estate_id').val();
-    var wechat_id = $('#wechat_id').val();
 
     $('#post_btnSend').click(function () {
         var title = post_form.find('#tfTitle').val();
