@@ -11,6 +11,8 @@ window.WXAPP = window.WXAPP || {};
             success: function (res) {
                 if (res.code === 200) {
                     success.call(this, res);
+                }else if(res.code===500){
+                    alert(res.data);
                 }
             },
             error: function () {

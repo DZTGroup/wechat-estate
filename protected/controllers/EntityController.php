@@ -55,6 +55,8 @@ class EntityController extends Controller
 
     protected function insert($estate_id, $type, $content, $status,$group_id)
     {
+
+
         $model = new Entity();
         $model->group_id = $group_id;
         $model->estate_id = $estate_id;
@@ -78,8 +80,8 @@ class EntityController extends Controller
 
         $audit->save();
 
-        $query = http_build_query(array('eid'=>$estate_id, 't'=>$type,'f'=>'0'));
-        file_get_contents('/weapp/php/cgi/sync.php?'.$query);
+        $query = http_build_query(array('eid'=>$estate_id, 't'=>$type,'f'=>'0'),'','&');
+        file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/weapp/php/cgi/sync.php?'.$query,false);
 
         return array(
             'model' => $model,
@@ -97,8 +99,8 @@ class EntityController extends Controller
             $model->content = $content;
             $result = $model->save();
 
-            $query = http_build_query(array('eid'=>$model->estate_id, 't'=>$model->type,'f'=>'0'));
-            file_get_contents('/weapp/php/cgi/sync.php?'.$query);
+            $query = http_build_query(array('eid'=>$model->estate_id, 't'=>$model->type,'f'=>'0'),'','&');
+            file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/weapp/php/cgi/sync.php?'.$query,false);
             return array(
                 'model' => $model,
                 'result' => $result
@@ -116,7 +118,24 @@ class EntityController extends Controller
             $type = $_POST['type'];
             $content = $_POST['content'];
 
+            $single_entities = array('advertise','intro','apartment','picture','impression','comment');
+            if(in_array($type,$single_entities)){
+                $check = Entity::model()->find('estate_id=:estate_id and type=:type and status=:status', array(
+                    ':estate_id' => $estate_id,
+                    ':type'=>$type,
+                    ':status'=>'0'
+                ));
+                if($check){
+                    echo json_encode(array(
+                        'code'=>500,
+                        'data'=>"不能重复插入"
+                    ));
+                    return ;
+                }
+            }
+
             $r = $this->insert($estate_id, $type, $content, '0',$this->generateId());
+
             $model = $r['model'];
 
             $result = $r['result'];
