@@ -36,10 +36,16 @@
         var appid=getQueryStringRegExp('appid');
         var openid=getQueryStringRegExp('openid');
         var url='/weapp/php/cgi/customer?openid='+openid+'&eid='+eid+'&appid='+appid;
-        WXAPP.Ajax(url, {
-
-        }, function(res){
-
+        $.ajax({
+            url: url,
+            type: "get",
+            dataType: 'json',
+            success: function (res) {
+                
+            },
+            error: function () {
+                alert('网络出错，请重试');
+            }
         });
     });
 </script>
