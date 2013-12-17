@@ -153,6 +153,10 @@ class AuditController extends Controller
         }
          $count3 =Entity::model()->updateByPk($_POST['entity_id'],array('status'=>$_POST['status']));
         if($count1>0&&$count3>0){
+
+            $query = http_build_query(array('eid'=>$_POST['estate_id'], 't'=>$_POST['entity_type'],'f'=>'1'),'','&');
+            file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/weapp/php/cgi/sync.php?'.$query,false);
+
             echo json_encode(array(
                 'code'=>200,
                 'data'=> array()
