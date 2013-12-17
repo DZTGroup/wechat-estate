@@ -50,8 +50,8 @@
         });
 
         $('#say_something').click(function(){
-            var mainUrl=location.href;
-            location.href='?r=post/create&eid='+eid+'&appid='+appid+'&nickname='+nickname+'&mainUrl='+mainUrl;
+            //var mainUrl=location.href;
+            location.href='?r=post/create&eid='+eid+'&appid='+appid+'&nickname='+nickname+'&openid='+openid;
         });
     });
 

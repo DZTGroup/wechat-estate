@@ -26,7 +26,9 @@ $this->layout='';
         $(document).ready(function(){
             var nickname=getQueryStringRegExp('nickname');
             var eid=getQueryStringRegExp('eid');
-            var mainUrl=getQueryStringRegExp('mainUrl');
+            var appid=getQueryStringRegExp('appid');
+            var openid=getQueryStringRegExp('openid');
+            //var mainUrl=getQueryStringRegExp('mainUrl');
 
             var post_form=$('#bbs_post_form');
 
@@ -38,7 +40,7 @@ $this->layout='';
                     estate_id: eid,wechat_id:nickname,post_title:title,post_content:content
                 }, function(res){
                     if(res.code==200){
-                        location.href=mainUrl;
+                        location.href='r=post/list&eid='+eid+'&appid='+appid+'&openid='+openid;
                     }
                 });
             });
