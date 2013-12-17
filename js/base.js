@@ -1281,7 +1281,7 @@ window.WXAPP = window.WXAPP || {};
             $('#J_im_result tbody').empty();
             var html = [];
             rs.data.forEach(function(item){
-                html.push('<td>'+item.customer_id+'</td><td>'+item.customer_nickname+'</td><td>'+item.impression+'</td><td>'+item.create_time+'</td>');
+                html.push('<tr><td>'+item.customer_id+'</td><td>'+item.customer_nickname+'</td><td>'+item.impression+'</td><td>'+item.create_time+'</td></tr>');
             });
             $(html.join('')).appendTo($('#J_im_result tbody'));
             if(!rs.data.length){
