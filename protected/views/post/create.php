@@ -6,6 +6,8 @@ $this->layout='';
     <html>
     <head>
         <link href="http://imgcache.gtimg.cn/lifestyle/proj-house/css/form.css" rel="stylesheet" />
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <style type="text/css">
             .photo_container{width:92px;height:92px;overflow: hidden;display:table-cell;vertical-align:middle;float: left}
             #photo{max-width: 92px;}
