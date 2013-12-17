@@ -142,20 +142,17 @@ class AuditController extends Controller
     public function actionAjaxUpdateAuditById(){
         $count1 =Audit::model()->updateByPk($_POST['id'],array('entity_status'=>$_POST['status']));
         if($_POST['status']=='1'&& $_POST['entity_type']!='group'){
-            $count2=Entity::model()->updateAll(array('status'=>'3'),'estate_id=:estate_id and type=:type and status=:status',
+            Entity::model()->updateAll(array('status'=>'3'),'estate_id=:estate_id and type=:type and status=:status',
                 array(':estate_id'=>$_POST['estate_id'],':type'=>$_POST['entity_type'],':status'=>'1'
             ));
-            if($count2<0)
-            {
-                return;
-            }
-
         }
          $count3 =Entity::model()->updateByPk($_POST['entity_id'],array('status'=>$_POST['status']));
         if($count1>0&&$count3>0){
 
-            $query = http_build_query(array('eid'=>$_POST['estate_id'], 't'=>$_POST['entity_type'],'f'=>'1'),'','&');
-            file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/weapp/php/cgi/sync.php?'.$query,false);
+            if($_POST['status']=='1'){
+                $query = http_build_query(array('eid'=>$_POST['estate_id'], 't'=>$_POST['entity_type'],'f'=>'1'),'','&');
+                file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/weapp/php/cgi/sync.php?'.$query,false);
+            }
 
             echo json_encode(array(
                 'code'=>200,
