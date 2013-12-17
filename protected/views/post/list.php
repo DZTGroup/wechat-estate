@@ -35,7 +35,7 @@
         $('#current_estate_id')[0].value=eid;
         var appid=getQueryStringRegExp('appid');
         var openid=getQueryStringRegExp('openid');
-        var url='weapp/php/cgi/customer?openid='+openid+'&eid='+eid+'&appid='+appid;
+        var url='/weapp/php/cgi/customer?openid='+openid+'&eid='+eid+'&appid='+appid;
         WXAPP.Ajax(url, {
 
         }, function(res){
