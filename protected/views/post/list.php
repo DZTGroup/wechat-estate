@@ -45,13 +45,14 @@
             dataType: 'json',
             success: function (res) {
                 nickname=res.nick;
+                $('#nick_name')[0].value=nickname;
             },
             error: function () {
                 alert('网络出错，请重试');
             }
         });
 
-        $('#nick_name')[0].value=nickname;
+
 
         $('#say_something').click(function(){
             //var mainUrl=location.href;
@@ -63,10 +64,10 @@
 </script>
 <body class="mod-body-bg" style="padding:0">
 
-<input style="display: none" id="current_estate_id" value/>
-<input style="display: none" id="app_id" value/>
-<input style="display: none" id="open_id" value/>
-<input style="display: none" id="nick_name" value/>
+<input style="display: none" id="current_estate_id" value=""/>
+<input style="display: none" id="app_id" value=""/>
+<input style="display: none" id="open_id" value=""/>
+<input style="display: none" id="nick_name" value=""/>
 
 <input style="display: none" id="current_page_num" value='1'/>
 <!--<script type="text/template" id="listTpl">-->
