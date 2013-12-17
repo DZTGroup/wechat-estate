@@ -31,19 +31,39 @@
 
 
     $(document).ready(function(){
-        id=getQueryStringRegExp('id');
+        var id=getQueryStringRegExp('id');
+        var eid=getQueryStringRegExp('eid');
+        var appid=getQueryStringRegExp('appid');
+        var openid=getQueryStringRegExp('openid');
+        var nickname=getQueryStringRegExp('nickname');
+
         WXAPP.Post.getDetailData(id);
-        $('#current_post_id')[0].value=id
+        $('#current_post_id')[0].value=id;
+
+        $('#btnComment').click(function(){
+            var content=$('#tfComment_content').val();
+            var current_post_id=$('#current_post_id').val();
+            WXAPP.Ajax('?r=post/ajaxcreatenewcomment', {
+                comment_content:content,wechat_id:nickname,post_id:current_post_id
+            }, function(res){
+                if(res.code==200){
+                    location.href='?r=post/detail&id='+current_post_id+'&eid='+eid+'&appid='+appid+'&nickname='+nickname+'&openid='+openid;
+                }
+            });
+        });
+
+        $('#btnBack').click(function(){
+            location.href='?r=post/list&eid='+eid+'&appid='+appid+'&openid='+openid;
+        });
     });
 
 
 </script>
 <input style="display: none" id="current_post_id" value=""/>
-<input id="wechat_id" style="display: none" value="翠花"/>
 
 <div class="wrapper" id="container" style="margin-top: 50px;">
     <div id="navBar" class="mod-top-bar"><!-- 隐藏头部加上样式ui-d-n -->
-        <a id="btnBack" href="?r=post/list&estate_id=1" class="mod-top-bar__back"><span class="icon-back"></span></a>
+        <a id="btnBack" class="mod-top-bar__back"><span class="icon-back"></span></a>
         <h2 id="titleBar" class="mod-top-bar__title">详情</h2>
     </div>
 </div>

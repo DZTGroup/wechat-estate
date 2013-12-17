@@ -34,7 +34,9 @@
         WXAPP.Post.getListData(eid);
         $('#current_estate_id')[0].value=eid;
         var appid=getQueryStringRegExp('appid');
+        $('#app_id')[0].value=appid;
         var openid=getQueryStringRegExp('openid');
+        $('#open_id')[0].value=openid;
         var url='/weapp/php/cgi/customer.php?openid='+openid+'&eid='+eid+'&appid='+appid;
         var nickname;
         $.ajax({
@@ -49,6 +51,8 @@
             }
         });
 
+        $('#nick_name')[0].value=nickname;
+
         $('#say_something').click(function(){
             //var mainUrl=location.href;
             location.href='?r=post/create&eid='+eid+'&appid='+appid+'&nickname='+nickname+'&openid='+openid;
@@ -60,6 +64,9 @@
 <body class="mod-body-bg" style="padding:0">
 
 <input style="display: none" id="current_estate_id" value/>
+<input style="display: none" id="app_id" value/>
+<input style="display: none" id="open_id" value/>
+<input style="display: none" id="nick_name" value/>
 
 <input style="display: none" id="current_page_num" value='1'/>
 <!--<script type="text/template" id="listTpl">-->
