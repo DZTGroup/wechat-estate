@@ -658,7 +658,8 @@ window.WXAPP = window.WXAPP || {};
         showDetail:function(id){
             location.href='?r=post/detail&id='+id;
         },
-        getMoreData:function(estate_id){
+        getMoreData:function(){
+            var estate_id=$('#current_estate_id').val();
             var page_num=$('#current_page_num').val()+1;
             WXAPP.Ajax('?r=post/ajaxgetpostlist', {
                 estate_id:estate_id,page_num:page_num

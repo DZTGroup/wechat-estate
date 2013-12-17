@@ -1,5 +1,4 @@
 <?php
-    $this->layout='';
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+    <title>论坛</title>
     <link href="css/bbs_form.css" rel="stylesheet" />
     <!-- http://imgcache.gtimg.cn/lifestyle/proj-house/css/form.css -->
     <style type="text/css">
@@ -32,9 +32,12 @@
     $(document).ready(function(){
         var estate_id=getQueryStringRegExp('estate_id');
         WXAPP.Post.getListData(estate_id);
+        $('current_estate_id')[0].value=estate_id;
     });
 </script>
 <body class="mod-body-bg" style="padding:0">
+
+<input style="display: none" id="current_estate_id" value/>
 
 <input style="display: none" id="current_page_num" value="1"/>
 <!--<script type="text/template" id="listTpl">-->
@@ -59,7 +62,7 @@
     <ul id="topicList"></ul>
     <div class="mod-box" id="btnMore" onclick="BBSList.loadMoreTopics();return false;">
         <div class="mod-box__wait" style="padding:5px 0px">
-            <p class="ui-c-light" id="contMore" onclick="WXAPP.Post.getMoreData(1)">更多</p>
+            <p class="ui-c-light" id="contMore" onclick="WXAPP.Post.getMoreData()">更多</p>
         </div>
     </div>
     <div class="mod-footer">
