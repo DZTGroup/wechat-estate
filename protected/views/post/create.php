@@ -51,19 +51,15 @@
         <div class="mod-top-bar" style="position:relative"><!-- 隐藏头部加上样式ui-d-n -->
             <a href="#" class="mod-top-bar__back" id="btnBack"><span class="icon-back"></span></a>
             <h2 class="mod-top-bar__title">发表新话题</h2>
-            <a class="button-normal button-primary mod-top-bar__button" id="post_btnSend">发送</a>
+            <a href="#" class="button-normal button-primary mod-top-bar__button" id="post_btnSend">发送</a>
         </div>
         <div class="mod-box ui-mt-large-x" style="margin-top: 10px">
             <div class="mod-box__form" id="bbs_post_form">
                 <label>
-                    <input class="mod-box__form-input"
-                           type="text" id="tfTitle" placeholder="标题（最多20字）"
-                           maxlength="20"/>
+                    <input class="mod-box__form-input" style="width: 268px" type="text" id="tfTitle" placeholder="标题（最多20字）" maxlength="20" onkeydown="BBSCreate.checkMaxLen(this);" onchange="BBSCreate.checkMaxLen(this);" oncut="BBSCreate.checkMaxLen(this);" onpaste="BBSCreate.checkMaxLen(this);" ondrop="BBSCreate.checkMaxLen(this);"/>
                 </label>
                 <label>
-                    <textarea id="tfContent" class="mod-box__form-textarea"
-                              style="min-height: 66px;" cols="30" rows="1"
-                              placeholder="正文（禁止发布广告、色情等违反法律的内容）"></textarea>
+                    <textarea id="tfContent" class="mod-box__form-textarea" style="min-height: 66px;width:280px" cols="30" rows="1" placeholder="正文（禁止发布广告、色情等违反法律的内容）" maxlength="9999999" onkeydown="BBSCreate.resizeInputBox(this);" onchange="BBSCreate.resizeInputBox(this);" oncut="BBSCreate.resizeInputBox(this);" onpaste="BBSCreate.resizeInputBox(this);" ondrop="BBSCreate.resizeInputBox(this);"></textarea>
                 </label>
             </div>
         </div>
