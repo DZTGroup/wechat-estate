@@ -28,7 +28,7 @@
             if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
         };
         $(document).ready(function(){
-            var nickname=getQueryStringRegExp('nickname');
+            //var nickname=getQueryStringRegExp('nickname');
             var eid=getQueryStringRegExp('eid');
             var appid=getQueryStringRegExp('appid');
             var openid=getQueryStringRegExp('openid');
@@ -41,7 +41,7 @@
                 var title = post_form.find('#tfTitle').val();
                 var content = post_form.find('#tfContent').val();
                 WXAPP.Ajax('?r=post/ajaxcreatenewpost', {
-                    estate_id: eid,wechat_id:nickname,post_title:title,post_content:content
+                    estate_id: eid,wechat_id:openid,post_title:title,post_content:content
                 }, function(res){
                     if(res.code==200){
                         location.href='?r=post/list&eid='+eid+'&appid='+appid+'&openid='+openid;

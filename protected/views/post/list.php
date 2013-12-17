@@ -38,25 +38,25 @@
         var openid=getQueryStringRegExp('openid');
         $('#open_id')[0].value=openid;
         var url='/weapp/php/cgi/customer.php?openid='+openid+'&eid='+eid+'&appid='+appid;
-        var nickname;
-        $.ajax({
-            url: url,
-            type: "get",
-            dataType: 'json',
-            success: function (res) {
-                nickname=res.nick;
-                $('#nick_name')[0].value=nickname;
-            },
-            error: function () {
-                alert('网络出错，请重试');
-            }
-        });
+//        var nickname;
+//        $.ajax({
+//            url: url,
+//            type: "get",
+//            dataType: 'json',
+//            success: function (res) {
+//                nickname=res.nick;
+//                $('#nick_name')[0].value=nickname;
+//            },
+//            error: function () {
+//                alert('网络出错，请重试');
+//            }
+//        });
 
 
 
         $('#say_something').click(function(){
             //var mainUrl=location.href;
-            location.href='?r=post/create&eid='+eid+'&appid='+appid+'&nickname='+nickname+'&openid='+openid;
+            location.href='?r=post/create&eid='+eid+'&appid='+appid+'&openid='+openid;
         });
     });
 
@@ -67,7 +67,7 @@
 <input style="display: none" id="current_estate_id" value=""/>
 <input style="display: none" id="app_id" value=""/>
 <input style="display: none" id="open_id" value=""/>
-<input style="display: none" id="nick_name" value=""/>
+<!--<input style="display: none" id="nick_name" value=""/>-->
 
 <input style="display: none" id="current_page_num" value='1'/>
 <!--<script type="text/template" id="listTpl">-->

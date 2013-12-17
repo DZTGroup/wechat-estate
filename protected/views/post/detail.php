@@ -34,7 +34,7 @@
         var eid=getQueryStringRegExp('eid');
         var appid=getQueryStringRegExp('appid');
         var openid=getQueryStringRegExp('openid');
-        var nickname=getQueryStringRegExp('nickname');
+        //var nickname=getQueryStringRegExp('nickname');
 
         WXAPP.Post.getDetailData(id);
         $('#current_post_id')[0].value=id;
@@ -43,10 +43,10 @@
             var content=$('#tfComment_content').val();
             var current_post_id=$('#current_post_id').val();
             WXAPP.Ajax('?r=post/ajaxcreatenewcomment', {
-                comment_content:content,wechat_id:nickname,post_id:current_post_id
+                comment_content:content,wechat_id:openid,post_id:current_post_id
             }, function(res){
                 if(res.code==200){
-                    location.href='?r=post/detail&id='+current_post_id+'&eid='+eid+'&appid='+appid+'&nickname='+nickname+'&openid='+openid;
+                    location.href='?r=post/detail&id='+current_post_id+'&eid='+eid+'&appid='+appid+'&openid='+openid;
                 }
             });
         });

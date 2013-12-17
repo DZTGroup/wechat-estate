@@ -249,7 +249,9 @@ class PostController extends Controller
         $bbs_post->estate_id = $_POST['estate_id'];
         $bbs_post->title = $_POST['post_title'];
         $bbs_post->content = $_POST['post_content'];
-        $bbs_post->wechat_id = $_POST['wechat_id'];
+
+        $customer=Customer::model()->find('customer_id=:customer_id',array(':customer_id'=>$_POST['wechat_id']));
+        $bbs_post->wechat_id =$customer->customer_nickname;
 
         $result=$bbs_post->save();
         if ($result) {
@@ -267,7 +269,9 @@ class PostController extends Controller
         $bbs_comment=new BBSComment();
         $bbs_comment->post_id = $_POST['post_id'];
         $bbs_comment->content = $_POST['comment_content'];
-        $bbs_comment->wechat_id = $_POST['wechat_id'];
+
+        $customer=Customer::model()->find('customer_id=:customer_id',array(':customer_id'=>$_POST['wechat_id']));
+        $bbs_comment->wechat_id =$customer->customer_nickname;
 
         $result=$bbs_comment->save();
         if ($result) {
