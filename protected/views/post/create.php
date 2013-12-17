@@ -45,11 +45,15 @@
                     }
                 });
             });
+
+            $('#btnBack').click(function(){
+                location.href='?r=post/list&eid='+eid+'&appid='+appid+'&openid='+openid;
+            });
         });
     </script>
     <div class="wrapper" id="container">
         <div class="mod-top-bar" style="position:relative"><!-- 隐藏头部加上样式ui-d-n -->
-            <a href="#" class="mod-top-bar__back" id="btnBack"><span class="icon-back"></span></a>
+            <a class="mod-top-bar__back" id="btnBack"><span class="icon-back"></span></a>
             <h2 class="mod-top-bar__title">发表新话题</h2>
             <a class="button-normal button-primary mod-top-bar__button" id="post_btnSend">发送</a>
         </div>
@@ -85,6 +89,39 @@
             </div>
         </div>
         <div id="paddingDiv" style="height:10px"></div>
+    </div>
+    <iframe id="upload_target" name="upload_target" style="width:0;height:0;border:0px solid #fff;display:none"></iframe>
+    <div id="alertDiv" class="mod-tips" style="display: none;z-index: 300;background-color: #ffffff">
+        <h3 id="alertTitle" class="mod-tips__title">提示</h3>
+        <div class="mod-tips__con">
+            <p id="alertMsg">WordingWording</p>
+        </div>
+        <div id="alertCtr" class="mod-tips__control lay-flex">
+            <a id="alertCancel" href="#" class="mod-tips__control-btn lay-flex__item">取消</a>
+            <a id="alertOK" href="#" class="mod-tips__control-btn lay-flex__item">确定</a>
+        </div>
+    </div>
+    <div class="pop_tips" id="popTips" style="display:none;">
+        <div class="oval"></div>
+        <div class="pop_show">
+            <h4 id="tipsTitle">温馨提示</h4>
+            <div class="pop_info" id="tipsMsg">
+                <p></p>
+            </div>
+            <div class="pop_btns">
+                <a href="javascript:void(0);" id="tipsOK">确定</a>
+                <a href="javascript:void(0);" style="display:none;" id="tipsCancel">取消</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="mod-life__footer">
+        <div class="mod-life__footer-life">
+            <img src="//imgcache.gtimg.cn/lifestyle/proj-house/img/logo.png" width="21" height="23" class="mod-life__footer-logo" alt="">
+            <span>微生活</span>
+            <span class="mod-life__footer-copyright">@2013腾讯公司版权所有</span>
+        </div>
+        <a id="footCompBtn" href="javascript:;" class="mod-life__footer-business">商务合作</a>
     </div>
 
     <script type="text/javascript" src="js/common.js?ver=2.4.7"></script>
