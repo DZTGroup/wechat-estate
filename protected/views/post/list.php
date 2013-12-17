@@ -71,10 +71,6 @@
 
 <input style="display: none" id="current_page_num" value='1'/>
 <!--<script type="text/template" id="listTpl">-->
-<div id="navBar" class="mod-top-bar"><!-- 隐藏头部加上样式ui-d-n -->
-    <a id="btnBack" href="#" class="mod-top-bar__back"><span class="icon-back"></span></a>
-    <h2 id="titleBar" class="mod-top-bar__title">论坛</h2>
-</div>
     <li id="topic_id" style="margin-top: 50px"></li>
 
 <div id="emptyDiv" class="mod-box" style="display: none">
