@@ -41,7 +41,7 @@
             type: "get",
             dataType: 'json',
             success: function (res) {
-
+                var nickname=res.nick;
             },
             error: function () {
                 alert('网络出错，请重试');
