@@ -13,6 +13,8 @@ $this->layout='';
                 -webkit-box-sizing: border-box;
             }
         </style>
+        <script src="js/jquery-2.0.3.min.js"></script>
+        <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
     </head>
     <body>
     <script>
