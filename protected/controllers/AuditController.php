@@ -152,6 +152,7 @@ class AuditController extends Controller
             if($_POST['status']=='1'){
                 $query = http_build_query(array('eid'=>$_POST['estate_id'], 't'=>$_POST['entity_type'],'f'=>'1'),'','&');
                 file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/weapp/php/cgi/sync.php?'.$query,false);
+                
             }
 
             echo json_encode(array(
