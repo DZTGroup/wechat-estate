@@ -5,8 +5,11 @@
     <html>
     <head>
         <link href="http://imgcache.gtimg.cn/lifestyle/proj-house/css/form.css" rel="stylesheet" />
-
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="white" />
         <style type="text/css">
             .photo_container{width:92px;height:92px;overflow: hidden;display:table-cell;vertical-align:middle;float: left}
             #photo{max-width: 92px;}
