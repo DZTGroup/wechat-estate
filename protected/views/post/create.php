@@ -48,7 +48,7 @@ $this->layout='';
         <div class="mod-top-bar" style="position:relative"><!-- 隐藏头部加上样式ui-d-n -->
             <a href="#" class="mod-top-bar__back" id="btnBack"><span class="icon-back"></span></a>
             <h2 class="mod-top-bar__title">发表新话题</h2>
-            <a href="#" class="button-normal button-primary mod-top-bar__button" id="post_btnSend">发送</a>
+            <a class="button-normal button-primary mod-top-bar__button" id="post_btnSend">发送</a>
         </div>
         <div class="mod-box ui-mt-large-x" style="margin-top: 10px">
             <div class="mod-box__form" id="bbs_post_form">
