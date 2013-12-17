@@ -16,9 +16,10 @@
     <div class="box-table"><!-- 添加hide隐藏 -->
         <table width="760" border="0" cellspacing="1" cellpadding="0" bgcolor="#d7d7d7" id="J_visit_result">
             <thead><tr>
-                <th>用户ID</th>
-                <th>昵称</th>
-                <th>创建时间</th>
+                <th>真实姓名</th>
+                <th>随行人数</th>
+                <th>电话</th>
+                <th>路线</th>
             </tr>
             </thead>
             <tbody></tbody>

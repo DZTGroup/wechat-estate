@@ -56,6 +56,7 @@
                 </ul>
             </li>
             <li><a href="?r=advertise/create">多业态</a></li>
+            <li><a href="?r=other/create">其他</a></li>
         </ul>
     </div>
 </div>

@@ -1358,7 +1358,7 @@ window.WXAPP = window.WXAPP || {};
             },function(res){
                 $('#J_visit_result tbody').empty();
                 res.data.forEach(function(item){
-                    $('<td>'+item.customer_id+'</td><td>'+item.customer_nickname+'</td><td>'+item.create_time+'</td>').appendTo($('#J_visit_result tbody'));
+                    $('<td>'+item.real_name+'</td><td>'+item.company+'</td><td>'+item.phone+'</td><td>'+item.route+'</td>').appendTo($('#J_visit_result tbody'));
                 });
                 if(!res.data.length){
                     alert('没有数据');
@@ -1368,4 +1368,21 @@ window.WXAPP = window.WXAPP || {};
 
         });
     }
+})();
+
+(function(){
+//other
+    $('.J_other .J_estate_list').change(function(){
+        var id = $(this).val();
+
+
+        $('table tbody tr').hide().each(function(i, tr){
+            if($(tr).attr('data-id')==id){
+                $(tr).show();
+            }
+
+        });
+
+
+    });
 })();
