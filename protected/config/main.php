@@ -61,7 +61,6 @@ return array(
             'username' => DB_USER,
             'password' => DB_PASS,
             'charset' => 'utf8',
-            'initSQLs'=>'SET NAMES utf8 ;'
 		),
 
 		'errorHandler'=>array(
