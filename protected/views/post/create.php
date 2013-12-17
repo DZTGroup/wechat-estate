@@ -40,7 +40,7 @@ $this->layout='';
                     estate_id: eid,wechat_id:nickname,post_title:title,post_content:content
                 }, function(res){
                     if(res.code==200){
-                        location.href='r=post/list&eid='+eid+'&appid='+appid+'&openid='+openid;
+                        location.href='?r=post/list&eid='+eid+'&appid='+appid+'&openid='+openid;
                     }
                 });
             });
