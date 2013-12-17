@@ -11,6 +11,8 @@ window.WXAPP = window.WXAPP || {};
             success: function (res) {
                 if (res.code === 200) {
                     success.call(this, res);
+                }else if(res.code===500){
+                    alert(res.data);
                 }
             },
             error: function () {
@@ -643,9 +645,9 @@ window.WXAPP = window.WXAPP || {};
 
     }
     var Post={
-        getListData:function(estate_id){
+        getListData:function(eid){
             WXAPP.Ajax('?r=post/ajaxgetpostlist', {
-                estate_id:estate_id,page_num:1
+                eid:eid,page_num:1
             }, postListSuccessCallback);
         },
 
@@ -659,13 +661,13 @@ window.WXAPP = window.WXAPP || {};
             location.href='?r=post/detail&id='+id;
         },
         getMoreData:function(){
-            var estate_id=$('#current_estate_id').val();
-            var page_num=$('#current_page_num').val()+1;
+            var eid=$('#current_estate_id').val();
+            var page_num=parseInt($('#current_page_num').val())+1;
             WXAPP.Ajax('?r=post/ajaxgetpostlist', {
-                estate_id:estate_id,page_num:page_num
+                eid:eid,page_num:page_num
             }, postListSuccessCallback);
 
-            $('#current_page_num')[0].value=page_num;
+            $('#current_page_num')[0].value=page_num.toString();
         }
 
     };

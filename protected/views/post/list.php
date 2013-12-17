@@ -30,16 +30,24 @@
 
 
     $(document).ready(function(){
-        var estate_id=getQueryStringRegExp('estate_id');
-        WXAPP.Post.getListData(estate_id);
-        $('current_estate_id')[0].value=estate_id;
+        var eid=getQueryStringRegExp('eid');
+        WXAPP.Post.getListData(eid);
+        $('#current_estate_id')[0].value=eid;
+        var appid=getQueryStringRegExp('appid');
+        var openid=getQueryStringRegExp('openid');
+        var url='weapp/php/cgi/customer?openid='+openid+'&eid='+eid+'&appid='+appid;
+        WXAPP.Ajax(url, {
+
+        }, function(res){
+
+        });
     });
 </script>
 <body class="mod-body-bg" style="padding:0">
 
 <input style="display: none" id="current_estate_id" value/>
 
-<input style="display: none" id="current_page_num" value="1"/>
+<input style="display: none" id="current_page_num" value='1'/>
 <!--<script type="text/template" id="listTpl">-->
 <div id="navBar" class="mod-top-bar"><!-- 隐藏头部加上样式ui-d-n -->
     <a id="btnBack" href="#" class="mod-top-bar__back"><span class="icon-back"></span></a>

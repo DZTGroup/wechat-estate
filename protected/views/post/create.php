@@ -28,13 +28,13 @@ $this->layout='';
         <div class="mod-box ui-mt-large-x" style="margin-top: 10px">
             <div class="mod-box__form" id="bbs_post_form">
                 <label>
-                    <input class="mod-box__form-input" style="width: 268px"
+                    <input class="mod-box__form-input"
                            type="text" id="tfTitle" placeholder="标题（最多20字）"
                            maxlength="20"/>
                 </label>
                 <label>
                     <textarea id="tfContent" class="mod-box__form-textarea"
-                              style="min-height: 66px;width:280px" cols="30" rows="1"
+                              style="min-height: 66px;" cols="30" rows="1"
                               placeholder="正文（禁止发布广告、色情等违反法律的内容）"></textarea>
                 </label>
             </div>

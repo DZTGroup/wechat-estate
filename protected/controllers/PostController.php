@@ -144,12 +144,12 @@ class PostController extends Controller
             ->select('p.*,sum(case when c.post_id is not null then 1 else 0 end) as comment_num')
             ->from('BBS_Post p')
             ->leftJoin('BBS_Comment c','p.id=c.post_id')
-            ->where('estate_id=:estate_id group by p.id order by create_time desc limit 0,'.$page_size*$_POST['page_num'],array(':estate_id'=>$_POST['estate_id']))
+            ->where('estate_id=:estate_id group by p.id order by create_time desc limit 0,'.$page_size*$_POST['page_num'],array(':estate_id'=>$_POST['eid']))
             ->query();
         if($model!==null){
 
             BBSPost::model()->updateAll(array('pv_num'=>new CDbExpression('pv_num+1')),'estate_id=:estate_id',
-                array(':estate_id'=>$_POST['estate_id'],));
+                array(':estate_id'=>$_POST['eid'],));
             $arr = array();
 
             forEach($model as $k=>$row){
