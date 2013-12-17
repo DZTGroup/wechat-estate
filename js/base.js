@@ -658,7 +658,12 @@ window.WXAPP = window.WXAPP || {};
         },
 
         showDetail:function(id){
-            location.href='?r=post/detail&id='+id;
+            var eid=$('#current_estate_id').val();
+            var appid=$('#app_id').val();
+            var openid=$('#open_id').val();
+            var nickname=$('#nick_name').val();
+
+            location.href='?r=post/detail&id='+id+'&eid='+eid+'&appid='+appid+'&openid='+openid+'&nickname='+nickname;
         },
         getMoreData:function(){
             var eid=$('#current_estate_id').val();
@@ -672,18 +677,6 @@ window.WXAPP = window.WXAPP || {};
 
     };
     WXAPP.Post = Post;
-
-    $('#btnComment').click(function(){
-        var content=$('#tfComment_content').val();
-        var current_post_id=$('#current_post_id').val();
-        WXAPP.Ajax('?r=post/ajaxcreatenewcomment', {
-            comment_content:content,wechat_id:wechat_id,post_id:current_post_id
-        }, function(res){
-            if(res.code==200){
-                location.href='?r=post/detail&id='+current_post_id;
-            }
-        });
-    });
 })();
 
 
