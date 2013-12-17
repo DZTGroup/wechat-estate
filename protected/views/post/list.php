@@ -36,18 +36,26 @@
         var appid=getQueryStringRegExp('appid');
         var openid=getQueryStringRegExp('openid');
         var url='/weapp/php/cgi/customer.php?openid='+openid+'&eid='+eid+'&appid='+appid;
+        var nickname;
         $.ajax({
             url: url,
             type: "get",
             dataType: 'json',
             success: function (res) {
-                var nickname=res.nick;
+                nickname=res.nick;
             },
             error: function () {
                 alert('网络出错，请重试');
             }
         });
+
+        $('#say_something').click(function(){
+            var mainUrl=location.href;
+            location.href='?r=post/create&eid='+eid+'&appid='+appid+'&nickname='+nickname+'&mainUrl='+mainUrl;
+        });
     });
+
+
 </script>
 <body class="mod-body-bg" style="padding:0">
 
@@ -80,7 +88,7 @@
         </div>
     </div>
     <div class="mod-footer">
-        <a href="?r=post/create" class="mod-footer__button"">我也说几句</a>
+        <a id="say_something" class="mod-footer__button"">我也说几句</a>
     </div>
 </div>
 

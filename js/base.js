@@ -673,24 +673,6 @@ window.WXAPP = window.WXAPP || {};
     };
     WXAPP.Post = Post;
 
-
-    var post_form=$('#bbs_post_form');
-    var current_estate_id=$('#estate_id').val();
-    var wechat_id=$('#wechat_id').val();
-
-    $('#post_btnSend').click(function () {
-        var title = post_form.find('#tfTitle').val();
-        var content = post_form.find('#tfContent').val();
-
-        WXAPP.Ajax('?r=post/ajaxcreatenewpost', {
-            estate_id: current_estate_id,wechat_id:wechat_id,post_title:title,post_content:content
-        }, function(res){
-            if(res.code==200){
-               location.href='?r=post/list&estate_id='+current_estate_id;
-            }
-        });
-    });
-
     $('#btnComment').click(function(){
         var content=$('#tfComment_content').val();
         var current_post_id=$('#current_post_id').val();

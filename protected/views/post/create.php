@@ -15,10 +15,33 @@ $this->layout='';
         </style>
     </head>
     <body>
-    <div style="display: none">
-         <input id="wechat_id" value="翠花"/>
-         <input id="estate_id" value="1"/>
-    </div>
+    <script>
+        function getQueryStringRegExp(name)
+        {
+            var reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i");
+            if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
+        };
+        $(document).ready(function(){
+            var nickname=getQueryStringRegExp('nickname');
+            var eid=getQueryStringRegExp('eid');
+            var mainUrl=getQueryStringRegExp('mainUrl');
+
+            var post_form=$('#bbs_post_form');
+
+
+            $('#post_btnSend').click(function () {
+                var title = post_form.find('#tfTitle').val();
+                var content = post_form.find('#tfContent').val();
+                WXAPP.Ajax('?r=post/ajaxcreatenewpost', {
+                    estate_id: eid,wechat_id:nickname,post_title:title,post_content:content
+                }, function(res){
+                    if(res.code==200){
+                        location.href=mainUrl;
+                    }
+                });
+            });
+        });
+    </script>
     <div class="wrapper" id="container">
         <div class="mod-top-bar" style="position:relative"><!-- 隐藏头部加上样式ui-d-n -->
             <a href="#" class="mod-top-bar__back" id="btnBack"><span class="icon-back"></span></a>
