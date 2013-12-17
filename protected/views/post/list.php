@@ -38,19 +38,19 @@
         var openid=getQueryStringRegExp('openid');
         $('#open_id')[0].value=openid;
         var url='/weapp/php/cgi/customer.php?openid='+openid+'&eid='+eid+'&appid='+appid;
-//        var nickname;
-//        $.ajax({
-//            url: url,
-//            type: "get",
-//            dataType: 'json',
-//            success: function (res) {
-//                nickname=res.nick;
-//                $('#nick_name')[0].value=nickname;
-//            },
-//            error: function () {
-//                alert('网络出错，请重试');
-//            }
-//        });
+        var nickname;
+        $.ajax({
+            url: url,
+            type: "get",
+            dataType: 'json',
+            success: function (res) {
+                nickname=res.nick;
+                //$('#nick_name')[0].value=nickname;
+            },
+            error: function () {
+                alert('网络出错，请重试');
+            }
+        });
 
 
 
