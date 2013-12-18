@@ -10,8 +10,12 @@
         <table width="760" border="0" cellspacing="1" cellpadding="0" bgcolor="#d7d7d7">
             <thead>
                 <tr>
-                    <th>照片墙链接</th>
-                    <th>论坛链接</th>
+                    <th colspan="2">照片墙</th>
+                    <th rowspan="2">论坛链接</th>
+                </tr>
+                <tr>
+                    <th>菜单项链接</th>
+                    <th>微信Message后台链接</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +25,7 @@
             ?>
                     <tr style="display: none;" data-id="<?php echo $item['id'];?>">
                         <td>http://www.weixinfc.com/wechat-estate/index.php?r=userpicwall/list&estate_id=<?php echo $item['id'];?></td>
+                        <td>http://www.weixinfc.com/wechat-estate/message.php?estate_id=<?php echo $item['id'];?></td>
                         <td>http://www.weixinfc.com/weapp/php/cgi/jump.php?eid=32&appid=<?php echo $item['app_id']; ?>&t=bbs</td>
                     </tr>
             <?php
