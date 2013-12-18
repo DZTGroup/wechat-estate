@@ -1341,20 +1341,20 @@ window.WXAPP = window.WXAPP || {};
                 watchList.empty();
                 rs.data.forEach(function(watch){
                     var content = JSON.parse(watch.content);
-                    watchList.append('<option value="'+watch.id+'">'+content.title_setting.title+'</option>');
+                    watchList.append('<option value="'+watch.group_id+'">'+content.title_setting.title+'</option>');
                 });
 
             });
         });
         $('.J_watch_search').click(function(){
             var estate_id = $('.J_estate_list').val(),
-                entity_id = watchList.val();
-            if(estate_id===WXAPP.EMPTY_ESTATE || !entity_id){
+                group_id = watchList.val();
+            if(estate_id===WXAPP.EMPTY_ESTATE || !group_id){
                 return ;
             }
             WXAPP.Ajax('?r=watch/ajaxvisitsearch',{
                 estate_id:estate_id,
-                entity_id:entity_id
+                group_id:group_id
             },function(res){
                 $('#J_visit_result tbody').empty();
                 res.data.forEach(function(item){
