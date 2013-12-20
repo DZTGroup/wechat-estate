@@ -32,7 +32,7 @@ class ReservationController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','ajaxcountsearch'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -62,6 +62,20 @@ class ReservationController extends Controller
 
         $this->render('search',array(
         ));
+    }
+
+    public function actionAjaxCountSearch(){
+        if (isset($_POST['estate_id'])) {
+            $estate_id = $_POST['estate_id'];
+
+            $list = Yii::app()->db
+                ->createCommand('select group_id from Customer_Reservation where estate_id='.$estate_id.' and type="reservation" group by group_id')
+                ->queryAll();
+            echo json_encode(array(
+                'code' => 200,
+                'data' => $list
+            ));
+        }
     }
 
 

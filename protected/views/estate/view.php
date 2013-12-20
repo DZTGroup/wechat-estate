@@ -13,7 +13,7 @@
 
     <div style="display: none;" id="J_entity_form" data-type="intro">
         <div class="com-min J_module" data-module="banner">
-            <h3>楼盘详情顶页</h3>
+            <h3>楼盘简介顶图</h3>
 
             <?php $this->widget('UploadWidget');?>
         </div>
