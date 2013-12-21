@@ -471,7 +471,7 @@ window.WXAPP = window.WXAPP || {};
         var table = $('#J_audit_table tbody');
         var map = {
             0: '待审核',
-            'intro': '楼盘',
+            'intro': '楼盘简介',
             'apartment': '户型',
             'group': '看房团',
             'picture': '照片墙',
