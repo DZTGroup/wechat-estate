@@ -1091,31 +1091,38 @@ window.WXAPP = window.WXAPP || {};
     }
 
     function editItem(data,cb){
-        var html = '<hr/><div class="tipe-lb">' +
+        var html = '<div><hr/><div class="tipe-lb">' +
             '<div>' +
                 '<span class="load_btn"> <span class="btn-cha J_upload"></span></span>(上传业态小图 推荐图片尺寸：720*130；图片小于100k)' +
                 '<div class="J_display">' +
-                    '<img src="" class="J_field" name="img" width="50" height="50" value="">' +
+                    '<img src="" class="J_field" name="icon" width="50" height="50" value="">' +
                 '</div>' +
             '</div></div>' +
             ' <div class="tipe-lb"><label>业态名称：：</label> <input class="inp-tex inp-300 J_field" name="name" type="text"></div>' +
             ' <div class="tipe-lb"><label>业态英文名：</label> <input class="inp-tex inp-300 J_field" name="ename" type="text"></div>' +
-            ' <div class="tipe-lb">' +
-                '<div>' +
-                    '<span class="load_btn"> <span class="btn-cha J_upload"></span></span>(添加业态头图 推荐图片尺寸：720*130；图片小于100k)' +
-                    '<div class="J_display">' +
-                        '<img src="" class="J_field" name="img" width="50" height="50" value="">' +
-                    '</div>' +
-                '</div></div>' +
+            '<div class="J_imgs"><a class="J_add_img" href="javascript:;">添加头图</a>'+
+            '</div>'+
             ' <div class="tipe-lb"><label>添加业态简介：</label> <textarea class="text-kuang J_field" name="desc" cols="" rows=""></textarea></div>' +
              '<div class="box-table"><table width="360" border="0" cellspacing="1" cellpadding="0" bgcolor="#d7d7d7" style="margin-left:180px;">' +
             ' <thead><tr> <th>优惠名称</th> <th>状态</th></thead></tr><tbody></tbody></table></div>'+
             '<div class="tipe-lb">' +
             '<button class="btn-cha J_add_coupon" type="button">添加新优惠</button> <button class="btn-cha J_save" type="button">保存业态</button>' +
-            '</div><hr/>'
+            '</div><hr/></div>';
+        var titleImgHtml = ' <div class="tipe-lb">' +
+            '<div>' +
+            '<span class="load_btn"> <span class="btn-cha J_upload"></span></span>(添加业态头图 推荐图片尺寸：720*130；图片小于100k)' +
+            '<div class="J_display">' +
+            '<img src="" class="J_img" name="img" width="50" height="50" value="">' +
+            '</div>' +
+            '</div>' +
+            '</div>' ;
 
         var l = $(html).appendTo(form.find('.J_edit_holder').empty());
-        WXAPP.bindLoad(l.find('.J_upload'));
+        l.find('.J_add_img').click(function(){
+            var newImg = $(titleImgHtml).appendTo(l.find('.J_imgs'));
+            WXAPP.bindLoad(newImg.find('.J_upload'));
+        });
+
         if(data){
             l.find('.J_field').each(function(i,field){
                 $(field).val(data.intro[$(field).attr('name')]);
@@ -1123,6 +1130,17 @@ window.WXAPP = window.WXAPP || {};
                     field.src='upload_files/' + entity.estate_id + "/" + data.intro[$(field).attr('name')];
                 }
             });
+
+            if(data.intro.imgs){
+                data.intro.imgs.forEach(function(src){
+                    var img = $(titleImgHtml).appendTo(l.find('.J_imgs')).find('.J_img');
+                    img.val(src);
+                    img.attr('src','upload_files/' + entity.estate_id + "/" + src);
+                });
+            }else{
+                $(titleImgHtml).appendTo(l.find('.J_imgs'));
+            }
+
             data.list && data.list.forEach(function(coupon){
                 var couponItem = $('<tr><td><input type="hidden" >'+coupon.name+'</td><td><a class="J_edit" href="javascript:;">编辑</a> <a class="J_delete" href="javascript:;">删除</a></td></tr>').appendTo(l.find('tbody'));
                 couponItem.find('input[type=hidden]').val(JSON.stringify(coupon));
@@ -1135,6 +1153,7 @@ window.WXAPP = window.WXAPP || {};
                     couponItem.remove();
                 });
             });
+            WXAPP.bindLoad(l.find('.J_upload'));
         }
         function getCoupon(){
             var data = [];
@@ -1146,8 +1165,12 @@ window.WXAPP = window.WXAPP || {};
 
         l.find('.J_save').click(function(){
             var intro = {};
+            intro.imgs = [];
             l.find('.J_field').each(function(i,field){
                 intro[$(field).attr('name')] = $(field).val();
+            });
+            l.find('.J_imgs .J_img').each(function(i,img){
+                intro.imgs.push($(img).val());
             });
             var list = getCoupon();
             cb({
