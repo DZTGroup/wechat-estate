@@ -77,6 +77,7 @@ class EntityController extends Controller
         $audit->entity_status = '0';
         $audit->estate_id = $estate_id;
         $audit->entity_type = $type;
+        $audit->create_time=time();
 
         $audit->save();
 

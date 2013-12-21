@@ -10,7 +10,6 @@
                 <li><a href="?r=user/admin">用户设置</a></li>
                 <li><a href="?r=audit/all">审核</a></li>
                 <li><a href="?r=audit/list">已发布数据</a></li>
-                <li><a href="?r=audit/order">订单数据</a></li>
             </ul>
         </div>
     </div>
