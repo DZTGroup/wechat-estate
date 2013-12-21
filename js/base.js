@@ -1115,7 +1115,8 @@ window.WXAPP = window.WXAPP || {};
             '<div class="tipe-lb">' +
             '<button class="btn-cha J_add_coupon" type="button">添加新优惠</button> <button class="btn-cha J_save" type="button">保存业态</button>' +
             '</div><hr/></div>';
-        var titleImgHtml = ' <div class="tipe-lb">' +
+        var titleImgHtml = '<div class="tipe-lb J_img_item">' +
+            '<label>头图标题：</label><input class="J_title" type="text">'+
             '<div>' +
             '<span class="load_btn"> <span class="btn-cha J_upload"></span></span>(添加业态头图 推荐图片尺寸：720*130；图片小于100k)' +
             '<div class="J_display">' +
@@ -1139,10 +1140,14 @@ window.WXAPP = window.WXAPP || {};
             });
 
             if(data.intro.imgs){
-                data.intro.imgs.forEach(function(src){
-                    var img = $(titleImgHtml).appendTo(l.find('.J_imgs')).find('.J_img');
-                    img.val(src);
-                    img.attr('src','upload_files/' + entity.estate_id + "/" + src);
+                data.intro.imgs.forEach(function(item){
+                    var h = $(titleImgHtml).appendTo(l.find('.J_imgs'))
+                        var img = h.find('.J_img');
+                    img.val(item.url);
+                    img.attr('src','upload_files/' + entity.estate_id + "/" + item.url);
+                    var input = h.find('.J_title');
+                    input.val(item.title);
+
                 });
             }else{
                 $(titleImgHtml).appendTo(l.find('.J_imgs'));
@@ -1176,8 +1181,11 @@ window.WXAPP = window.WXAPP || {};
             l.find('.J_field').each(function(i,field){
                 intro[$(field).attr('name')] = $(field).val();
             });
-            l.find('.J_imgs .J_img').each(function(i,img){
-                intro.imgs.push($(img).val());
+            l.find('.J_imgs .J_img_item').each(function(i,item){
+                intro.imgs.push({
+                    url:$(item).find('img').val(),
+                    title:$(item).find('.J_title').val()
+                });
             });
             var list = getCoupon();
             cb({
