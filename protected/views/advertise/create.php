@@ -20,8 +20,14 @@
                     <img src="" class="J_field" name="img" value="">
                 </div>
             </div>
-            <label>添加多业态简介：</label>
-            <textarea class="text-kuang J_field" name="desc" cols="" rows=""></textarea>
+            <div class="tipe-lb">
+                <label>添加多业态标题：</label>
+                <input type="text" class="J_field" name="title">
+            </div>
+            <div class="tipe-lb">
+                <label>添加多业态简介：</label>
+                <textarea class="text-kuang J_field" name="desc" cols="" rows=""></textarea>
+            </div>
         </div>
         <div class="J_list">
 
