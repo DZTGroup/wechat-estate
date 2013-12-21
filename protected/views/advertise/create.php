@@ -28,6 +28,7 @@
                 <label>添加多业态简介：</label>
                 <textarea class="text-kuang J_field" name="desc" cols="" rows=""></textarea>
             </div>
+            <div><button class="btn-cha J_add" type="button">添加业态</button></div>
         </div>
         <div class="J_list">
 
@@ -35,7 +36,6 @@
         <div class="J_edit_holder"></div>
 
         <div class="cent-bott">
-            <button class="btn-cha J_add" type="button">添加业态</button>
             <button class="btn-cha J_submit" type="button">完成</button>
             <button class="btn-cha J_cancel" type="button">取消</button>
         </div>

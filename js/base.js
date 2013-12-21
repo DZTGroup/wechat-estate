@@ -39,6 +39,16 @@ window.WXAPP = window.WXAPP || {};
         this.mode = 'insert'; // or update
 
     }
+    Entity.prototype.changeId = function () {
+        var self = this;
+        if (!self.options.multiple) {
+            self.newBtn.hide();
+        }
+        self.form.hide();
+        var id = this.newBtn.parent().find('.J_estate_list').val();
+        self.setEstateId(id);
+        self.fetchList();
+    }
 
     Entity.prototype.bindEvent = function () {
         var self = this;
@@ -53,14 +63,8 @@ window.WXAPP = window.WXAPP || {};
             self.empty();
             self.form.show();
         });
-        this.newBtn.parent().find('.J_estate_list').change(function () {
-            if (!self.options.multiple) {
-                self.newBtn.hide();
-            }
-            self.form.hide();
-            var id = $(this).val();
-            self.setEstateId(id);
-            self.fetchList();
+        this.newBtn.parent().find('.J_estate_list').change(function(){
+            self.changeId();
         });
         this.form.find('.J_submit').click(function () {
             self[self.mode]();
@@ -71,6 +75,7 @@ window.WXAPP = window.WXAPP || {};
 
     }
     Entity.prototype.insert = function (callback) {
+        var self = this;
         if (!this.check()) {
             return;
         }
@@ -80,10 +85,11 @@ window.WXAPP = window.WXAPP || {};
             content: JSON.stringify(this.getData())
         }, callback || function () {
             alert('创建成功');
-            location.reload();
+            self.changeId();
         });
     }
     Entity.prototype.update = function (callback) {
+        var self = this;
         if (!this.check()) {
             return;
         }
@@ -92,7 +98,7 @@ window.WXAPP = window.WXAPP || {};
             content: JSON.stringify(this.getData())
         }, callback || function () {
             alert('修改成功');
-            location.reload();
+            self.changeId();
         });
     }
     Entity.prototype.check = function () {
@@ -928,6 +934,7 @@ window.WXAPP = window.WXAPP || {};
     }
 
     entity.empty = function () {
+        form.find('.J_holder').empty();
         edit(null, null, function (d, type) {
             var l = null
             holder.find(".J_loop").each(function (i, loop) {
