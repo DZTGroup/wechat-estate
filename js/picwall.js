@@ -390,7 +390,7 @@ FCAPP.PICWALL = {
 var PICWALL = FCAPP.PICWALL,
     tm = null,
     myScroll;
-var reg = new RegExp("(^|\\?|&)"+ 'estate_id' +"=([^&]*)(\\s|&|$)", "i");
+var reg = new RegExp("(^|\\?|&)"+ 'eid' +"=([^&]*)(\\s|&|$)", "i");
 if (reg.test(location.href)){
     PICWALL.CONFIG.params.estate_id=unescape(RegExp.$2.replace(/\+/g, " "));
 }

@@ -134,7 +134,7 @@ class UserpicwallController extends Controller
     }
 
     public function actionAjaxGetPicWallData(){
-        $estate_id=$_POST["eid"];
+        $estate_id=$_POST["estate_id"];
         $pagesize = $_POST["pagesize"];
         $pageindex = $_POST["pageindex"];
 
