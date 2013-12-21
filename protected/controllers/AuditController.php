@@ -174,9 +174,10 @@ class AuditController extends Controller
             ->select('e1.*,e2.name')
             ->from('Audit e1')
             ->join('Estate e2', 'e1.estate_id=e2.id')
-            ->where('e1.entity_status=:status order by e1.estate_id', array(
+            ->where('e1.entity_status=:status', array(
                 ':status'=>1
-            ))->query();
+            ))->order('e1.entity_id desc,e1.create_time desc')
+            ->query();
         $arr = array();
 
         forEach($model as $k=>$row){
@@ -195,9 +196,10 @@ class AuditController extends Controller
             ->from('Audit e1')
             ->join('Estate e2', 'e1.estate_id=e2.id')
             ->join('User e4','e4.id=e1.operator_id')
-            ->where('e1.entity_status=:status order by e1.estate_id', array(
+            ->where('e1.entity_status=:status', array(
                 ':status'=>0,
-            ))->query();
+            ))->order('e1.entity_id desc,e1.create_time desc')
+            ->query();
         $arr = array();
 
         forEach($model as $k=>$row){
