@@ -971,7 +971,7 @@ window.WXAPP = window.WXAPP || {};
         ' </div>' +
         ' <div class="tipe-lb"><label>点评内容：</label> <textarea class="text-kuang J_field" name="c_content" cols=""' +
         ' rows="" placeholder="100个字以内"></textarea></div>' +
-        ' </div><hr/>'
+        ' <a class="J_del_exp" href="javascript:;">删除</a><hr/></div>'
 
     var form = $('#J_expert_form'),
         newBtn = $('#J_entity_new'),
@@ -981,7 +981,11 @@ window.WXAPP = window.WXAPP || {};
     }
     form.find('.J_add').click(function(){
         entity.empty();
-    })
+    });
+    form.delegate('.J_del_exp','click',function(e){
+        $(e.currentTarget).parent().remove();
+
+    });
     var entity = new WXAPP.Entity(form.attr('data-type'), form, table, newBtn, {
         multiple: form.attr('data-multiple') === "true"
     });
@@ -1013,6 +1017,7 @@ window.WXAPP = window.WXAPP || {};
     }
     entity.empty = function(){
         $(html).appendTo(form.find('.J_expert_holder'));
+        WXAPP.bindLoad(form.find('.J_upload'));
     }
 })();
 
@@ -1168,7 +1173,7 @@ window.WXAPP = window.WXAPP || {};
     }
 
     function editCoupon(data,cb){
-        var layer = $('<div class="box-layer" style="width:700px;">' +
+        var layer = $('<div class="box-layer" style="width:700px;position:absolute;top:'+($(window).scrollTop()+70)+'px;">' +
             ' <div class="title"><h2>添加新优惠</h2></div>' +
             ' <a class="close J_cancel" href="javascrit:;" title="关闭">关闭</a>' +
             ' <div class="tip-mian">' +
@@ -1218,10 +1223,14 @@ window.WXAPP = window.WXAPP || {};
     var entity = new WXAPP.Entity(form.attr('data-type'), form, table, newBtn, {
         multiple: form.attr('data-multiple') === "true"
     });
+    form.delegate('.J_del_line','click',function(e){
+        debugger
+        $(e.currentTarget).parent().parent().remove();
+    });
 
     function createLine(){
         var html = '<div class="J_module_item">' +
-            ' <div class="tipe-lb"><label>线路名称：</label> <input class="inp-tex J_field" name="name" type="text"></div>' +
+            ' <div class="tipe-lb"><label>线路名称：</label> <input class="inp-tex J_field" name="name" type="text"><a class="J_del_line" href="javascript:;">删除线路</a></div>' +
             ' <div class="tipe-lb"><label>说明：</label> <textarea class="text-kuang J_field" name="tip" cols="" rows="" placeholder="500个字以内"></textarea></div>' +
             ' </div>'
         return $(html).appendTo(form.find('.J_lines'));
@@ -1341,20 +1350,20 @@ window.WXAPP = window.WXAPP || {};
                 watchList.empty();
                 rs.data.forEach(function(watch){
                     var content = JSON.parse(watch.content);
-                    watchList.append('<option value="'+watch.id+'">'+content.title_setting.title+'</option>');
+                    watchList.append('<option value="'+watch.group_id+'">'+content.title_setting.title+'</option>');
                 });
 
             });
         });
         $('.J_watch_search').click(function(){
             var estate_id = $('.J_estate_list').val(),
-                entity_id = watchList.val();
-            if(estate_id===WXAPP.EMPTY_ESTATE || !entity_id){
+                group_id = watchList.val();
+            if(estate_id===WXAPP.EMPTY_ESTATE || !group_id){
                 return ;
             }
             WXAPP.Ajax('?r=watch/ajaxvisitsearch',{
                 estate_id:estate_id,
-                entity_id:entity_id
+                group_id:group_id
             },function(res){
                 $('#J_visit_result tbody').empty();
                 res.data.forEach(function(item){
@@ -1384,5 +1393,25 @@ window.WXAPP = window.WXAPP || {};
         });
 
 
+    });
+})();
+
+//订单查询
+(function(){
+
+    $('.J_reservation_search .J_estate_list').change(function(){
+        var id = $(this).val();
+        if(id===WXAPP.EMPTY_ESTATE){
+            return;
+        }
+        WXAPP.Ajax('?r=reservation/ajaxcountsearch',{
+            estate_id:id
+        },function(res){
+            $('.J_count_list').empty();
+            res.data.forEach(function(item,i){
+                $('.J_count_list').append('<option value="'+item.group_id+'">第'+(i+1)+'期</option>')
+            });
+
+        });
     });
 })();

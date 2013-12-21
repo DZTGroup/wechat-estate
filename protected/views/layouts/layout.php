@@ -25,8 +25,7 @@
         <ul class="menu">
             <li class="menu-p"><a href="?r=estate/create">楼盘管理</a>
                 <ul class="menu-xia">
-                    <li><a href="?r=estate/create">新增楼盘</a></li>
-                    <li><a href="?r=estate/view">楼盘详情</a></li>
+                    <li><a href="?r=estate/view">楼盘简介</a></li>
                     <li><a href="?r=estate/type">户型管理</a></li>
                 </ul>
             </li>
@@ -42,9 +41,8 @@
                 </ul>
             </li>
             <li class="menu-p">
-                <a href="order_li.html">认筹管理</a>
+                <a href="?r=reservation/create">认筹管理</a>
                 <ul class="menu-xia"  >
-                    <li><a href="?r=reservation/create">认筹列表</a></li>
                     <li><a href="?r=reservation/search">认筹订单</a></li>
                 </ul>
             </li>
@@ -52,7 +50,6 @@
                 <a href="?r=picwall/create">照片管理</a>
                 <ul class="menu-xia" >
                     <li><a href="?r=picwall/search">照片查询</a></li>
-                    <li><a href="?r=picwall/create">照片管理</a></li>
                 </ul>
             </li>
             <li><a href="?r=advertise/create">多业态</a></li>

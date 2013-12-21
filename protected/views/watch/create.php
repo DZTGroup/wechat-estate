@@ -80,7 +80,7 @@
             <h3>参团线路</h3>
             <div class="J_lines">
             <div class="J_module_item">
-                <div class="tipe-lb"><label>线路名称：</label> <input class="inp-tex J_field" name="name" type="text"></div>
+                <div class="tipe-lb"><label>线路名称：</label> <input class="inp-tex J_field" name="name" type="text"><a class="J_del_line" href="javascript:;">删除线路</a></div>
                 <div class="tipe-lb"><label>说明：</label> <textarea class="text-kuang J_field" name="tip" cols="" rows="" placeholder="500个字以内"></textarea></div>
             </div>
             </div>

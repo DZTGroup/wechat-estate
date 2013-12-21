@@ -1,6 +1,6 @@
 <?php
 
-class ReservationController extends Controller
+class OtherController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,11 +28,11 @@ class ReservationController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','search'),
+				'actions'=>array('index','search'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','ajaxcountsearch'),
+				'actions'=>array('create','update','ajaxwatchlist','ajaxvisitsearch'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -46,36 +46,17 @@ class ReservationController extends Controller
 	}
 
 
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
 	public function actionCreate()
 	{
 
-		$this->render('create',array(
-		));
+		$this->render('create');
 	}
-    public function actionSearch()
-    {
 
-        $this->render('search',array(
-        ));
-    }
-
-    public function actionAjaxCountSearch(){
-        if (isset($_POST['estate_id'])) {
-            $estate_id = $_POST['estate_id'];
-
-            $list = Yii::app()->db
-                ->createCommand('select group_id from Customer_Reservation where estate_id='.$estate_id.' and type="reservation" group by group_id')
-                ->queryAll();
-            echo json_encode(array(
-                'code' => 200,
-                'data' => $list
-            ));
-        }
+    public function getAppids($user_id){
+       $list =  Yii::app()->db
+            ->createCommand('select * from Estate where user_id='.$user_id)
+            ->queryAll();
+        return $list;
     }
 
 

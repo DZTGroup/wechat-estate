@@ -34,8 +34,7 @@
         ?>
         </div>
 
-        <div class="cent-bott"><button class="btn-cha submit J_submit" type="button">完成</button> <button class="btn-cha J_cancel" type="button">取消</button></div>
-        <div class="com-tu">效果图显示</div>
+        <div class="cent-bott"><button class="btn-cha submit J_submit" type="button">提交</button> <button class="btn-cha J_cancel" type="button">取消</button></div>
     </div>
     <!-- 添加新房友印象 】】-->
 </div>

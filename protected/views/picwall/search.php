@@ -1,7 +1,7 @@
 <div class="cent-auto">
     <!-- 相册查询【【 -->
     <div class="com-min">
-        <h3>相册查询</h3>
+        <h3>实景管理</h3>
         <div class="order-lb"><label>楼盘名称：</label>
             <?php $this->widget('EstateListWidget', array('class_name' => 'li-hd')); ?>
         </div>

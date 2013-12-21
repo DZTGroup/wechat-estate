@@ -56,22 +56,27 @@ class WatchController extends Controller
         if (isset($_POST['estate_id'])) {
             $id = $_POST['estate_id'];
 
+            $group_table = 'select group_id,max(create_time) as create_time from Entity where type="group" and estate_id="'.$_POST['estate_id'].'" group by group_id';
+            $subTable = 'select t2.* from ('.$group_table.')t1 left join Entity t2 on t1.group_id=t2.group_id and t1.create_time=t2.create_time ';
             $list = Yii::app()->db
-                ->createCommand('select * from Entity where estate_id='.$id.' and type="group"')
+                ->createCommand('select Estate.name as estate_name ,entity.* from  (' . $subTable . ') as entity,Estate where entity.estate_id=Estate.id')
                 ->queryAll();
+
             echo json_encode(array(
                 'code' => 200,
                 'data' => $list
             ));
+
+
         }
     }
     public  function actionAjaxVisitSearch(){
-        if (isset($_POST['estate_id']) && isset($_POST['entity_id'])) {
+        if (isset($_POST['estate_id']) && isset($_POST['group_id'])) {
             $estate_id = $_POST['estate_id'];
-            $entity_id = $_POST['entity_id'];
+            $group_id = $_POST['group_id'];
 
             $list = Yii::app()->db
-                ->createCommand('select * from Customer_Visit where estate_id='.$estate_id.' and entity_id='.$entity_id)
+                ->createCommand('select * from Customer_Visit where estate_id='.$estate_id.' and group_id='.$group_id)
                 ->queryAll();
             echo json_encode(array(
                 'code' => 200,

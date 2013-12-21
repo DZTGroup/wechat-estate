@@ -1,6 +1,6 @@
 <div class="cent-auto">
     <div class="box-table"><!-- 添加hide隐藏 -->
-        <h3 class="orde-h">照片墙查询</h3>
+        <h3 class="orde-h">楼盘画册</h3>
 
         <div class="order-lb">楼盘名称：
             <?php $this->widget('EstateListWidget', array('class_name' => 'li-hd')); ?>
@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="com-min J_module" data-module="pic_wall_2">
-            <h3>照片墙1</h3>
+            <h3>照片墙2</h3>
 
             <div class="tipe-lb">
                 <label>图片组名称：</label>
@@ -131,7 +131,7 @@
             </div>
         </div>
         <div class="com-min J_module" data-module="pic_wall_3">
-            <h3>照片墙1</h3>
+            <h3>照片墙3</h3>
 
             <div class="tipe-lb">
                 <label>图片组名称：</label>
@@ -200,7 +200,7 @@
             <div class="layer-lb"><label>副标题：</label> <input class="inp-tex inp-300 J_subtitle" name="" type="text">
             </div>
         </div>
-        <div class="but-auto"><a class="an-butn J_save" href="javascript:;" title="确认">确认</a> <a class="an-butn J_cance"
+        <div class="but-auto"><a class="an-butn J_save" href="javascript:;" title="确认">确认</a> <a class="an-butn J_cancel"
                                                                                                  href="javascript:;"
                                                                                                  title="取消">取消</a></div>
     </div>
