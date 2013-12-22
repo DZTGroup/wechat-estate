@@ -24,6 +24,10 @@ class StatisticController extends Controller
     {
         $this->render('view');
     }
+    public function actionChart()
+    {
+        $this->render('chart');
+    }
 
     public function actionAjaxSearch(){
         $estate_id = $_POST['estate_id'];
@@ -64,5 +68,24 @@ class StatisticController extends Controller
                 )
             ));
         }
+    }
+
+    public function getRecentView(){
+        $month_ago =time()-30*24*60*60;
+        $now = time();
+        $sql_pv = 'select sum(pv_num) as pv,date(time) as d from Statistic where UNIX_TIMESTAMP(time)>='.$month_ago.' and UNIX_TIMESTAMP(time)<='.$now.' group by date(time)';
+        $sql_uv = 'select count(distinct open_id) as uv,date(time) as d from Statistic where UNIX_TIMESTAMP(time)>='.$month_ago.' and UNIX_TIMESTAMP(time)<='.$now.' group by date(time)';
+
+        $pv = Yii::app()->db
+            ->createCommand($sql_pv)
+            ->queryAll();
+        $uv = Yii::app()->db
+            ->createCommand($sql_uv)
+            ->queryAll();
+
+        return array(
+            'pv'=>$pv,
+            'uv'=>$uv
+        );
     }
 }
