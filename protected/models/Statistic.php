@@ -6,9 +6,10 @@
  * The followings are the available columns in table 'Statistic':
  * @property integer $id
  * @property integer $eid
- * @property string $page_name
  * @property string $open_id
- * @property integer $browse_num
+ * @property string $page_name
+ * @property integer $pv_num
+ * @property string $time
  */
 class Statistic extends CActiveRecord
 {
@@ -28,12 +29,13 @@ class Statistic extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('eid, browse_num', 'numerical', 'integerOnly'=>true),
-			array('page_name', 'length', 'max'=>45),
+			array('eid, pv_num', 'numerical', 'integerOnly'=>true),
 			array('open_id', 'length', 'max'=>255),
+			array('page_name', 'length', 'max'=>45),
+			array('time', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, eid, page_name, open_id, browse_num', 'safe', 'on'=>'search'),
+			array('id, eid, open_id, page_name, pv_num, time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,9 +58,10 @@ class Statistic extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'eid' => 'Eid',
-			'page_name' => 'Page Name',
 			'open_id' => 'Open',
-			'browse_num' => 'Browse Num',
+			'page_name' => 'Page Name',
+			'pv_num' => 'Pv Num',
+			'time' => 'Time',
 		);
 	}
 
@@ -82,9 +85,10 @@ class Statistic extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('eid',$this->eid);
-		$criteria->compare('page_name',$this->page_name,true);
 		$criteria->compare('open_id',$this->open_id,true);
-		$criteria->compare('browse_num',$this->browse_num);
+		$criteria->compare('page_name',$this->page_name,true);
+		$criteria->compare('pv_num',$this->pv_num);
+		$criteria->compare('time',$this->time,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
