@@ -1,4 +1,5 @@
 <?php /* @var $this Controller */ ?>
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.3.custom.min.css" type="text/css" />
 <script src="js/jquery-2.0.3.min.js"></script>
 <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
 <?php $this->beginContent('//layouts/main'); ?>
@@ -10,6 +11,7 @@
                 <li><a href="?r=user/admin">用户设置</a></li>
                 <li><a href="?r=audit/all">审核</a></li>
                 <li><a href="?r=audit/list">已发布数据</a></li>
+                <li><a href="?r=statistic/view">数据统计</a></li>
             </ul>
         </div>
     </div>

@@ -1453,3 +1453,30 @@ window.WXAPP = window.WXAPP || {};
         });
     });
 })();
+
+//pv
+(function(){
+    $('.J_search_pv').click(function(){
+        debugger
+        var estate_id = $('.J_estate_list').val(),
+            start_time = $('.J_start').val(),
+            end_time = $('.J_end').val();
+
+        WXAPP.Ajax('?r=statistic/ajaxsearch',{
+            estate_id:estate_id,
+            start_time:start_time,
+            end_time:end_time
+        },function(res){
+            var table = $('#J_pv_table tbody').empty();
+            var pv = res.data.pv;
+            var uv = res.data.uv;
+            pv.forEach(function(record){
+                var thisUv = uv.filter(function(r){
+                   return  r.page_name == record.page_name;
+                });
+                table.append('<tr><td>'+record.page_name+'</td><td>'+thisUv[0].uv+'</td><td>'+record.pv+'</td></tr>')
+            });
+        });
+
+    });
+})();
