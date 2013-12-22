@@ -2,10 +2,7 @@
 
 class StatisticController extends Controller
 {
-	public function actionView()
-	{
-		$this->render('view');
-	}
+
 
     /**
      * Specifies the access control rules.
@@ -21,5 +18,10 @@ class StatisticController extends Controller
                 'expression'=>'$user->isAdmin()',
             ),
         );
+    }
+
+    public function actionView()
+    {
+        $this->render('view');
     }
 }
