@@ -1216,20 +1216,30 @@ window.WXAPP = window.WXAPP || {};
             ' <a class="close J_cancel" href="javascrit:;" title="关闭">关闭</a>' +
             ' <div class="tip-mian">' +
             ' <div class="p-shuju">' +
+            '<div class="layer-lb"><label>添加icon</label>' +
+            '<span class="load_btn"> <span class="btn-cha J_upload"></span></span>' +
+            '<div class="J_display">' +
+            '<img src="" class="J_field" name="icon" width="50" height="50" value="">' +
+            '</div>' +
+            '</div>'+
             ' <div class="layer-lb"><label>优惠名称：</label> <input class="inp-tex inp-300 J_field" name="name" type="text"></div>' +
             ' <div class="layer-lb"><label>优惠描述：</label> <input class="inp-tex inp-300 J_field" name="desc" type="text"></div>' +
-            ' <div class="layer-lb"><label>预约时间：</label> <input class="inp-tex inp-300 J_field" name="book_time" type="text"></div>' +
+            ' <div class="layer-lb"><label>预约开始时间：</label> <input class="inp-tex inp-300 J_field" name="book_start_time" type="text"></div>' +
+            ' <div class="layer-lb"><label>预约结束时间：</label> <input class="inp-tex inp-300 J_field" name="book_end_time" type="text"></div>' +
             ' <div class="layer-lb"><label>预约电话1：</label> <input class="inp-tex inp-300 J_field" name="phone1" type="text"></div>' +
             ' <div class="layer-lb"><label>预约电话2：</label> <input class="inp-tex inp-300 J_field" name="phone2" type="text"></div>' +
-            ' <div class="layer-lb"><label>服务时间：</label> <input class="inp-tex inp-300 J_field" name="service_time" type="text"></div>' +
             ' <div class="layer-lb"><label>优惠说明：</label> <textarea class="layer-kuang J_field" name="announcement" cols="" rows=""></textarea></div>' +
             ' <div class="layer-lb"><label>优惠须知：</label> <textarea class="layer-kuang J_field" name="notice" cols="" rows=""></textarea></div>' +
             ' <div class="but-auto"><a class="an-butn J_save" href="javascript:;" title="提交">提交</a></div>' +
             ' </div> </div> </div>').appendTo('body');
 
+        WXAPP.bindLoad(layer.find('.J_upload'));
         if(data){
             layer.find('.J_field').each(function(i,field){
                 $(field).val(data[$(field).attr('name')]);
+                if(field.nodeName.toLowerCase()==="img"){
+                    $(field).attr('src','upload_files/' + entity.estate_id + "/" + data[$(field).attr('name')]);
+                }
             });
         }
         layer.find('.J_save').click(function(){
