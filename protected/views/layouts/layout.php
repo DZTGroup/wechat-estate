@@ -14,7 +14,6 @@
         <div class="hd-title">微信 房产管理后台</div>
         <div class="hd-log">欢迎你<span>亲爱的<em><?php echo Yii::app()->user->getUserName();?></em>用户</span><a href="?r=site/changepassword">修改密码</a>  <a href="?r=site/logout">退出</a></div>
         <ul class="hd-link">
-            <li><a href="index.php">首页</a></li>
         </ul>
     </div>
 </div>
