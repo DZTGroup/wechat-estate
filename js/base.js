@@ -73,6 +73,20 @@ window.WXAPP = window.WXAPP || {};
             self.form.hide();
         });
 
+        this.table.delegate('.J_view','click',function(e){
+            var t = $(e.currentTarget);
+            $('<div class="box-layer" style="width:700px;position:absolute;top:'+($(window).scrollTop()+70)+'px;">' +
+                '<div class="title"><h2>户型数据</h2></div>' +
+                '<a class="close J_cancel" href="javascript:;" title="关闭">关闭</a>' +
+                '<div style="padding:30px;">'+
+                '<p>url:</p>'+
+                '<p>'+location.hostname+ t.attr('data-url')+'</p>'+
+                '</div></div>').appendTo(document.body).find('.J_cancel').click(function(){
+                    $(this).parent().remove();
+                });
+
+        });
+
     }
     Entity.prototype.insert = function (callback) {
         var self = this;
@@ -236,7 +250,7 @@ window.WXAPP = window.WXAPP || {};
             '<td>' + this.getStatus(item.status) + '</td>' +
             '<td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a> ' +
             '<a href="/weapp/php/cgi/preview.php?eid='+item.estate_id+'&t='+item.type+'" target="_blank">预览</a>' +
-            (item.status==1?' <a href="/weapp/php/cgi/jump.php?eid='+item.estate_id+'&t='+item.type+'&appid='+item.appid+'" target="_blank">查看</a>':'')+
+            (item.status==1?' <a class="J_view" href="javascript:;" data-url="/weapp/php/cgi/jump.php?eid='+item.estate_id+'&t='+item.type+'&appid='+item.appid+'" target="_blank">查看</a>':'')+
             '</td></tr>';
     }
 
@@ -261,7 +275,7 @@ window.WXAPP = window.WXAPP || {};
             var content = JSON.parse(item.content);
             return '<tr><td>' + item.id + '</td><td>' + content.event.name + '</td><td>' + item.estate_name + '</td><td>' + content.event.start_date + '-' + content.event.end_date + '</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a>' +
                 '<a href="/weapp/php/cgi/preview.php?eid='+item.estate_id+'&t='+ item.type +'" target="_blank">预览</a>' +
-            (item.status==1?' <a href="/weapp/php/cgi/jump.php?eid='+item.estate_id+'&t='+item.type+'&appid='+item.appid+'" target="_blank">查看</a>':'')+
+            (item.status==1?' <a class="J_view" href="javascript:;" data-url="/weapp/php/cgi/jump.php?eid='+item.estate_id+'&t='+item.type+'&appid='+item.appid+'" target="_blank">查看</a>':'')+
                 '</td></tr>';
         }
     }
@@ -1179,8 +1193,9 @@ window.WXAPP = window.WXAPP || {};
                     couponItem.remove();
                 });
             });
-            WXAPP.bindLoad(l.find('.J_upload'));
+
         }
+        WXAPP.bindLoad(l.find('.J_upload'));
         function getCoupon(){
             var data = [];
             l.find('table input[type=hidden]').each(function(i,hidden){
@@ -1320,7 +1335,7 @@ window.WXAPP = window.WXAPP || {};
         var content = JSON.parse(item.content);
         return '<tr><td>' + content.title_setting.title + '</td><td>' + item.estate_name + '</td><td>' + content.event.watch_end_date + '前</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a>' +
             '<a href="/weapp/php/cgi/preview.php?eid='+item.estate_id+'&t='+ item.type +'" target="_blank">预览</a>' +
-            (item.status==1?' <a href="/weapp/php/cgi/jump.php?eid='+item.estate_id+'&t='+item.type+'&appid='+item.appid+'" target="_blank">查看</a>':'')+
+            (item.status==1?' <a class="J_view" href="javascript:;" data-url="/weapp/php/cgi/jump.php?eid='+item.estate_id+'&t='+item.type+'&appid='+item.appid+'" target="_blank">查看</a>':'')+
             '</td></tr>';
     }
 })();
@@ -1505,3 +1520,4 @@ window.WXAPP = window.WXAPP || {};
 
     });
 })();
+
