@@ -77,7 +77,7 @@ class EntityController extends Controller
         $audit->entity_status = '0';
         $audit->estate_id = $estate_id;
         $audit->entity_type = $type;
-        $audit->create_time=gmdate("Y-m-d H:i:s", mktime() + 8 * 3600);
+        $audit->create_time=date("Y-m-d H:i:s", time());
 
 
         $audit->save();
