@@ -17,6 +17,10 @@ class StatisticController extends Controller
                 'actions'=>array('view'),
                 'expression'=>'$user->isAdmin()',
             ),
+            array('allow',  // allow all users to perform 'index' and 'view' actions
+                'actions'=>array('getfollownum'),
+                'users'=>array('*'),
+            ),
         );
     }
 
@@ -86,6 +90,18 @@ class StatisticController extends Controller
         return array(
             'pv'=>$pv,
             'uv'=>$uv
+        );
+    }
+
+    public function getFollowNum(){
+        $sql_follow='select name, follow_num from Estate';
+
+        $follow = Yii::app()->db
+            ->createCommand($sql_follow)
+            ->queryAll();
+
+        return array(
+            'follow'=>$follow,
         );
     }
 }

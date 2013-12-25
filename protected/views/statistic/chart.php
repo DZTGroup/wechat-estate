@@ -1,5 +1,5 @@
 <div class="cent-auto">
-    <div class="hexin-tiele">核心数据</div>
+    <div class="hexin-tiele">用户关注数</div>
     <div style="height:500px;" id="chart">
 
     </div>
@@ -8,38 +8,28 @@
 <script  src="js/chart.js"></script>
 <script>
     <?php
-                $data = $this->getRecentView();
+                $data = $this->getFollowNum();
                 date_default_timezone_set('Asia/Shanghai');
             ?>
     new Venus.SvgChart('chart',[{
-        name:'pv',
+        name:'关注人数',
         data:{
             <?php
-                    forEach($data['pv'] as $row){
-                        echo '"'.$row['d'].'":'.$row['pv'].',';
-                    }
-                ?>
-        }
-    },{
-        name:'uv',
-        data:{
-            <?php
-                    forEach($data['uv'] as $row){
-                        echo '"'.$row['d'].'":'.$row['uv'].',';
+                    forEach($data['follow'] as $row){
+                        echo '"'.$row['name'].'":'.$row['follow_num'].',';
                     }
                 ?>
         }
     }],{
        axis:{
            x:{
-               type:'datetime',
-               toFormat:'yyyy-MM-dd'
+               type:'string'
            },
            y:{
 
            }
        },
-        line:{
+        bar:{
             dotRadius:2
 
         },
