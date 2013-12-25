@@ -71,15 +71,13 @@ class EntityController extends Controller
         if ($audit == null || $model->type==''||$model->type=='group'||$model->type=='reservation') {
             $audit = new Audit();
         }
-        else{
-            $audit->create_time=time();
-        }
 
         $audit->entity_id = $model->id;
         $audit->operator_id = Yii::app()->user->getUserId();
         $audit->entity_status = '0';
         $audit->estate_id = $estate_id;
         $audit->entity_type = $type;
+        $audit->create_time=gmdate("Y-m-d H:i:s", mktime() + 8 * 3600);
 
 
         $audit->save();
