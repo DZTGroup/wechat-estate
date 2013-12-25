@@ -24,9 +24,9 @@
                 foreach($list as $item){
             ?>
                     <tr style="display: none;" data-id="<?php echo $item['id'];?>">
-                        <td>http://www.weixinfc.com/wechat-estate/index.php?r=userpicwall/list&estate_id=<?php echo $item['id'];?></td>
+                        <td>http://www.weixinfc.com/weapp/php/cgi/jump.php?eid=<?php echo $item['id'];?>&appid=<?php echo $item['app_id']; ?>&t=userpicwall</td>
                         <td>http://www.weixinfc.com/wechat-estate/message.php?estate_id=<?php echo $item['id'];?></td>
-                        <td>http://www.weixinfc.com/weapp/php/cgi/jump.php?eid=32&appid=<?php echo $item['app_id']; ?>&t=bbs</td>
+                        <td>http://www.weixinfc.com/weapp/php/cgi/jump.php?eid=<?php echo $item['id'];?>&appid=<?php echo $item['app_id']; ?>&t=bbs</td>
                     </tr>
             <?php
                 }

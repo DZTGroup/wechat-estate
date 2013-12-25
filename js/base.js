@@ -234,7 +234,7 @@ window.WXAPP = window.WXAPP || {};
             '<td>' + item.create_time + '</td>' +
             '<td>' + this.getStatus(item.status) + '</td>' +
             '<td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a> ' +
-            '<a href="/weapp/public_html/html/'+ item.type +'.html?eid='+item.estate_id+'&openid=0" target="_blank">预览</a>' +
+            '<a href="/weapp/php/cgi/preview.php?eid='+item.estate_id+'&t='+item.type+'" target="_blank">预览</a>' +
             '</td></tr>';
     }
 
@@ -258,7 +258,7 @@ window.WXAPP = window.WXAPP || {};
         entity.tableTemplate = function (item) {
             var content = JSON.parse(item.content);
             return '<tr><td>' + item.id + '</td><td>' + content.event.name + '</td><td>' + item.estate_name + '</td><td>' + content.event.start_date + '-' + content.event.end_date + '</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a>' +
-                '<a href="/weapp/public_html/html/'+ item.type +'.html?eid='+item.estate_id+'&openid=0" target="_blank">预览</a>' +
+                '<a href="/weapp/php/cgi/preview.php?eid='+item.estate_id+'&t='+ item.type +'" target="_blank">预览</a>' +
                 '</td></tr>';
         }
     }
@@ -731,6 +731,13 @@ window.WXAPP = window.WXAPP || {};
             '<a class="close J_cancel" href="javascript:;" title="关闭">关闭</a>' +
             '<div class="tip-mian">' +
             '<div class="p-shuju">' +
+            '<div class="tipe-lb"><label>户型封面图：</label>' +
+                '<div><span class="load_btn"> <span class="btn-cha J_upload"></span></span>' +
+                    '<div class="J_display">' +
+                        '<img src="" class="J_field" name="face_img" width="50" height="50" value="">' +
+                    '</div>' +
+                '</div>' +
+            '</div>'+
             '<div class="layer-lb">' +
             '<label>户型名：</label>' +
             '<input class="inp-tex inp-300 J_field" name="name" type="text">' +
@@ -769,10 +776,14 @@ window.WXAPP = window.WXAPP || {};
             '<a class="an-butn J_sure" href="javascript:;" title="确认">确认</a> ' +
             '<a class="an-butn J_cancel" href="javascript:;" title="取消">取消</a>' +
             '</div></div></div>').appendTo('body');
+        WXAPP.bindLoad(layer.find('.J_upload'));
 
         if (data) {
             $('.J_field').each(function (i, item) {
                 $(item).val(data['base-info'][$(item).attr('name')]);
+                if(item.nodeName.toLowerCase()==="img"){
+                    item.src = 'upload_files/' + entity.estate_id + "/" +data['base-info'][$(item).attr('name')];
+                }
             });
             $('.J_type').val(type);
         } else {
@@ -1305,7 +1316,7 @@ window.WXAPP = window.WXAPP || {};
     entity.tableTemplate = function (item) {
         var content = JSON.parse(item.content);
         return '<tr><td>' + content.title_setting.title + '</td><td>' + item.estate_name + '</td><td>' + content.event.watch_end_date + '前</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a>' +
-            '<a href="/weapp/public_html/html/'+ item.type +'.html?eid='+item.estate_id+'&openid=0" target="_blank">预览</a>' +
+            '<a href="/weapp/php/cgi/preview.php?eid='+item.estate_id+'&t='+ item.type +'" target="_blank">预览</a>' +
             '</td></tr>';
     }
 })();
