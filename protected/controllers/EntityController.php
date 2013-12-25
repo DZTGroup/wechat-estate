@@ -71,7 +71,7 @@ class EntityController extends Controller
         if ($audit == null || $model->type==''||$model->type=='group'||$model->type=='reservation') {
             $audit = new Audit();
         }
-
+        date_default_timezone_set('Asia/Shanghai');
         $audit->entity_id = $model->id;
         $audit->operator_id = Yii::app()->user->getUserId();
         $audit->entity_status = '0';
