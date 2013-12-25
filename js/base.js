@@ -441,7 +441,8 @@ window.WXAPP = window.WXAPP || {};
                     'picture': '照片墙',
                     'reservation': '认筹',
                     'comment': '专家建议',
-                    'impression': '用户印象'
+                    'impression': '用户印象',
+                    'advertise':'多业态'
 
                 }
                 table.empty();
