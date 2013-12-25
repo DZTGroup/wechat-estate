@@ -18,7 +18,7 @@ class StatisticController extends Controller
                 'expression'=>'$user->isAdmin()',
             ),
             array('allow',  // allow all users to perform 'index' and 'view' actions
-                'actions'=>array('getfollownum'),
+                'actions'=>array('ajaxGetFollowNum'),
                 'users'=>array('*'),
             ),
         );
@@ -93,15 +93,27 @@ class StatisticController extends Controller
         );
     }
 
-    public function getFollowNum(){
-        $sql_follow='select name, follow_num from Estate';
+    public function actionAjaxGetFollowNum(){
+
+        $month_ago =time()-30*24*60*60;
+        $now = time();
+
+        $sql_follow= 'select follow_num,date(date_time) as d from Estate_Follow_Statistic where UNIX_TIMESTAMP(date_time)>='.$month_ago.' and UNIX_TIMESTAMP(date_time)<='.$now.' and eid='.$_POST['eid'].' order by date_time desc';
+
 
         $follow = Yii::app()->db
             ->createCommand($sql_follow)
             ->queryAll();
 
-        return array(
-            'follow'=>$follow,
-        );
+        $arr = array();
+
+        forEach($follow as $k=>$row){
+            array_push($arr,$row);
+        }
+
+        echo json_encode(array(
+            'code' => 200,
+            'data' => $arr
+        ));
     }
 }
