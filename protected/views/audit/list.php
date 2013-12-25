@@ -15,7 +15,6 @@
                 <th>审核类型</th>
                 <th>提交时间</th>
                 <th>状态</th>
-                <th>操作</th>
             </tr>
             </thead>
             <tbody>

@@ -435,6 +435,7 @@ window.WXAPP = window.WXAPP || {};
                 var table = $('#J_audit_list_all_passed_data_table tbody');
                 var map = {
                     1: '审核通过',
+                    2:'审核驳回',
                     'intro': '楼盘',
                     'apartment': '户型',
                     'group': '看房团',
@@ -452,11 +453,8 @@ window.WXAPP = window.WXAPP || {};
                         + map[item.entity_type] + '</td><td>'
                         + item.create_time + '</td><td>'
                         + map[item.entity_status]
-                        + '</td><td><a class="blue J_detail" href="/weapp/public_html/html/'
-                        + item.entity_type +'.html?eid='+item.estate_id+'&openid=0" target="_blank"'
-                        +' data-id="' + item.id
-                        + '" entity-id="' + item.entity_id + '">详情</a>'
-                        + '</td></tr>')
+                        + '</td>'
+                        + '</tr>')
                 });
 
                 table.find('.J_detail').click(function () {
@@ -1483,6 +1481,18 @@ window.WXAPP = window.WXAPP || {};
 
 //pv
 (function(){
+    var map = {
+        'intro': '楼盘简介',
+        'apartment': '户型',
+        'group': '看房团',
+        'picture': '照片墙',
+        'reservation': '认筹',
+        'comment': '专家建议',
+        'impression': '用户印象',
+        'advertise':'多业态',
+        'bbs':'论坛',
+        'userpicwall':'用户照片墙'
+    };
     $('.J_search_pv').click(function(){
         debugger
         var estate_id = $('.J_estate_list').val(),
@@ -1501,7 +1511,7 @@ window.WXAPP = window.WXAPP || {};
                 var thisUv = uv.filter(function(r){
                    return  r.page_name == record.page_name;
                 });
-                table.append('<tr><td>'+record.page_name+'</td><td>'+thisUv[0].uv+'</td><td>'+record.pv+'</td></tr>')
+                table.append('<tr><td>'+map[record.page_name]+'</td><td>'+thisUv[0].uv+'</td><td>'+record.pv+'</td></tr>')
             });
         });
 
