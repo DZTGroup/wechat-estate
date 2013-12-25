@@ -1,4 +1,5 @@
 <?php /* @var $this Controller */ ?>
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.3.custom.min.css" type="text/css" />
 <script src="js/jquery-2.0.3.min.js"></script>
 <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
 <?php $this->beginContent('//layouts/main'); ?>
@@ -7,9 +8,11 @@
             <div class="hd-title">微信 房产管理后台</div>
             <div class="hd-log">欢迎你<span>亲爱的<i><?php echo Yii::app()->user->getUserName();?></i>用户</span><a href="?r=site/logout">退出</a></div>
             <ul class="hd-link">
+                <li><a href="?r=statistic/chart">首页</a></li>
                 <li><a href="?r=user/admin">用户设置</a></li>
                 <li><a href="?r=audit/all">审核</a></li>
                 <li><a href="?r=audit/list">已发布数据</a></li>
+                <li><a href="?r=statistic/view">数据统计</a></li>
             </ul>
         </div>
     </div>

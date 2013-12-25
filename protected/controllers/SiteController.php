@@ -74,7 +74,7 @@ class SiteController extends Controller
 			if($model->validate() && $model->login())
             {
                 if(Yii::app()->user->isAdmin())
-                    $this->redirect("?r=user/admin");
+                    $this->redirect("?r=statistic/chart");
                 else
                     $this->redirect("?r=estate/create");
 
