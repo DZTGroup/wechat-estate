@@ -174,9 +174,7 @@ class AuditController extends Controller
             ->select('e1.*,e2.name')
             ->from('Audit e1')
             ->join('Estate e2', 'e1.estate_id=e2.id')
-            ->where('e1.entity_status=:status', array(
-                ':status'=>1
-            ))->order('e1.entity_id desc,e1.create_time desc')
+            ->order('e1.entity_id desc,e1.create_time desc')
             ->query();
         $arr = array();
 
