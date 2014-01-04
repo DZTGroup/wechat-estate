@@ -11,7 +11,7 @@
         <?php $this->widget('ImpressionTableWidget', array('id' => 'J_impression_table')); ?>
     </div>
 
-    <div class="com-min" id="J_ad_form" data-type="advertise" style="display: none;">
+    <div class="com-min" id="J_ad_form" data-type="advertise" data-multiple="true" style="display: none;">
         <div class=" J_module J_intro" data-module="intro" >
             <div class="tipe-lb">
                 <span><span class="btn-cha J_upload" type="button"></span></span>

@@ -243,14 +243,13 @@ window.WXAPP = window.WXAPP || {};
         this.form.find('textarea').val('');
     }
     Entity.prototype.tableTemplate = function (item) {
-        debugger
         return '<tr><td>' + item.estate_id + '</td>' +
             '<td>' + item.estate_name + '</td>' +
             '<td>' + item.create_time + '</td>' +
             '<td>' + this.getStatus(item.status) + '</td>' +
             '<td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a> ' +
-            '<a href="/weapp/php/cgi/preview.php?eid='+item.estate_id+'&t='+item.type+'" target="_blank">预览</a>' +
-            (item.status==1?' <a class="J_view" href="javascript:;" data-url="/weapp/php/cgi/jump.php?eid='+item.estate_id+'&t='+item.type+'&appid='+item.appid+'" target="_blank">查看</a>':'')+
+            '<a href="/weapp/php/cgi/preview.php?eid='+item.estate_id+'&t='+item.type+'&gid='+item.group_id+'" target="_blank">预览</a>' +
+            (item.status==1?' <a class="J_view" href="javascript:;" data-url="/weapp/php/cgi/jump.php?eid='+item.estate_id+'&t='+item.type+'&appid='+item.appid+'&gid='+item.group_id+'" target="_blank">查看</a>':'')+
             '</td></tr>';
     }
 
@@ -274,10 +273,26 @@ window.WXAPP = window.WXAPP || {};
         entity.tableTemplate = function (item) {
             var content = JSON.parse(item.content);
             return '<tr><td>' + item.id + '</td><td>' + content.event.name + '</td><td>' + item.estate_name + '</td><td>' + content.event.start_date + '-' + content.event.end_date + '</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a>' +
-                '<a href="/weapp/php/cgi/preview.php?eid='+item.estate_id+'&t='+ item.type +'" target="_blank">预览</a>' +
-            (item.status==1?' <a class="J_view" href="javascript:;" data-url="/weapp/php/cgi/jump.php?eid='+item.estate_id+'&t='+item.type+'&appid='+item.appid+'" target="_blank">查看</a>':'')+
+                '<a href="/weapp/php/cgi/preview.php?eid='+item.estate_id+'&t='+ item.type +'&gid='+item.group_id+'" target="_blank">预览</a>' +
+            (item.status==1?' <a class="J_view" href="javascript:;" data-url="/weapp/php/cgi/jump.php?eid='+item.estate_id+'&t='+item.type+'&appid='+item.appid+'&gid='+item.group_id+'" target="_blank">查看</a>':'')+
                 '</td></tr>';
         }
+    }
+    if(entity.type==="impression"){
+        //印象, 校验加起来不能超过100
+        entity.check = function(){
+            var sum = 0;
+            form.find('.J_field[name=percent]').each(function(){
+                var value = $(this).val();
+                sum+= value?parseInt(value):0;
+            });
+            if(sum>100){
+                alert('印象总和不能超过100%');
+                return false;
+            }
+            return true;
+        }
+
     }
 })();
 
@@ -586,7 +601,7 @@ window.WXAPP = window.WXAPP || {};
         layerbg.hide();
     });
     var descTarget = null;
-    $('.J_pic_desc_btn').click(function () {
+    $(document).on('click','.J_pic_desc_btn',function () {
         var desc = $(this).next().val();
         descTarget = $(this).next();
         descLayer.find('.J_text').val(desc);
@@ -607,7 +622,7 @@ window.WXAPP = window.WXAPP || {};
     });
     var titleTarget;
     var subtitleTarget;
-    $('.J_pic_title_btn').click(function () {
+    $(document).on('click','.J_pic_title_btn',function () {
         var title = $(this).next().val();
         var subtitle = $(this).next().next().val();
         titleTarget = $(this).next();
@@ -753,6 +768,13 @@ window.WXAPP = window.WXAPP || {};
             '<a class="close J_cancel" href="javascript:;" title="关闭">关闭</a>' +
             '<div class="tip-mian">' +
             '<div class="p-shuju">' +
+            '<div class="tipe-lb"><label>户型顶图：</label>' +
+                '<div><span class="load_btn"> <span class="btn-cha J_upload"></span></span>' +
+                    '<div class="J_display">' +
+                        '<img src="" class="J_field" name="top_img" width="50" height="50" value="">' +
+                    '</div>' +
+                '</div>' +
+            '</div>'+
             '<div class="tipe-lb"><label>户型封面图：</label>' +
                 '<div><span class="load_btn"> <span class="btn-cha J_upload"></span></span>' +
                     '<div class="J_display">' +
@@ -1306,7 +1328,6 @@ window.WXAPP = window.WXAPP || {};
         multiple: form.attr('data-multiple') === "true"
     });
     form.delegate('.J_del_line','click',function(e){
-        debugger
         $(e.currentTarget).parent().parent().remove();
     });
 
@@ -1339,8 +1360,8 @@ window.WXAPP = window.WXAPP || {};
     entity.tableTemplate = function (item) {
         var content = JSON.parse(item.content);
         return '<tr><td>' + content.title_setting.title + '</td><td>' + item.estate_name + '</td><td>' + content.event.watch_end_date + '前</td><td>' + item.create_time + '</td><td>' + this.getStatus(item.status) + '</td><td><a class="blue J_edit" href="javascript:;" data-id="' + item.id + '">编辑</a>' +
-            '<a href="/weapp/php/cgi/preview.php?eid='+item.estate_id+'&t='+ item.type +'" target="_blank">预览</a>' +
-            (item.status==1?' <a class="J_view" href="javascript:;" data-url="/weapp/php/cgi/jump.php?eid='+item.estate_id+'&t='+item.type+'&appid='+item.appid+'" target="_blank">查看</a>':'')+
+            '<a href="/weapp/php/cgi/preview.php?eid='+item.estate_id+'&t='+ item.type +'&gid='+item.group_id+'" target="_blank">预览</a>' +
+            (item.status==1?' <a class="J_view" href="javascript:;" data-url="/weapp/php/cgi/jump.php?eid='+item.estate_id+'&t='+item.type+'&appid='+item.appid+'&gid='+item.group_id+'" target="_blank">查看</a>':'')+
             '</td></tr>';
     }
 })();
@@ -1514,7 +1535,6 @@ window.WXAPP = window.WXAPP || {};
         'userpicwall':'用户照片墙'
     };
     $('.J_search_pv').click(function(){
-        debugger
         var estate_id = $('.J_estate_list').val(),
             start_time = $('.J_start').val(),
             end_time = $('.J_end').val();
@@ -1538,3 +1558,69 @@ window.WXAPP = window.WXAPP || {};
     });
 })();
 
+//照片墙
+(function(){
+    var form = $('#J_picture_form'),
+        newBtn = $('#J_entity_new'),
+        table = $('#J_entity_table tbody');
+    if (!form.length) {
+        return;
+    }
+    var entity = new WXAPP.Entity(form.attr('data-type'), form, table, newBtn, {
+        multiple: form.attr('data-multiple') === "true"
+    });
+    var template = $('.J_template');
+
+    entity.setData = function(rs){
+        var self = this;
+        form.find('.J_wall').remove();
+        if(rs){
+            var data = JSON.parse(rs.content);
+            data.forEach(function(wall,i){
+                var thisWall = entity.clone(i>=3);
+                thisWall.find('.J_field').each(function(i,field){
+                    var value = wall[$(field).attr('name')];
+                    $(field).val(value);
+                    if ($(field).get(0).nodeName.toLowerCase() === "img" && value) {
+                        $(field).attr('src', 'upload_files/' + self.estate_id + "/" + value);
+                    }
+                });
+            });
+            for(var i=3-data.length;i>0;i--){
+                entity.clone();
+            }
+        }
+    }
+    entity.getData = function(){
+        var data = [];
+        this.form.find(".J_wall").each(function (i, wall) {
+            var wallData={};
+            $(wall).find('.J_field').each(function (j, field) {
+                wallData[$(field).attr('name')] = $(field).val();
+            });
+            data.push(wallData);
+        });
+        return data;
+    }
+    entity.empty = function(){
+        form.find('.J_wall').remove();
+        for(var i=0;i<3;i++){
+            this.clone();
+        }
+    }
+    entity.clone = function(removable){
+        var wall =  template.clone(false).insertBefore(template).addClass('J_wall').show();
+        if(removable){
+            wall.find('.J_delete').show();
+        }
+        WXAPP.bindLoad($('.J_up'));
+        return wall;
+    }
+
+    form.find('.J_add_wall').click(function(){
+        entity.clone(true);
+    });
+    form.on('click','.J_delete',function(){
+        $(this).parent().parent().remove();
+    });
+})();
