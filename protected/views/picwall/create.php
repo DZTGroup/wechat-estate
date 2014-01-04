@@ -9,22 +9,15 @@
         <div class="box-table">
             <table width="760" border="0" cellspacing="1" cellpadding="0" bgcolor="#d7d7d7" id="J_entity_table">
                 <thead>
-                <tr>
-                    <th>楼盘ID</th>
-                    <th>楼盘名称</th>
-                    <th>提交时间</th>
-                    <th>状态</th>
-                    <th>操作</th>
-                </tr>
+                <tr><th>楼盘ID</th><th>楼盘名称</th><th>提交时间</th><th>状态</th><th>操作</th></tr>
                 </thead>
                 <tbody></tbody>
             </table>
         </div>
     </div>
-    <div id="J_entity_form" style="display: none;" data-type="picture">
-        <div class="com-min J_module" data-module="pic_wall_1">
-            <h3>照片墙1</h3>
-
+    <div id="J_picture_form" style="display: none;" data-type="picture">
+        <div class="com-min J_template" style="display:none;">
+            <h3>照片墙<a href="javascript:;" class="J_delete" style="display:none;">删除该组</a></h3>
             <div class="tipe-lb">
                 <label>图片组名称：</label>
                 <input class="inp-tex inp-300 J_field" name="name" type="text"></div>
@@ -42,21 +35,21 @@
                         <input type="hidden" class="J_field" name="subtitle">
                     </li>
                     <li>
-                        <span class="load_btn"> <span class="btn-cha J_upload"></span> </span>
+                        <span class="load_btn"> <span class="btn-cha J_up"></span> </span>
                         <br>尺寸建议260*150
                         <div class="J_display">
                             <img src="" class="J_field" name="img1" value="">
                         </div>
                     </li>
                     <li>
-                        <span class="load_btn"> <span class="btn-cha J_upload"></span> </span>
+                        <span class="load_btn"> <span class="btn-cha J_up"></span> </span>
                         <br>尺寸建议120*150
                         <div class="J_display">
                             <img src="" class="J_field" name="img2" value="">
                         </div>
                     </li>
                     <li>
-                        <span class="load_btn"> <span class="btn-cha J_upload"></span> </span>
+                        <span class="load_btn"> <span class="btn-cha J_up"></span> </span>
                         <br>尺寸建议220*150
                         <div class="J_display">
                             <img src="" class="J_field" name="img3" value="">
@@ -67,7 +60,7 @@
                         <input type="hidden" class="J_field" name="desc">
                     </li>
                     <li>
-                        <span class="load_btn"> <span class="btn-cha J_upload"></span> </span>
+                        <span class="load_btn"> <span class="btn-cha J_up"></span> </span>
                         <br>尺寸建议100*150
                         <div class="J_display">
                             <img src="" class="J_field" name="img4" value="">
@@ -76,113 +69,8 @@
                 </ul>
             </div>
         </div>
-        <div class="com-min J_module" data-module="pic_wall_2">
-            <h3>照片墙2</h3>
-
-            <div class="tipe-lb">
-                <label>图片组名称：</label>
-                <input class="inp-tex inp-300 J_field" name="name" type="text"></div>
-            <div class="tipe-lb"><label>图片组布局：</label>
-                <select size="1" class="li-hd J_field" name="layout">
-                    <option value="1">六宫格</option>
-                </select>
-            </div>
-            <div class="tipe-lb">
-                <label>图片组编辑：</label>
-                <ul class="six-box">
-                    <li>
-                        <button class="btn-cha J_pic_title_btn" type="button">添加标题</button>
-                        <input type="hidden" class="J_field" name="title">
-                        <input type="hidden" class="J_field" name="subtitle">
-                    </li>
-                    <li>
-                        <span class="load_btn"> <span class="btn-cha J_upload"></span> </span>
-                        <br>尺寸建议260*150
-                        <div class="J_display">
-                            <img src="" class="J_field" name="img1" value="">
-                        </div>
-                    </li>
-                    <li>
-                        <span class="load_btn"> <span class="btn-cha J_upload"></span> </span>
-                        <br>尺寸建议120*150
-                        <div class="J_display">
-                            <img src="" class="J_field" name="img2" value="">
-                        </div>
-                    </li>
-                    <li>
-                        <span class="load_btn"> <span class="btn-cha J_upload"></span> </span>
-                        <br>尺寸建议220*150
-                        <div class="J_display">
-                            <img src="" class="J_field" name="img3" value="">
-                        </div>
-                    </li>
-                    <li>
-                        <button class="btn-cha J_pic_desc_btn" type="button">添加简要</button>
-                        <input type="hidden" class="J_field" name="desc">
-                    </li>
-                    <li>
-                        <span class="load_btn"> <span class="btn-cha J_upload"></span> </span>
-                        <br>尺寸建议100*150
-                        <div class="J_display">
-                            <img src="" class="J_field" name="img4" value="">
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="com-min J_module" data-module="pic_wall_3">
-            <h3>照片墙3</h3>
-
-            <div class="tipe-lb">
-                <label>图片组名称：</label>
-                <input class="inp-tex inp-300 J_field" name="name" type="text"></div>
-            <div class="tipe-lb"><label>图片组布局：</label>
-                <select size="1" class="li-hd J_field" name="layout">
-                    <option value="1">六宫格</option>
-                </select>
-            </div>
-            <div class="tipe-lb">
-                <label>图片组编辑：</label>
-                <ul class="six-box">
-                    <li>
-                        <button class="btn-cha J_pic_title_btn" type="button">添加标题</button>
-                        <input type="hidden" class="J_field" name="title">
-                        <input type="hidden" class="J_field" name="subtitle">
-                    </li>
-                    <li>
-                        <span class="load_btn"> <span class="btn-cha J_upload"></span> </span>
-                        <br>尺寸建议260*150
-                        <div class="J_display">
-                            <img src="" class="J_field" name="img1" value="">
-                        </div>
-                    </li>
-                    <li>
-                        <span class="load_btn"> <span class="btn-cha J_upload"></span> </span>
-                        <br>尺寸建议120*150
-                        <div class="J_display">
-                            <img src="" class="J_field" name="img2" value="">
-                        </div>
-                    </li>
-                    <li>
-                        <span class="load_btn"> <span class="btn-cha J_upload"></span> </span>
-                        <br>尺寸建议220*150
-                        <div class="J_display">
-                            <img src="" class="J_field" name="img3" value="">
-                        </div>
-                    </li>
-                    <li>
-                        <button class="btn-cha J_pic_desc_btn" type="button">添加简要</button>
-                        <input type="hidden" class="J_field" name="desc">
-                    </li>
-                    <li>
-                        <span class="load_btn"> <span class="btn-cha J_upload"></span> </span>
-                        <br>尺寸建议100*150
-                        <div class="J_display">
-                            <img src="" class="J_field" name="img4" value="">
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <div class="tipe-lb">
+            <button class="btn-cha J_add_wall" type="button">新增一组照片</button>
         </div>
         <div class="cent-bott">
             <button class="btn-cha J_submit" type="button">完成</button>
