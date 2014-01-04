@@ -18,10 +18,12 @@
                 date_default_timezone_set('Asia/Shanghai');
     ?>
 
+    var chart_old=null;
+
     $('.J_estate_list').change(function(){
         debugger
         var estate_id = $('.J_estate_list').val();
-        var chart_old=null;
+
 
         WXAPP.Ajax('?r=statistic/ajaxgetfollownum',{
             eid:estate_id
