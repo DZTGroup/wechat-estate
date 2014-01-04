@@ -498,14 +498,19 @@ window.WXAPP = window.WXAPP || {};
         }
         table.empty();
         res.data.forEach(function (item) {
+            var t=item.entity_type;
+            if(t=='comment'){
+
+                t='impression';
+            }
             table.append('<tr><td>' + item.estate_id + '</td>' +
                 '<td>' + item.name + '</td><td>'
                 + map[item.entity_type] + '</td><td>'
                 + item.create_time + '</td><td>'
                 + item.username + '</td><td>'
                 + map[item.entity_status]
-                + '</td><td><a class="blue J_detail" href="/weapp/public_html/html/'
-                + item.entity_type +'.html?eid='+item.estate_id+'&openid=0" target="_blank"'
+                + '</td><td><a class="blue J_detail" href="/weapp/php/cgi/preview.php?eid='
+                + item.estate_id+'&t='+t+'" target="_blank" '
                 + 'data-id="' + item.id
                 + '" entity-id="' + item.entity_id + '">详情</a>'
                 + '<a class="blue J_pass" href="javascript:;" data-id="' + item.id
