@@ -742,13 +742,16 @@ window.WXAPP = window.WXAPP || {};
     var holder = $('.J_holder');
 
     var html = '<div class="J_loop">' +
-        '<div class="com-min">' +
         '<h3>户型分类：<input class="J_type_name" name="type_name" ></h3>' +
-        '</div><ul class="J_type_list"></ul></div>';
+        '<ul class="J_type_list"></ul></div>';
     var typeList1 = '<li>户型名：<span class="J_name"></span><input type="hidden"><button class="btn-cha J_edit" type="button">编辑</button></li>';
 
     entity.getData = function () {
-        var data = [];
+        var res = {
+            "top_img":"",
+            types:[]
+        };
+        var data = res.types;
         holder.find('.J_loop').each(function (i, loop) {
             var typeData = {};
             typeData.type_name = $(loop).find('.J_type_name').val();
@@ -758,9 +761,8 @@ window.WXAPP = window.WXAPP || {};
             });
             data.push(typeData);
         });
-
-        return data;
-
+        res.top_img = $('.J_field[name=top_img]').val();
+        return res;
     }
     function edit(data, type, cb) {
         var layer = $('<div class="box-layer" style="width:700px;">' +
@@ -768,13 +770,6 @@ window.WXAPP = window.WXAPP || {};
             '<a class="close J_cancel" href="javascript:;" title="关闭">关闭</a>' +
             '<div class="tip-mian">' +
             '<div class="p-shuju">' +
-            '<div class="tipe-lb"><label>户型顶图：</label>' +
-                '<div><span class="load_btn"> <span class="btn-cha J_upload"></span></span>' +
-                    '<div class="J_display">' +
-                        '<img src="" class="J_field" name="top_img" width="50" height="50" value="">' +
-                    '</div>' +
-                '</div>' +
-            '</div>'+
             '<div class="tipe-lb"><label>户型封面图：</label>' +
                 '<div><span class="load_btn"> <span class="btn-cha J_upload"></span></span>' +
                     '<div class="J_display">' +
@@ -823,13 +818,13 @@ window.WXAPP = window.WXAPP || {};
         WXAPP.bindLoad(layer.find('.J_upload'));
 
         if (data) {
-            $('.J_field').each(function (i, item) {
+            layer.find('.J_field').each(function (i, item) {
                 $(item).val(data['base-info'][$(item).attr('name')]);
                 if(item.nodeName.toLowerCase()==="img"){
                     item.src = 'upload_files/' + entity.estate_id + "/" +data['base-info'][$(item).attr('name')];
                 }
             });
-            $('.J_type').val(type);
+            layer.find('.J_type').val(type);
         } else {
             data = {
                 'base-info': {},
@@ -993,9 +988,12 @@ window.WXAPP = window.WXAPP || {};
 
     entity.setData = function (res) {
         var data = JSON.parse(res.content);
+        var topImg = data.top_img;
+        var types = data.types;
         var self = this;
+        $('.J_field[name=top_img]').attr('src','upload_files/' + this.estate_id + "/" + topImg).val(topImg);
         holder.empty();
-        data.forEach(function (typeData) {
+        types.forEach(function (typeData) {
             var l = $(html).appendTo(holder);
             l.find('.J_type_name').val(typeData.type_name);
             typeData.type_list.forEach(function (type) {

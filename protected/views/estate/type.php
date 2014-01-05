@@ -15,9 +15,17 @@
         <div class="com-min ">
             <h3>楼盘户型 <button class="btn-cha J_add"  type="button" style="display: inline-block;">新增户型</button></h3>
         </div>
-        <div class="J_holder">
+        <div class="com-min">
+            <div class="tipe-lb"><label>户型顶图：</label>
+                <div><span class="load_btn"><span class="btn-cha J_upload"></span></span>
+                    <div class="J_display">
+                        <img src="" class="J_field" name="top_img" width="50" height="50" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="J_holder">
 
-        </div>
+            </div>
         <div class="cent-bott">
             <button class="btn-cha J_submit" type="button">提交</button>
             <button class="btn-cha J_cancel" type="button">取消</button>
