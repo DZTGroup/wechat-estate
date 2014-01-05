@@ -85,11 +85,11 @@
             </div>
             <div class="tipe-lb">
                 <label><span class="red">*</span>认筹须知：</label>
-                <textarea placeholer="输入350个字以内" class="text-kuang J_filed" name="notice" cols="" rows=""></textarea>
+                <textarea placeholer="输入350个字以内" class="text-kuang J_field" name="notice" cols="" rows=""></textarea>
             </div>
             <div class="tipe-lb">
                 <label><span class="red">*</span>用户引导提示：</label>
-                <textarea class="text-kuang J_filed" name="tip" cols="" rows="" placeholder="输入50个字以内"></textarea>
+                <textarea class="text-kuang J_field" name="tip" cols="" rows="" placeholder="输入50个字以内"></textarea>
             </div>
         </div>
         <div class="com-min J_module" data-module="setting">
