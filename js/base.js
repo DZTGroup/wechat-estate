@@ -736,7 +736,7 @@ window.WXAPP = window.WXAPP || {};
     });
 
     form.find('.J_add').click(function(){
-        entity.empty();
+        addAType();
     });
 
     var holder = $('.J_holder');
@@ -968,6 +968,29 @@ window.WXAPP = window.WXAPP || {};
 
     }
 
+    function addAType (){
+        edit(null, null, function (d, type) {
+            var l = null
+            holder.find(".J_loop").each(function (i, loop) {
+                if ($(loop).find('.J_type_name').val() === type) {
+                    l = $(loop);
+                }
+            });
+            if (!l) {
+                l = $(html).appendTo(holder);
+            }
+            l.find('.J_type_name').val(type);
+            var list = $(typeList1).appendTo(l.find('ul'));
+            list.find('.J_name').html(d['base-info'].name);
+            list.find('input[type=hidden]').val(JSON.stringify(d));
+            list.find('.J_edit').click(function () {
+                edit(d, type, function (d) {
+                    list.find('input[type=hidden]').val(JSON.stringify(d));
+                });
+            });
+        });
+    } 
+
     entity.setData = function (res) {
         var data = JSON.parse(res.content);
         var self = this;
@@ -990,26 +1013,7 @@ window.WXAPP = window.WXAPP || {};
 
     entity.empty = function () {
         form.find('.J_holder').empty();
-        edit(null, null, function (d, type) {
-            var l = null
-            holder.find(".J_loop").each(function (i, loop) {
-                if ($(loop).find('.J_type_name').val() === type) {
-                    l = $(loop);
-                }
-            });
-            if (!l) {
-                l = $(html).appendTo(holder);
-            }
-            l.find('.J_type_name').val(type);
-            var list = $(typeList1).appendTo(l.find('ul'));
-            list.find('.J_name').html(d['base-info'].name);
-            list.find('input[type=hidden]').val(JSON.stringify(d));
-            list.find('.J_edit').click(function () {
-                edit(d, type, function (d) {
-                    list.find('input[type=hidden]').val(JSON.stringify(d));
-                });
-            });
-        });
+        addAType()
     };
 })();
 
@@ -1613,7 +1617,7 @@ window.WXAPP = window.WXAPP || {};
         if(removable){
             wall.find('.J_delete').show();
         }
-        WXAPP.bindLoad($('.J_up'));
+        WXAPP.bindLoad(wall.find('.J_up'));
         return wall;
     }
 
